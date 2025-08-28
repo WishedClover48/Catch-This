@@ -1,7 +1,8 @@
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerMovement : MonoBehaviourPun
+public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public float moveSpeed = 5f;
     private Camera playerCam;
@@ -19,6 +20,16 @@ public class PlayerMovement : MonoBehaviourPun
         }
     }
 
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        photonView.RPC(nameof(RPC_syncState), newPlayer, 1);
+    }
+
+    [PunRPC]
+    private void RPC_syncState(int want)
+    {
+
+    }
     void Update()
     {
         // Ensure only the local player moves this instance
