@@ -38,7 +38,20 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         // Move the player
         transform.position += movement * moveSpeed * Time.deltaTime;
         if(Input.GetMouseButtonDown(0)) {
-            PhotonNetwork.Instantiate(bulletPrefab.name, transform.position, transform.rotation);
+            PhotonNetwork.Instantiate(bulletPrefab.name, transform.position  + Vector3.forward * 2, transform.rotation);
         }
+    }
+
+    public void Killed()
+    {
+        //Play death anim
+
+        playerCam.enabled = false;
+        if (!XRayCam.Instance.MainCamera.enabled&&photonView.IsMine)
+        {
+            XRayCam.Instance.MainCamera.enabled = true;
+        }
+            this.gameObject.SetActive(false);
+
     }
 }
