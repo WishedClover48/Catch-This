@@ -332,7 +332,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 396477158}
-  - component: {fileID: 396477157}
   - component: {fileID: 396477156}
   m_Layer: 0
   m_Name: Managers
@@ -360,18 +359,6 @@ MonoBehaviour:
   - {fileID: 896609824}
   - {fileID: 2143439218}
   - {fileID: 642151572}
---- !u!114 &396477157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396477155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b272841c3267a4a43bb7c41adc20a7b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &396477158
 Transform:
   m_ObjectHideFlags: 0

@@ -21,6 +21,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // Now we can spawn the player
+        SpawnPlayer();
+    }
+
     public void SpawnPlayer()
     {
         if (playerPrefab == null)
