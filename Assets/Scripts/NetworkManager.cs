@@ -25,7 +25,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("Joined Room!");
+        PhotonNetwork.NickName = "The Beast";
+
+        Debug.Log("Player '" + PhotonNetwork.NickName + "' joined the room!");
+        Debug.Log("The ID of the player is: " + PhotonNetwork.LocalPlayer.UserId);
         // Now we can spawn the player
         GameManager.Instance.SpawnPlayer();
     }
