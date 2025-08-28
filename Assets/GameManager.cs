@@ -3,7 +3,7 @@ using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    //public static GameManager Instance;
 
     public GameObject playerPrefab;
     public Transform[] spawnPoints;
@@ -11,14 +11,14 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         // Singleton pattern
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+       // }
+       // else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     private void Start()

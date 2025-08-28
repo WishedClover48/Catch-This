@@ -32,6 +32,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Player '" + PhotonNetwork.NickName + "' joined the room!");
         Debug.Log("The ID of the player is: " + PhotonNetwork.LocalPlayer.UserId);
-        SceneManager.LoadScene("SampleScene");
+        //SceneManager.LoadScene("SampleScene");
+        PhotonNetwork.LoadLevel(1);
     }
 }

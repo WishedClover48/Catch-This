@@ -164,7 +164,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4189396064090102716}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.0013159909, y: 0.0034880417, z: 0.0020025857, w: 0.99999106}
   m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -173,7 +173,7 @@ Transform:
   - {fileID: 2138637841131611248}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.15, y: 0.4, z: 0.23}
 --- !u!33 &4189396064090102707
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  bulletPrefab: {fileID: 8807104636179124331, guid: 6c93318ba27f37a44b58061a6f7e6b3f, type: 3}
 --- !u!114 &4189396064090102719
 MonoBehaviour:
   m_ObjectHideFlags: 0
