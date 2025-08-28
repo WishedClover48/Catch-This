@@ -7,11 +7,11 @@ using UnityEngine;
 public class NicknameCanvas : MonoBehaviourPun
 {
     [SerializeField] TextMeshProUGUI textMeshPro;
-    private void Start()
+    private void Update()
     {
-        if (photonView.IsMine)
-        {
+        //if (photonView.IsMine)
+        //{
             textMeshPro.text = PhotonNetwork.LocalPlayer.NickName;
-        }
+        //}
     }
 }
