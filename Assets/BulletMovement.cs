@@ -15,8 +15,9 @@ public class BulletMovement : MonoBehaviour
     {
         if(collision.tag=="Player")
         {
-            collision.gameObject.SetActive(false);
+            //collision.gameObject.SetActive(false);
+            collision.gameObject.GetComponent<PlayerMovement>().Killed();
             PhotonNetwork.Destroy(gameObject);
         }
     }
-    }
+}
