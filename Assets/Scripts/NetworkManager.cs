@@ -3,9 +3,11 @@ using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] Button LobbyButton;
     void Start()
     {
         Debug.Log("Connecting to Photon...");
@@ -15,6 +17,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected to Master Server!");
+        if (LobbyButton != null)
+        {
+            LobbyButton.interactable = true;
+        }
     }
 
     public void JoinARoom(string roomName)
@@ -32,7 +38,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Player '" + PhotonNetwork.NickName + "' joined the room!");
         Debug.Log("The ID of the player is: " + PhotonNetwork.LocalPlayer.UserId);
-        //SceneManager.LoadScene("SampleScene");
-        PhotonNetwork.LoadLevel(1);
+        PhotonNetwork.LoadLevel("Lobby");
     }
 }
