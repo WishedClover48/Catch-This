@@ -1,46 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class GodPlayer : MonoBehaviour
+public class GodPlayer : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Camera mainCamera;
+    
+    [SerializeField] private MeteorStrike meteorPrefab;
+    [SerializeField] private LayerMask clickableMask;
+    private Vector3 _clickedPos;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && ClickPosition())
         {
-            PerformRaycastAndHandleClick(0);
+            CastMeteor(_clickedPos, photonView.ViewID);
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            PerformRaycastAndHandleClick(1);
+            
         }
     }
-    void PerformRaycastAndHandleClick(int buttonIndex)
-    {
+
+    private bool ClickPosition()
+    { 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            // Check if we hit something, and if it's on the ground layer or has a specific tag
-            if (hit.collider != null)
-            {
-                Vector3 clickPosition = hit.point;
-                Debug.Log($"Clicked on position: {clickPosition} with button {buttonIndex}");
-
-                // Now you can handle different actions based on the button index
-                if (buttonIndex == 0)
-                {
-                    // Left click action, for example a primary attack
-                }
-                else if (buttonIndex == 1)
-                {
-                    // Right click action, for example a secondary attack
-                }
-            }
-        }
+        var a = Physics.Raycast(ray,out var hit, Mathf.Infinity, clickableMask) ? true : false;
+        _clickedPos = hit.point;
+        
+        return a;
+    }
+    
+    public void CastMeteor(Vector3 clickWorldPoint, int playerId)
+    {
+        //var meteor = PhotonNetwork.Instantiate(meteorPrefab.name, transform.position, Quaternion.identity);
+        var meteor = Instantiate(meteorPrefab);
+        meteor.GetComponent<MeteorStrike>().Initialize(clickWorldPoint, playerId);
     }
 
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -8,6 +9,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     public float moveSpeed = 5f;
     private Camera playerCam;
     [SerializeField] private GameObject bulletPrefab;
+    
+    public Action<int, string> OnHit;
 
     void Start()
     {
@@ -20,6 +23,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             if (playerCam != null)
                 playerCam.enabled = true;
         }
+
+        OnHit += Killed;
     }
 
     void Update()
@@ -37,21 +42,24 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         // Move the player
         transform.position += movement * moveSpeed * Time.deltaTime;
+        
         if(Input.GetMouseButtonDown(0)) {
             PhotonNetwork.Instantiate(bulletPrefab.name, transform.position  + Vector3.forward * 2, transform.rotation);
         }
     }
 
-    public void Killed()
+    public void Killed(int playerId, string source)
     {
         //Play death anim
+        Debug.Log($"{gameObject.name} killed by {playerId} using {source}");
+        gameObject.SetActive(false);
 
+        return; //Blockea codigo
         playerCam.enabled = false;
         if (!XRayCam.Instance.MainCamera.enabled&&photonView.IsMine)
         {
             XRayCam.Instance.MainCamera.enabled = true;
         }
-            this.gameObject.SetActive(false);
 
     }
 }
