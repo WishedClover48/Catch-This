@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 9021012096013483087}
   - component: {fileID: 8287266713956504750}
   - component: {fileID: 5880230112778422425}
+  - component: {fileID: 5509719931618598560}
   m_Layer: 5
   m_Name: PlayerScore
   m_TagString: Untagged
@@ -116,7 +117,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 25}
+  m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8287266713956504750
 CanvasRenderer:
@@ -156,6 +157,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5509719931618598560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795326570483010920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914a7bf905d06f646af597c4db57273f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {fileID: 2331180135689018270}
+  positionImage: {fileID: 3895683335145883500}
+  playerName: {fileID: 1383447000511152632}
+  score: {fileID: 5481324401794477650}
+  scoreImage: {fileID: 3129582265315850421}
 --- !u!1 &2061748223366173836
 GameObject:
   m_ObjectHideFlags: 0
