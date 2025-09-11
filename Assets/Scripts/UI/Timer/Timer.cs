@@ -1,11 +1,16 @@
 using System;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class Timer
 {
     private float _currentTime;
     private float _setTime;
     private bool _counting;
+
+    public Timer(float time=0)
+    {
+        _setTime = time;
+    }
     public event Action TimerFinished;
     
     public void SetTimer(float time)
@@ -65,7 +70,7 @@ public class Timer : MonoBehaviour
         return _currentTime / _setTime;
     }
     
-    void Update()
+    public void Count()
     {
         if (_counting)
         {

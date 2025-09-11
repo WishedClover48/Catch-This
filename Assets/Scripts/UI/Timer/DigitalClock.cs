@@ -1,9 +1,10 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DigitalClock : MonoBehaviour
 {
-    [SerializeField] private Timer timer;
+    [FormerlySerializedAs("timer")] [SerializeField] private MonoTimer monoTimer;
 
     private TextMeshProUGUI _clock;
 
@@ -14,7 +15,7 @@ public class DigitalClock : MonoBehaviour
     
     void Update()
     {
-        var time = timer.GetTime();
+        var time = monoTimer.GetTime();
         int minutes = Mathf.FloorToInt(time / 60);
         int seconds = Mathf.FloorToInt(time % 60);
 
