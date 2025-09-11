@@ -27,6 +27,7 @@ public class LeaderBoard : MonoBehaviour
         {
             score.Value.SetPlayerScore(1,score.Key.NickName,score.Key.GetScore());
         }
+        InvokeRepeating("UpdateLeaderBoard",1,1);
     }
 
     public Dictionary<Player,PlayerScoreUI> GetLeaderBoard()
