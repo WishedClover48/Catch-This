@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
@@ -40,5 +41,10 @@ public class GameManager : MonoBehaviour
         Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
         var go = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint.position, Quaternion.identity);
         //AllPlayers.Add(go);
+    }
+
+    public void AddPlayer(GameObject player)
+    {
+        AllPlayers.Add(player);
     }
 }

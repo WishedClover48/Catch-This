@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
                 playerCam.enabled = true;
         }
 
+        GameManager.Instance.AddPlayer(this.gameObject);
+        
         OnHit += Killed;
     }
 
