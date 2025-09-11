@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -7,36 +8,49 @@ public class GodPlayer : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Camera mainCamera;
     
-    [SerializeField] private MeteorStrike meteorPrefab;
+    [SerializeField] private GameObject mainAttackPrefab;
     [SerializeField] private LayerMask clickableMask;
-    private Vector3 _clickedPos;
+    
+    private event Action<Vector3> OnPrimaryAction;
+    private event Action<Vector3> OnSecondaryAction;
+
+    private void Start()
+    {
+        if (!photonView.IsMine) return;
+        
+        if (mainCamera != null)
+            mainCamera.enabled = true;
+        
+        OnPrimaryAction += pos =>
+        {
+            //var go = PhotonNetwork.Instantiate(mainAttackPrefab.name, pos, Quaternion.identity);
+            var go = Instantiate(mainAttackPrefab);
+            var ms = go.GetComponent<MeteorStrike>();
+            ms.Initialize(pos, photonView.ViewID);
+        };
+    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && ClickPosition())
+        if (!photonView.IsMine) return;
+        
+        if (Input.GetMouseButtonDown(0) && GetClickPosition(out var clickPos))
         {
-            CastMeteor(_clickedPos, photonView.ViewID);
+            OnPrimaryAction?.Invoke(clickPos);
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            
+            //OnSecondaryAction?.Invoke();
         }
     }
-
-    private bool ClickPosition()
-    { 
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        var a = Physics.Raycast(ray,out var hit, Mathf.Infinity, clickableMask) ? true : false;
-        _clickedPos = hit.point;
-        
-        return a;
-    }
     
-    public void CastMeteor(Vector3 clickWorldPoint, int playerId)
+    private bool GetClickPosition(out Vector3 worldPoint)
     {
-        //var meteor = PhotonNetwork.Instantiate(meteorPrefab.name, transform.position, Quaternion.identity);
-        var meteor = Instantiate(meteorPrefab);
-        meteor.GetComponent<MeteorStrike>().Initialize(clickWorldPoint, playerId);
+        worldPoint = default;
+        var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.Raycast(ray, out var hit, Mathf.Infinity, clickableMask)) return false;
+        worldPoint = hit.point;
+        return true;
     }
 
 }

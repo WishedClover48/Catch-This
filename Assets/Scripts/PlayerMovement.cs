@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     public float moveSpeed = 5f;
     private Camera playerCam;
     [SerializeField] private GameObject bulletPrefab;
+    private bool _isAlive;
+
+    public bool IsAlive() => _isAlive;
     
     public Action<int, string> OnHit;
 
@@ -24,7 +27,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
                 playerCam.enabled = true;
         }
 
-        GameManager.Instance.AddPlayer(this.gameObject);
+        GameManager.Instance.AddPlayer(gameObject);
+        _isAlive = true;
         
         OnHit += Killed;
     }
@@ -43,7 +47,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         Vector3 movement = new Vector3(moveX, 0f, moveZ).normalized;
 
         // Move the player
-        transform.position += movement * moveSpeed * Time.deltaTime;
+        transform.position += movement * (moveSpeed * Time.deltaTime);
         
         if(Input.GetMouseButtonDown(0)) {
             PhotonNetwork.Instantiate(bulletPrefab.name, transform.position  + Vector3.forward * 2, transform.rotation);
@@ -52,6 +56,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     public void Killed(int playerId, string source)
     {
+        _isAlive = false;
         //Play death anim
         Debug.Log($"{gameObject.name} killed by {playerId} using {source}");
         gameObject.SetActive(false);
