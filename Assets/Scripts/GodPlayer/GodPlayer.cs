@@ -8,8 +8,14 @@ public class GodPlayer : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Camera mainCamera;
     
+    [Header("Prefabs")]
     [SerializeField] private GameObject mainAttackPrefab;
+    private MeteorStrike _meteorScript;
+    [SerializeField] private GameObject secondaryAttackPrefab;
+    
+    [Header("Mask")]
     [SerializeField] private LayerMask clickableMask;
+    
     
     private event Action<Vector3> OnPrimaryAction;
     private event Action<Vector3> OnSecondaryAction;
@@ -18,16 +24,11 @@ public class GodPlayer : MonoBehaviourPunCallbacks
     {
         if (!photonView.IsMine) return;
         
-        if (mainCamera != null)
-            mainCamera.enabled = true;
+        if (mainCamera != null) mainCamera.enabled = true;
+
+        PrepareAttacks();
         
-        OnPrimaryAction += pos =>
-        {
-            //var go = PhotonNetwork.Instantiate(mainAttackPrefab.name, pos, Quaternion.identity);
-            var go = Instantiate(mainAttackPrefab);
-            var ms = go.GetComponent<MeteorStrike>();
-            ms.Initialize(pos, photonView.ViewID);
-        };
+        OnPrimaryAction += pos => _meteorScript.Cast(pos);
     }
 
     void Update()
@@ -38,10 +39,6 @@ public class GodPlayer : MonoBehaviourPunCallbacks
         {
             OnPrimaryAction?.Invoke(clickPos);
         }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            //OnSecondaryAction?.Invoke();
-        }
     }
     
     private bool GetClickPosition(out Vector3 worldPoint)
@@ -51,6 +48,13 @@ public class GodPlayer : MonoBehaviourPunCallbacks
         if (!Physics.Raycast(ray, out var hit, Mathf.Infinity, clickableMask)) return false;
         worldPoint = hit.point;
         return true;
+    }
+
+    private void PrepareAttacks()
+    {
+        var meteor = Instantiate(mainAttackPrefab, transform.position, Quaternion.identity, transform); //This should go with Photon.
+        _meteorScript = meteor.GetComponent<MeteorStrike>();
+        _meteorScript.Initialize(photonView.ViewID);
     }
 
 }

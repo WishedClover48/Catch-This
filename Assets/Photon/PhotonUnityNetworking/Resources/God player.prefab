@@ -162,5 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 2667668573457410106}
-  meteorPrefab: {fileID: -2092830240496969308, guid: 73f14fd255883e1448a6a622adbf83cf, type: 3}
-  playerId: 10
+  mainAttackPrefab: {fileID: 357100042742505491, guid: 73f14fd255883e1448a6a622adbf83cf, type: 3}
+  clickableMask:
+    serializedVersion: 2
+    m_Bits: 192
