@@ -60,12 +60,13 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
         _spawnPoint = new Vector3(_crashPoint.x + rand.x, spawnHeight, _crashPoint.z + rand.y);
         
         transform.position = _spawnPoint;
+        
+         gameObject.SetActive(true);
+
         Vector3 fallDir = (_crashPoint - _spawnPoint);
         if (fallDir.sqrMagnitude > 0.0001f) transform.rotation = Quaternion.LookRotation(fallDir.normalized, Vector3.up);
         
         SetRing();
-        
-        gameObject.SetActive(true);
         
         _active = true;
     }
@@ -98,8 +99,7 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
         float yMin = _crashPoint.y, yMax = _crashPoint.y + 1f;
         float r2 = hitRadius * hitRadius;
         
-
-        foreach (var player in GameManager.Instance.AllPlayers)
+        foreach (var player in GameManager.Instance.AllPlayers.Values)
         {
             if (player == null) continue;
             Vector3 p = player.transform.position;
@@ -119,7 +119,7 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
     private void KillPlayer(GameObject playerGo)
     {
         var pm = playerGo.GetComponent<PlayerMovement>();
-        if (pm != null && pm.IsAlive())
+        if (pm != null)
         {
             pm.OnHit?.Invoke(_playerID, gameObject.name);
         }
@@ -145,6 +145,7 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
     private void Finished()
     {
         _active = false;
+        _t = 0;
         ringGameObject.SetActive(false);
         gameObject.SetActive(false);
         transform.position = transform.parent.position;

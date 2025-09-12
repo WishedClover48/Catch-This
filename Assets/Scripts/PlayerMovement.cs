@@ -9,35 +9,32 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     public float moveSpeed = 5f;
     private Camera playerCam;
     [SerializeField] private GameObject bulletPrefab;
-    private bool _isAlive;
 
-    public bool IsAlive() => _isAlive;
-    
     public Action<int, string> OnHit;
+    private PhotonView pv;
+
+    public PhotonView Pv { get => pv; }
 
     void Start()
     {
+        pv = GetComponent<PhotonView>();
         // Get the camera from the child
         playerCam = GetComponentInChildren<Camera>();
 
         // Enable it only for the local player
         if (photonView.IsMine)
         {
-            if (playerCam != null)
-                playerCam.enabled = true;
+            if (playerCam != null) playerCam.enabled = true;
+            //photonView.RPC("AddPlayer", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer, this.gameObject); //Modificar
         }
 
-        GameManager.Instance.AddPlayer(gameObject);
-        _isAlive = true;
-        
         OnHit += Killed;
     }
 
     void Update()
     {
         // Ensure only the local player moves this instance
-        if (!photonView.IsMine)
-            return;
+        if (!photonView.IsMine) return;
 
         // Get input
         float moveX = Input.GetAxisRaw("Horizontal");
@@ -48,25 +45,30 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         // Move the player
         transform.position += movement * (moveSpeed * Time.deltaTime);
-        
-        if(Input.GetMouseButtonDown(0)) {
-            PhotonNetwork.Instantiate(bulletPrefab.name, transform.position  + Vector3.forward * 2, transform.rotation);
+
+        if (Input.GetMouseButtonDown(0)) {
+            PhotonNetwork.Instantiate(bulletPrefab.name, transform.position + Vector3.forward * 2, transform.rotation);
         }
     }
 
-    public void Killed(int playerId, string source)
+    private void Killed(int ID, string source)
     {
-        _isAlive = false;
         //Play death anim
-        Debug.Log($"{gameObject.name} killed by {playerId} using {source}");
-        gameObject.SetActive(false);
+        Debug.Log($"{photonView.Owner.NickName} killed by {ID} using {source}");
 
-        return; //Blockea codigo
         playerCam.enabled = false;
         if (!XRayCam.Instance.MainCamera.enabled&&photonView.IsMine)
         {
             XRayCam.Instance.MainCamera.enabled = true;
         }
 
+        PhotonNetwork.Destroy(gameObject);
     }
+
+    [PunRPC]
+    public void KillPlayer()
+    {
+        OnHit.Invoke(1,"a");
+    }
+
 }

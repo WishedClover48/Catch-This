@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class BulletMovement : MonoBehaviour
+public class BulletMovement : MonoBehaviourPun
 {
     [SerializeField] private string source;
     [SerializeField] private float speed;
@@ -17,7 +17,8 @@ public class BulletMovement : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             //collision.gameObject.SetActive(false);
-            collision.gameObject.GetComponent<PlayerMovement>().Killed(1,source);
+            PlayerMovement playerHitted = collision.GetComponent<PlayerMovement>();
+            playerHitted.Pv.RPC("KillPlayer",playerHitted.Pv.Owner);
             PhotonNetwork.Destroy(gameObject);
         }
     }

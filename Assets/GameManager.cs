@@ -4,14 +4,14 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.Serialization;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance { get; private set; }
 
     [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
     [field: SerializeField] public Transform[] SpawnPoints { get; private set; }
     
-    public List<GameObject> AllPlayers = new();
+    public Dictionary< Player, GameObject> AllPlayers = new Dictionary<Player, GameObject>();
 
     private void Awake()
     {
@@ -27,10 +27,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnPlayer();
+        SpawnPlayers();
     }
 
-    public void SpawnPlayer()
+    public void SpawnPlayers()
     {
         if (PlayerPrefab == null)
         {
@@ -40,11 +40,21 @@ public class GameManager : MonoBehaviour
 
         Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
         var go = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint.position, Quaternion.identity);
-        //AllPlayers.Add(go);
     }
 
-    public void AddPlayer(GameObject player)
+    private void ClearDictionary(Player player)
     {
-        AllPlayers.Add(player);
+        //Hay que llamarla al final de cada ronda.
+        AllPlayers.Clear();
     }
+
+    [PunRPC]
+    public void AddPlayer(Player player, GameObject gameObject)
+    {
+        //Al principio de cada Ronda.
+        AllPlayers.Add(player, gameObject);
+    }
+
+
+
 }

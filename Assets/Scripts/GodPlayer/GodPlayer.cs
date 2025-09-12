@@ -52,7 +52,8 @@ public class GodPlayer : MonoBehaviourPunCallbacks
 
     private void PrepareAttacks()
     {
-        var meteor = Instantiate(mainAttackPrefab, transform.position, Quaternion.identity, transform); //This should go with Photon.
+        var meteor = PhotonNetwork.Instantiate(mainAttackPrefab.name, transform.position, Quaternion.identity);
+        meteor.transform.parent = this.gameObject.transform;
         _meteorScript = meteor.GetComponent<MeteorStrike>();
         _meteorScript.Initialize(photonView.ViewID);
     }
