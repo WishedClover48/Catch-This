@@ -86,6 +86,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                 return;
             }
         }
+        //Mark the start of the game
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { { "gameStarted", true } });
+        }
 
         // If we get here, all players are ready. And they get sent to the Gameplay scene.
         PhotonNetwork.LoadLevel("SampleScene");
