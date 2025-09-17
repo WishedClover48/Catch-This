@@ -425,7 +425,6 @@ GameObject:
   - component: {fileID: 396477158}
   - component: {fileID: 396477156}
   - component: {fileID: 396477159}
-  - component: {fileID: 396477160}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -494,21 +493,6 @@ MonoBehaviour:
   sceneViewId: 13
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &396477160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396477155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fb75c5c8b12ca047ae5747e51e7dfde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 5033700087850712288, guid: c69e277f3d606644ab34f0c123d94cd3, type: 3}
-  areaSize: {x: 20, y: 20}
-  obstacleCount: 10
 --- !u!1 &415748792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,6 +1813,54 @@ MonoBehaviour:
   sceneViewId: 10
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!1 &1194873036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1194873038}
+  - component: {fileID: 1194873037}
+  m_Layer: 0
+  m_Name: ObstacleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1194873037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194873036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fb75c5c8b12ca047ae5747e51e7dfde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefab: {fileID: 5033700087850712288, guid: c69e277f3d606644ab34f0c123d94cd3, type: 3}
+  areaSize: {x: 82, y: 80}
+  obstacleCount: 15
+  minDistance: 5
+--- !u!4 &1194873038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194873036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.936941, y: 5.5325, z: -6.045984}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1289296536 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2224131125797789084, guid: 1673e1abafb3d8f4b88a72cd8d856ded, type: 3}
