@@ -425,6 +425,7 @@ GameObject:
   - component: {fileID: 396477158}
   - component: {fileID: 396477156}
   - component: {fileID: 396477159}
+  - component: {fileID: 396477160}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -493,6 +494,21 @@ MonoBehaviour:
   sceneViewId: 13
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &396477160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396477155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fb75c5c8b12ca047ae5747e51e7dfde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefab: {fileID: 5033700087850712288, guid: c69e277f3d606644ab34f0c123d94cd3, type: 3}
+  areaSize: {x: 20, y: 20}
+  obstacleCount: 10
 --- !u!1 &415748792
 GameObject:
   m_ObjectHideFlags: 0

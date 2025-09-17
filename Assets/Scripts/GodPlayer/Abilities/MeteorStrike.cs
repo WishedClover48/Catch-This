@@ -82,7 +82,19 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
 
         if (InMask(otherLayer, obstacleMask))
         {
-            //Debug.Log("Hit an obstacle");
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonView pv = other.GetComponent<PhotonView>();
+                if (pv != null)
+                {
+                    PhotonNetwork.Destroy(pv);
+                }
+                else
+                {
+                    Destroy(other.gameObject);
+                }
+            }
+
             Finished();
             return;
         }
