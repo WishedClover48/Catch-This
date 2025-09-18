@@ -163,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 2667668573457410106}
   mainAttackPrefab: {fileID: 357100042742505491, guid: 73f14fd255883e1448a6a622adbf83cf, type: 3}
+  secondaryAttackPrefab: {fileID: 0}
   clickableMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 576
