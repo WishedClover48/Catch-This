@@ -114,6 +114,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: Bullet
   speed: 4
+  Mask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &8568618788573300580
 MonoBehaviour:
   m_ObjectHideFlags: 0
