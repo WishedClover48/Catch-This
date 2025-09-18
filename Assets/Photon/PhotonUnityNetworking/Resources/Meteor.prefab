@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8298731219387880900}
   - component: {fileID: 5637704314170427978}
   - component: {fileID: -2092830240496969308}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Meteor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ MonoBehaviour:
     m_Bits: 64
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   ringGameObject: {fileID: 537573833182359740}
 --- !u!1 &537573833182359740
 GameObject:
@@ -193,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5488169019985430113}
   - component: {fileID: 5661319045596259859}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hit ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
