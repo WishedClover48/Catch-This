@@ -20,7 +20,7 @@ public class GodPlayer : MonoBehaviourPunCallbacks
     private event Action<Vector3> OnPrimaryAction;
     private event Action<Vector3> OnSecondaryAction;
 
-    private void Start()
+    private void Initialize()
     {
         if (!photonView.IsMine) return;
         

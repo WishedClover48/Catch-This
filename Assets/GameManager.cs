@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance { get; private set; }
 
-    private int _godSelector = 0;
+    private readonly int _godSelector = 0;
 
     private bool _amIGod = false;
 
@@ -17,13 +17,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     [field: SerializeField] public GameObject GodPrefab { get; private set; }
     [field: SerializeField] public Transform[] SpawnPoints { get; private set; }
     [field: SerializeField] public TMP_Text Debugger { get; private set; }
-
-
+    
     public Dictionary< Player, GameObject> AllPlayers = new Dictionary<Player, GameObject>();
 
     private void Awake()
     {
-
         // Singleton guard
         if (Instance != null && Instance != this)
         {
@@ -39,7 +37,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         SpawnPlayer();
     }
 
-    public void SpawnPlayer()
+    private void SpawnPlayer()
     {
         if (PlayerPrefab == null)
         {
@@ -48,14 +46,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
         photonView.RPC("AmIGod", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
+        
         if (_amIGod)
         {
-            var go = PhotonNetwork.Instantiate(GodPrefab.name, new Vector3(0,50,-50), Quaternion.identity);
+            PhotonNetwork.Instantiate(GodPrefab.name, new Vector3(0,50,-50), Quaternion.identity);
         }
         else
         {
             Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
-            var go = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint.position, Quaternion.identity);
         }
     }
 
@@ -71,6 +70,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void AmIGod(Player player)
     {
         bool isGod = false;
+        
         if (player == PhotonNetwork.PlayerList.GetValue(_godSelector))
         {
             isGod = true;
@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             isGod = false;
         }
+        
         PhotonView.Get(this).RPC("ReceiveGodAnswer", PhotonNetwork.CurrentRoom.GetPlayer(player.ActorNumber), isGod);
     }
 

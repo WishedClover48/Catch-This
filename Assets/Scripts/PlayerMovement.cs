@@ -6,15 +6,15 @@ using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviourPunCallbacks
 {
-    public float moveSpeed = 5f;
-    [SerializeField]private Camera playerCam;
-    private Vector3 camaraStartingPosition;
+    public float moveSpeed = 5f; 
+    private Camera _playerCam;
+    [SerializeField] private Vector3 cameraOffset;
     [SerializeField] private GameObject bulletPrefab;
     public LayerMask groundMask;
 
     public Action<int, string> OnHit;
     private PhotonView pv;
-
+    
     public PhotonView Pv { get => pv; }
 
     void Start()
@@ -24,9 +24,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         // Enable it only for the local player
         if (photonView.IsMine)
         {
-            if (playerCam != null) playerCam.enabled = true;
-            camaraStartingPosition=playerCam.transform.position;
-            //photonView.RPC("AddPlayer", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer, this.gameObject); //Modificar
+            CreateCamera();
         }
 
         OnHit += Killed;
@@ -36,17 +34,19 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     {
         // Ensure only the local player moves this instance
         if (!photonView.IsMine) return;
-        LookAt();   
+        
+        LookAt();
+        
         // Get input
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
         // Calculate direction
         Vector3 movement = new Vector3(moveX, 0f, moveZ).normalized;
-        playerCam.transform.position = camaraStartingPosition+transform.position;
 
-        // Move the player
+        // Move the player & camera
         transform.position += movement * (moveSpeed * Time.deltaTime);
+        _playerCam.transform.position = transform.position + cameraOffset;
 
         if (Input.GetMouseButtonDown(0)) {
             
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     }
     void LookAt()
     {
-        Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _playerCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         // Raycast to the ground
@@ -72,13 +72,30 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         //Play death anim
         Debug.Log($"{photonView.Owner.NickName} killed by {ID} using {source}");
 
-        playerCam.enabled = false;
+        _playerCam.enabled = false;
         if (!XRayCam.Instance.MainCamera.enabled&&photonView.IsMine)
         {
             XRayCam.Instance.MainCamera.enabled = true;
         }
 
         PhotonNetwork.Destroy(gameObject);
+    }
+
+    private void CreateCamera()
+    {
+        GameObject cameraObject = new GameObject("MyCamera");
+
+        // Add a Camera component
+        Camera cam = cameraObject.AddComponent<Camera>();
+        
+        cam.orthographic = false;
+        cam.fieldOfView = 40;
+        
+        cameraObject.transform.parent = transform.parent;
+        cameraObject.transform.rotation = Quaternion.Euler(35f, 0f, 0f);
+        cameraObject.transform.position = transform.position + cameraOffset;
+
+        _playerCam = cam;
     }
 
     [PunRPC]
