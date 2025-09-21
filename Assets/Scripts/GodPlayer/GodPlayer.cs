@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GodPlayer : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private Camera mainCamera;
+    private Camera _mainCamera;
     
     [Header("Prefabs")]
     [SerializeField] private GameObject mainAttackPrefab;
@@ -20,11 +20,11 @@ public class GodPlayer : MonoBehaviourPunCallbacks
     private event Action<Vector3> OnPrimaryAction;
     private event Action<Vector3> OnSecondaryAction;
 
-    private void Initialize()
+    private void Start()
     {
         if (!photonView.IsMine) return;
         
-        if (mainCamera != null) mainCamera.enabled = true;
+        CreateCamera();
 
         PrepareAttacks();
         
@@ -44,7 +44,7 @@ public class GodPlayer : MonoBehaviourPunCallbacks
     private bool GetClickPosition(out Vector3 worldPoint)
     {
         worldPoint = default;
-        var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         if (!Physics.Raycast(ray, out var hit, Mathf.Infinity, clickableMask)) return false;
         worldPoint = hit.point;
         return true;
@@ -56,6 +56,22 @@ public class GodPlayer : MonoBehaviourPunCallbacks
         meteor.transform.parent = this.gameObject.transform;
         _meteorScript = meteor.GetComponent<MeteorStrike>();
         _meteorScript.Initialize(photonView.ViewID);
+    }
+    
+    private void CreateCamera()
+    {
+        GameObject cameraObject = new GameObject("MyCamera");
+        
+        Camera cam = cameraObject.AddComponent<Camera>();
+        
+        cam.orthographic = false;
+        cam.fieldOfView = 60;
+        
+        cameraObject.transform.parent = transform;
+        cameraObject.transform.rotation = Quaternion.Euler(50f, 0f, 0f);
+        cameraObject.transform.position = transform.position;
+
+        _mainCamera = cam;
     }
 
 }
