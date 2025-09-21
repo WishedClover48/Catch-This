@@ -3,18 +3,27 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.Serialization;
+using TMPro;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance { get; private set; }
 
+    private int _godSelector = 0;
+
+    private bool _amIGod = false;
+
     [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
+    [field: SerializeField] public GameObject GodPrefab { get; private set; }
     [field: SerializeField] public Transform[] SpawnPoints { get; private set; }
-    
+    [field: SerializeField] public TMP_Text Debugger { get; private set; }
+
+
     public Dictionary< Player, GameObject> AllPlayers = new Dictionary<Player, GameObject>();
 
     private void Awake()
     {
+
         // Singleton guard
         if (Instance != null && Instance != this)
         {
@@ -27,10 +36,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        SpawnPlayers();
+        SpawnPlayer();
     }
 
-    public void SpawnPlayers()
+    public void SpawnPlayer()
     {
         if (PlayerPrefab == null)
         {
@@ -38,23 +47,48 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
-        var go = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint.position, Quaternion.identity);
+        photonView.RPC("AmIGod", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
+        if (_amIGod)
+        {
+            var go = PhotonNetwork.Instantiate(GodPrefab.name, new Vector3(0,50,-50), Quaternion.identity);
+        }
+        else
+        {
+            Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
+            var go = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint.position, Quaternion.identity);
+        }
     }
 
-    private void ClearDictionary(Player player)
+
+    [PunRPC]
+    public void ChangeGod()
     {
-        //Hay que llamarla al final de cada ronda.
-        AllPlayers.Clear();
+        //This function needs to change _godSelector in order to assign a new god.
+        Debug.Log("Beep boop changing god");
     }
 
     [PunRPC]
-    public void AddPlayer(Player player, GameObject gameObject)
+    public void AmIGod(Player player)
     {
-        //Al principio de cada Ronda.
-        AllPlayers.Add(player, gameObject);
+        bool isGod = false;
+        if (player == PhotonNetwork.PlayerList.GetValue(_godSelector))
+        {
+            isGod = true;
+        }
+        else
+        {
+            isGod = false;
+        }
+        PhotonView.Get(this).RPC("ReceiveGodAnswer", PhotonNetwork.CurrentRoom.GetPlayer(player.ActorNumber), isGod);
     }
 
+    [PunRPC]
+    void ReceiveGodAnswer(bool result)
+    {
+        _amIGod = result;
+        Debugger.text += PhotonNetwork.LocalPlayer + " my god answer is " + result + "\n";
+        Debug.Log(PhotonNetwork.LocalPlayer + " my god answer is " + result);
+    }
 
 
 }
