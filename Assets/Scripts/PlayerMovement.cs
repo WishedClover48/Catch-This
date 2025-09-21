@@ -69,15 +69,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     private void Killed(int ID, string source)
     {
-        //Play death anim
-        Debug.Log($"{photonView.Owner.NickName} killed by {ID} using {source}");
-
         _playerCam.enabled = false;
-        if (!XRayCam.Instance.MainCamera.enabled&&photonView.IsMine)
-        {
-            XRayCam.Instance.MainCamera.enabled = true;
-        }
-
+        
+        gameObject.SetActive(false);
+        
         PhotonNetwork.Destroy(gameObject);
     }
 
@@ -101,7 +96,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     [PunRPC]
     public void KillPlayer()
     {
-        OnHit.Invoke(1,"a");
+        Killed(1, "A");
     }
 
 }

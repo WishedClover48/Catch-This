@@ -18,7 +18,7 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
     private Vector3 _spawnPoint;
     
     [Header("Layers")]
-    [SerializeField] private LayerMask playerMask;
+    //[SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask floorMask;
     [SerializeField] private LayerMask obstacleMask;
     
@@ -29,6 +29,8 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
     private bool _active;
     private float _t;
     private LineRenderer _ring;
+    private Collider[] _results = new Collider[20];
+    
     
     public void Initialize(int playerId)
     {
@@ -52,16 +54,17 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
         _t = Mathf.Clamp01(_t);
         transform.position = Vector3.Lerp(_spawnPoint, _crashPoint, _t);
     }
+    
     public void Cast(Vector3 crashPoint)
     {
         _crashPoint = crashPoint;
         
-        Vector2 rand = UnityEngine.Random.insideUnitCircle * spawnRadius;
+        Vector2 rand = Random.insideUnitCircle * spawnRadius;
         _spawnPoint = new Vector3(_crashPoint.x + rand.x, spawnHeight, _crashPoint.z + rand.y);
         
         transform.position = _spawnPoint;
         
-         gameObject.SetActive(true);
+        gameObject.SetActive(true);
 
         Vector3 fallDir = (_crashPoint - _spawnPoint);
         if (fallDir.sqrMagnitude > 0.0001f) transform.rotation = Quaternion.LookRotation(fallDir.normalized, Vector3.up);
@@ -70,15 +73,10 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
         
         _active = true;
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         int otherLayer = other.gameObject.layer;
-
-        if (InMask(otherLayer, playerMask))
-        {
-            KillPlayer(other.gameObject);
-            return;
-        }
 
         if (InMask(otherLayer, obstacleMask))
         {
@@ -98,43 +96,29 @@ public class MeteorStrike : MonoBehaviourPunCallbacks
             Finished();
             return;
         }
-        
-        if (InMask(otherLayer, floorMask))
-        {
-            //Debug.Log("Hit floor");
-            HandleFloorImpact();
-            return;
-        }
+
+        if (!InMask(otherLayer, floorMask)) return;
+        HandleFloorImpact();
     }
     private void HandleFloorImpact()
     {
-        float yMin = _crashPoint.y, yMax = _crashPoint.y + 1f;
-        float r2 = hitRadius * hitRadius;
-        
-        foreach (var player in GameManager.Instance.AllPlayers.Values)
-        {
-            if (player == null) continue;
-            Vector3 p = player.transform.position;
-            if (p.y < yMin || p.y > yMax) continue;
+        int hitCount = Physics.OverlapSphereNonAlloc(_crashPoint, hitRadius, _results);
 
-            float dx = p.x - _crashPoint.x;
-            float dz = p.z - _crashPoint.z;
-            
-            if (dx * dx + dz * dz <= r2)
+        for (int i = 0; i < hitCount; i++)
+        {
+            Collider hit = _results[i];
+            if (hit == null) continue;
+
+            PhotonView pv = hit.GetComponent<PhotonView>();
+            if (pv != null && pv.CompareTag("Player"))
             {
-                KillPlayer(player.gameObject);
+                pv.RPC("KillPlayer", RpcTarget.AllBuffered);
             }
+            
+            _results[i] = null;
         }
 
         Finished();
-    }
-    private void KillPlayer(GameObject playerGo)
-    {
-        var pm = playerGo.GetComponent<PlayerMovement>();
-        if (pm != null)
-        {
-            pm.OnHit?.Invoke(_playerID, gameObject.name);
-        }
     }
 
     private static bool InMask(int layer, LayerMask mask)
