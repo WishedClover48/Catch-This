@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     private void Killed(int ID, string source)
     {
-        _playerCam.enabled = false;
+        //_playerCam.enabled = false;
         
         gameObject.SetActive(false);
         

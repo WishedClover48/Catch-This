@@ -49,7 +49,7 @@ public class GodPlayer : MonoBehaviourPunCallbacks
     
     private void Attack(Vector3 clickPos)
     {
-        var meteor = PhotonNetwork.Instantiate(mainAttackPrefab.name, new Vector3(0, -10, 0), Quaternion.identity);
+        var meteor = PhotonNetwork.Instantiate(mainAttackPrefab.name, new Vector3(0, 50, 0), Quaternion.identity);
         
         _meteorScript = meteor.GetComponent<Meteor>();
         
