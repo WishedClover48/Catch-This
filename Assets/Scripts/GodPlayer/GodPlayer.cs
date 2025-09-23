@@ -10,32 +10,29 @@ public class GodPlayer : MonoBehaviourPunCallbacks
     
     [Header("Prefabs")]
     [SerializeField] private GameObject mainAttackPrefab;
-    private MeteorStrike _meteorScript;
-    [SerializeField] private GameObject secondaryAttackPrefab;
-    
-    [Header("Mask")]
+    [SerializeField] private int cooldown;
+    private Meteor _meteorScript;
+
+    [Header("Config")]
     [SerializeField] private LayerMask clickableMask;
     
-    
     private event Action<Vector3> OnPrimaryAction;
-    private event Action<Vector3> OnSecondaryAction;
+    private bool onCooldown;
 
     private void Start()
     {
         if (!photonView.IsMine) return;
         
         CreateCamera();
-
-        PrepareAttacks();
         
-        OnPrimaryAction += pos => _meteorScript.Cast(pos);
+        OnPrimaryAction += Attack;
     }
 
     void Update()
     {
         if (!photonView.IsMine) return;
         
-        if (Input.GetMouseButtonDown(0) && GetClickPosition(out var clickPos))
+        if (!onCooldown && Input.GetMouseButtonDown(0) && GetClickPosition(out var clickPos))
         {
             OnPrimaryAction?.Invoke(clickPos);
         }
@@ -49,13 +46,17 @@ public class GodPlayer : MonoBehaviourPunCallbacks
         worldPoint = hit.point;
         return true;
     }
-
-    private void PrepareAttacks()
+    
+    private void Attack(Vector3 clickPos)
     {
-        var meteor = PhotonNetwork.Instantiate(mainAttackPrefab.name, transform.position, Quaternion.identity);
-        meteor.transform.parent = this.gameObject.transform;
-        _meteorScript = meteor.GetComponent<MeteorStrike>();
-        _meteorScript.Initialize(photonView.ViewID);
+        var meteor = PhotonNetwork.Instantiate(mainAttackPrefab.name, new Vector3(0, -10, 0), Quaternion.identity);
+        
+        _meteorScript = meteor.GetComponent<Meteor>();
+        
+        _meteorScript.Shoot(clickPos);
+        
+        onCooldown = true;
+        StartCoroutine(StartCooldown());
     }
     
     private void CreateCamera()
@@ -72,6 +73,12 @@ public class GodPlayer : MonoBehaviourPunCallbacks
         cameraObject.transform.position = transform.position;
 
         _mainCamera = cam;
+    }
+
+    private IEnumerator StartCooldown()
+    {
+        yield return new WaitForSeconds(cooldown);
+        onCooldown = false;
     }
 
 }

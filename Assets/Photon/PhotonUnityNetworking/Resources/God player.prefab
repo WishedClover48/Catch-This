@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainAttackPrefab: {fileID: 357100042742505491, guid: 73f14fd255883e1448a6a622adbf83cf, type: 3}
-  secondaryAttackPrefab: {fileID: 0}
+  cooldown: 3
   clickableMask:
     serializedVersion: 2
     m_Bits: 576
