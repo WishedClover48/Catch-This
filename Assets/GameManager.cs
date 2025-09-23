@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [field: SerializeField] public GameObject GodPrefab { get; private set; }
     [field: SerializeField] public Transform[] SpawnPoints { get; private set; }
     [field: SerializeField] public TMP_Text Debugger { get; private set; }
-    
-    public Dictionary< Player, GameObject> AllPlayers = new Dictionary<Player, GameObject>();
 
     private void Awake()
     {

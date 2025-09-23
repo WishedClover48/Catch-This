@@ -48,6 +48,7 @@ MonoBehaviour:
   - ReceiveGodAnswer
   - RPC_Finished
   - RPCA_Finished
+  - OnRoundEnd
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

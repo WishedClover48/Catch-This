@@ -3,6 +3,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UIElements;
+using Photon.Pun.Demo.PunBasics;
 
 public class PlayerMovement : MonoBehaviourPunCallbacks
 {
@@ -26,7 +27,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         {
             CreateCamera();
         }
-
+        PlayersManager.Instance.MarkAsAlive();
         OnHit += Killed;
     }
 
