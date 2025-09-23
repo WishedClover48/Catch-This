@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance { get; private set; }
 
-    private readonly int _godSelector = 0;
+    private int _godSelector = 0;
 
     private bool _amIGod = false;
 
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
         Instance = this;
+        ChangeGod();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ChangeGod()
     {
-        //This function needs to change _godSelector in order to assign a new god.
+        _godSelector = Random.Range(0, PhotonNetwork.PlayerList.Length);
         Debug.Log("Beep boop changing god");
     }
 
