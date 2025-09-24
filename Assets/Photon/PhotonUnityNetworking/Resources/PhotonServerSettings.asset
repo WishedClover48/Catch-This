@@ -49,6 +49,9 @@ MonoBehaviour:
   - RPC_Finished
   - RPCA_Finished
   - OnRoundEnd
+  - RPC_ClearPositions
+  - RPC_RequestClear
+  - RPC_SetSpawnList
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

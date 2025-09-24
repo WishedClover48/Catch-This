@@ -11,22 +11,16 @@ using Photon.Realtime;
 /// </summary>
 public class ReadyButton : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private Button readyButton;          // Reference to the UI button
-    [SerializeField] private TMPro.TMP_Text buttonText;   // Reference to the text displayed on the button
+    [SerializeField] private Button readyButton;          
+    [SerializeField] private TMPro.TMP_Text buttonText;   
 
     private void Start()
     {
-        // Make sure button text reflects the player's current ready state
         UpdateButtonText();
     }
 
-    /// <summary>
-    /// Called when the Ready button is clicked.
-    /// Toggles the "Ready" state for the local player.
-    /// </summary>
     public void OnReadyClicked()
     {
-        // Default state: not ready
         bool isReady = false;
 
         // If the player already has a "Ready" property, read its value
@@ -39,13 +33,9 @@ public class ReadyButton : MonoBehaviourPunCallbacks
         Hashtable props = new Hashtable { { "Ready", !isReady } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
-        // Update the button label immediately for feedback
         UpdateButtonText();
     }
 
-    /// <summary>
-    /// Updates the button label text depending on whether the local player is ready.
-    /// </summary>
     private void UpdateButtonText()
     {
         bool isReady = PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("Ready", out object readyValue)
@@ -54,10 +44,6 @@ public class ReadyButton : MonoBehaviourPunCallbacks
         buttonText.text = isReady ? "Unready" : "Ready";
     }
 
-    /// <summary>
-    /// Callback from Photon when any player's properties change.
-    /// Used here to refresh the button if *this* player's ready state changes.
-    /// </summary>
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         // If the updated player is the local one, update the button text
