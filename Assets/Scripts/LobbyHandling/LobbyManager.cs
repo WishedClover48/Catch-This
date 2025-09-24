@@ -10,31 +10,29 @@ using UnityEngine;
 /// </summary>
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject playerCardPrefab;  // Prefab for the player card
-    [SerializeField] private Transform cardParent;         // Parent transform with HorizontalLayoutGroup
+    [SerializeField] private GameObject playerCardPrefab;  
+    [SerializeField] private Transform cardParent;         
 
     private void Start()
     {
-        // Create a card for each player already in the room
         foreach (Player p in PhotonNetwork.PlayerList)
         {
+            SetPlayerVariable(p, "Ready", false);
             CreatePlayerCard(p);
+        }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { { "gameStarted", false } });
         }
     }
 
-    /// <summary>
-    /// Called when a new player enters the room.
-    /// Creates a card for that player.
-    /// </summary>
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        SetPlayerVariable(newPlayer, "Ready", false);
         CreatePlayerCard(newPlayer);
     }
 
-    /// <summary>
-    /// Called when a player leaves the room.
-    /// Destroys their card and re-checks readiness.
-    /// </summary>
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         foreach (var card in cardParent.GetComponentsInChildren<PlayerCard>())
@@ -50,10 +48,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         CheckAllReady();
     }
 
-    /// <summary>
-    /// Called when any player's properties are updated.
-    /// If the "Ready" property changed, check if all are ready.
-    /// </summary>
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         if (changedProps.ContainsKey("Ready"))
@@ -62,9 +56,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
-    /// <summary>
-    /// Creates a player card for a given player inside the HorizontalLayoutGroup.
-    /// </summary>
     private void CreatePlayerCard(Player player)
     {
         var card = Instantiate(playerCardPrefab, cardParent);
@@ -72,10 +63,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         playerCard.SetPlayer(player);
     }
 
-    /// <summary>
-    /// Checks if all players in the lobby are ready.
-    /// If so, load the game scene.
-    /// </summary>
     private void CheckAllReady()
     {
         foreach (Player p in PhotonNetwork.PlayerList)
@@ -94,5 +81,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         // If we get here, all players are ready. And they get sent to the Gameplay scene.
         PhotonNetwork.LoadLevel("SampleScene");
+    }
+    
+    private void SetPlayerVariable(Player player, string variable, bool value)
+    {
+        Hashtable props = new Hashtable { { variable, false } };
+
+        player.SetCustomProperties(props);
     }
 }
