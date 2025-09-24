@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEditor;
 using UnityEngine;
@@ -33,6 +34,7 @@ public class BulletMovement : MonoBehaviourPun
                 if (pv != null)
                 {
                     pv.RPC("KillPlayer", RpcTarget.All);
+                    PhotonNetwork.LocalPlayer.AddScore(1);
                     Debug.Log("kill");
                 }
             }            

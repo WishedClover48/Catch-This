@@ -1,17 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FilledClock : MonoBehaviour
+namespace UI.Timer
 {
-    [SerializeField]private MonoTimer monoTimer;
-    private Image _clock;
-    void Awake()
+    public class FilledClock : MonoBehaviour
     {
-        _clock = GetComponent<Image>();
-    }
+        [SerializeField]private MonoTimer monoTimer;
+        private Image _clock;
+        void Awake()
+        {
+            _clock = GetComponent<Image>();
+        }
 
-    void Update()
-    {
-        _clock.fillAmount = monoTimer.GetTimePercent();
+        void Update()
+        {
+            _clock.fillAmount = monoTimer.GetTimePercent();
+        }
     }
 }

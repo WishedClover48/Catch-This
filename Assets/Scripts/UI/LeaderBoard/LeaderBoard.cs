@@ -81,17 +81,8 @@ public class LeaderBoard : MonoBehaviour
         return position >= 0 ? position + 1 : -1; // Returns -1 if player not found
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            int num = 10;
-            foreach (var player in PhotonNetwork.PlayerList)
-            {
-                player.AddScore(num);
-                num++;
-            }
-            UpdateLeaderBoard();
-        }
-    }
+   //private void Update()
+   //{
+   //    UpdateLeaderBoard();
+   //}
 }

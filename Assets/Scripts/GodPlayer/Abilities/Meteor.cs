@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 
 public class Meteor : MonoBehaviourPunCallbacks
 {
@@ -81,6 +82,7 @@ public class Meteor : MonoBehaviourPunCallbacks
             PhotonView pv = other.GetComponent<PhotonView>();
             if (pv != null)
             {
+                PhotonNetwork.LocalPlayer.AddScore(1);
                 pv.RPC("KillPlayer", pv.Owner);
             }
         }
