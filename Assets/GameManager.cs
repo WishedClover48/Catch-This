@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
