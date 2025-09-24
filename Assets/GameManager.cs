@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -13,7 +14,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
     [field: SerializeField] public GameObject GodPrefab { get; private set; }
-    [field: SerializeField] public Transform[] SpawnPoints { get; private set; }
+    [field: SerializeField] public List<Vector3> SpawnPoints { get; private set; }
 
     private void Awake()
     {
@@ -32,6 +33,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         {  
             //ChangeGod();
         }
+
+        SpawnPoints = CreateSpawnPoints();
         SpawnPlayer();
     }
 
@@ -51,12 +54,49 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
-            PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint.position, Quaternion.identity);
+            var idx = PhotonNetwork.LocalPlayer.ActorNumber - 2; //One for the god and one for the zero start of arrays
+            Vector3 spawnPoint = SpawnPoints[idx];
+            PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint, Quaternion.identity);
         }
     }
 
+    private List<Vector3> CreateSpawnPoints()
+    {
+        int n = PhotonNetwork.CurrentRoom.PlayerCount - 1;
+        
+        var list = new List<Vector3>(n);
+        int areaSize = 40;
+        int height = 0;
+        
+        float rx = Mathf.Max(1f, areaSize * 0.8f);
+        float rz = Mathf.Max(1f, areaSize * 0.8f);
+        
+        if (n == 1)
+        {
+            list.Add(new Vector3(0f, height, 0f));
+            return list;
+        }
+        
+        for (int i = 0; i < n; i++)
+        {
+            float t = (i / (float)n) * Mathf.PI * 2f;
+            float x = Mathf.Cos(t) * rx;
+            float z = Mathf.Sin(t) * rz;
 
+            // Clamp inside rectangle in case rx/rz exceed
+            x = Mathf.Clamp(x, -areaSize, areaSize);
+            z = Mathf.Clamp(z, -areaSize, areaSize);
+
+            // Round to integers, then store as Vector3 with .0
+            int xi = Mathf.RoundToInt(x);
+            int zi = Mathf.RoundToInt(z);
+
+            list.Add(new Vector3(xi, height, zi));
+        }
+
+        return list;
+    }
+    
     [PunRPC]
     public void ChangeGod()
     {
