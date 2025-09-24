@@ -27,12 +27,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
         Instance = this;
-        ChangeGod();
         DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
+        if (PhotonNetwork.IsMasterClient) 
+        {  
+            //ChangeGod();
+        }
         SpawnPlayer();
     }
 
@@ -62,7 +65,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void ChangeGod()
     {
         _godSelector = Random.Range(0, PhotonNetwork.PlayerList.Length);
-        Debug.Log("Beep boop changing god");
+        Debug.Log("Beep boop changing god...");
     }
 
     [PunRPC]
@@ -73,6 +76,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (player == PhotonNetwork.PlayerList.GetValue(_godSelector))
         {
             isGod = true;
+            PlayersManager.Instance.godActorNumber = PhotonNetwork.PlayerList[_godSelector].ActorNumber;
         }
         else
         {
@@ -86,9 +90,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     void ReceiveGodAnswer(bool result)
     {
         _amIGod = result;
-        Debugger.text += PhotonNetwork.LocalPlayer + " my god answer is " + result + "\n";
+        Debugger.text += PlayersManager.Instance.CountAlivePlayers() + " alive players.";
         Debug.Log(PhotonNetwork.LocalPlayer + " my god answer is " + result);
     }
-
-
 }

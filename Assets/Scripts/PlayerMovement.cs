@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         {
             CreateCamera();
         }
-        PlayersManager.Instance.MarkAsAlive();
+        PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
         OnHit += Killed;
     }
 
@@ -68,7 +68,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private void Killed(int ID, string source)
     {
         //_playerCam.enabled = false;
-        
+
+        PlayersManager.Instance.MarkAsDead(PhotonNetwork.LocalPlayer);
         gameObject.SetActive(false);
         if (photonView.IsMine)
         {

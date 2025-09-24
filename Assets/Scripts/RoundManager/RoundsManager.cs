@@ -1,10 +1,14 @@
 
 using Photon.Pun;
 using Photon.Realtime;
+using System.Diagnostics;
 using UnityEngine;
+using TMPro;
 
 public class RoundsManager : MonoBehaviourPunCallbacks
 {
+    [field: SerializeField] public TMP_Text Debugger { get; private set; }
+
     public float roundDuration = 60f;
     private float roundTimer = 0f;
     private bool roundActive = false;
@@ -24,7 +28,10 @@ public class RoundsManager : MonoBehaviourPunCallbacks
 
         roundTimer -= Time.deltaTime;
 
-        if (roundTimer <= 0f || PlayersManager.Instance.CountAlivePlayers() == 0)
+        Debugger.text = PlayersManager.Instance.CountAlivePlayers() + " alive players.";
+
+
+        if (roundTimer <= 0f)
         {
             EndRound();
         }
@@ -39,8 +46,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     void EndRound()
     {
         roundActive = false;
-        Debug.Log("Round finished");
-
+        UnityEngine.Debug.Log("Round finished");
         // Notify everyone that the round ended
         photonView.RPC("OnRoundEnd", RpcTarget.All);
     }
@@ -48,6 +54,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void OnRoundEnd()
     {
+        PhotonNetwork.LoadLevel("Lobby");
         // Add local reaction to round end
     }
 }
