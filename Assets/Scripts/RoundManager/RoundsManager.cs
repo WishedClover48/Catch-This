@@ -7,8 +7,6 @@ using TMPro;
 
 public class RoundsManager : MonoBehaviourPunCallbacks
 {
-    [field: SerializeField] public TMP_Text Debugger { get; private set; }
-
     public float roundDuration = 60f;
     private float roundTimer = 0f;
     private bool roundActive = false;
@@ -28,10 +26,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
 
         roundTimer -= Time.deltaTime;
 
-        Debugger.text = PlayersManager.Instance.CountAlivePlayers() + " alive players.";
-
-
-        if (roundTimer <= 0f)
+        if (roundTimer <= 0f || PlayersManager.Instance.CountAlivePlayers() == 0)
         {
             EndRound();
         }

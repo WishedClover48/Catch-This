@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Photon.Pun;
+using System.Diagnostics;
 public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public float moveSpeed = 5f; 
@@ -104,6 +105,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     [PunRPC]
     public void KillPlayer()
     {
+        UnityEngine.Debug.Log("KILLPLAYER WAS CALLED FOR " + PhotonNetwork.LocalPlayer.UserId);
         Killed(1, "A");
     }
 

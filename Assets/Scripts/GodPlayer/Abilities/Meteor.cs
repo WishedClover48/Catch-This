@@ -65,14 +65,14 @@ public class Meteor : MonoBehaviourPunCallbacks
                 PhotonNetwork.Destroy(pv);
             }
             
-            photonView.RPC("RPC_Finished", RpcTarget.All);
+            photonView.RPC("RPC_Finished", PhotonNetwork.LocalPlayer);
             return;
         }
         
         if (InMask(otherLayer, floorMask))
         {
             HandleFloorImpact();
-            photonView.RPC("RPC_Finished", RpcTarget.All);
+            photonView.RPC("RPC_Finished", PhotonNetwork.LocalPlayer);
             return;
         }
 
@@ -81,7 +81,7 @@ public class Meteor : MonoBehaviourPunCallbacks
             PhotonView pv = other.GetComponent<PhotonView>();
             if (pv != null)
             {
-                pv.RPC("KillPlayer", RpcTarget.All);
+                pv.RPC("KillPlayer", pv.Owner);
             }
         }
     }
@@ -103,7 +103,7 @@ public class Meteor : MonoBehaviourPunCallbacks
             PhotonView pv = hit.GetComponent<PhotonView>();
             if (pv != null)
             {
-                pv.RPC("KillPlayer", RpcTarget.All);
+                pv.RPC("KillPlayer", pv.Owner);
             }
             
             _results[i] = null;

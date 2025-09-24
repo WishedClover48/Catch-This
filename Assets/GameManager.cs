@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
     [field: SerializeField] public GameObject GodPrefab { get; private set; }
     [field: SerializeField] public Transform[] SpawnPoints { get; private set; }
-    [field: SerializeField] public TMP_Text Debugger { get; private set; }
 
     private void Awake()
     {
@@ -90,7 +89,5 @@ public class GameManager : MonoBehaviourPunCallbacks
     void ReceiveGodAnswer(bool result)
     {
         _amIGod = result;
-        Debugger.text += PlayersManager.Instance.CountAlivePlayers() + " alive players.";
-        Debug.Log(PhotonNetwork.LocalPlayer + " my god answer is " + result);
     }
 }

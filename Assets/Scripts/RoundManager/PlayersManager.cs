@@ -8,9 +8,9 @@ public class PlayersManager : MonoBehaviourPunCallbacks
     [SerializeField] private Vector3 DeadCamaraPosition;
     [SerializeField] private Vector3 DeadCameraRotation;
 
-    public int godActorNumber = 0;
+    public int godActorNumber = 1;
 
-    private int aliveCount = 0;
+    private int aliveCount = 2;
 
     private void Awake()
     {
