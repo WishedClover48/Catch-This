@@ -116,7 +116,10 @@ MonoBehaviour:
   speed: 4
   Mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 136
+  PlayerMask:
+    serializedVersion: 2
+    m_Bits: 8
   owner: {fileID: 0}
 --- !u!114 &8568618788573300580
 MonoBehaviour:

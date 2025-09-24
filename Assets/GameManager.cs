@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine.Serialization;
 using TMPro;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -27,7 +25,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
         Instance = this;
-        ChangeGod();
         DontDestroyOnLoad(gameObject);
     }
 
