@@ -409,6 +409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d19ff4cdee64e428ade1012342bfad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeadCamaraPosition: {x: 0, y: 110, z: -22}
+  DeadCameraRotation: {x: 80, y: 0, z: 0}
 --- !u!1 &514471900
 GameObject:
   m_ObjectHideFlags: 0

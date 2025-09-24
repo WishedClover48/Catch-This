@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayersManager : MonoBehaviour 
 {
     public static PlayersManager Instance;
+    [SerializeField] private Vector3 DeadCamaraPosition;
+    [SerializeField] private Vector3 DeadCameraRotation;
 
     private void Awake()
     {
@@ -50,5 +52,10 @@ public class PlayersManager : MonoBehaviour
             }
         }
         return alive;
+    }
+    public void SetCamaraOnDeath(Camera camara)
+    {
+        camara.transform.position = DeadCamaraPosition;
+        camara.transform.rotation = Quaternion.Euler(DeadCameraRotation);
     }
 }

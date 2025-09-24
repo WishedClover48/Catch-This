@@ -1,10 +1,6 @@
 using System;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
-using UnityEngine.UIElements;
-using Photon.Pun.Demo.PunBasics;
-
 public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public float moveSpeed = 5f; 
@@ -51,7 +47,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         if (Input.GetMouseButtonDown(0)) {
             
-            PhotonNetwork.Instantiate(bulletPrefab.name, transform.position + Vector3.forward * 2, transform.rotation);
+            var bullet=PhotonNetwork.Instantiate(bulletPrefab.name, transform.position , transform.rotation);
+            bullet.GetComponent<BulletMovement>().SetUpOwner(gameObject,photonView.Owner);
         }
     }
     void LookAt()
@@ -73,6 +70,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         //_playerCam.enabled = false;
         
         gameObject.SetActive(false);
+        if (photonView.IsMine)
+        {
+            RepositionCamera();
+        }
         
         PhotonNetwork.Destroy(gameObject);
     }
@@ -92,6 +93,11 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         cameraObject.transform.position = transform.position + cameraOffset;
 
         _playerCam = cam;
+    }
+
+    private void RepositionCamera()
+    {
+        PlayersManager.Instance.SetCamaraOnDeath(_playerCam);
     }
 
     [PunRPC]
