@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -85,12 +86,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
-            PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint.position, Quaternion.identity);
+            var idx = PhotonNetwork.LocalPlayer.ActorNumber - 2; //One for the god and one for the zero start of arrays
+            Vector3 spawnPoint = SpawnManager.Instance.GetSpawnPoint(idx);
+            PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint, Quaternion.identity);
         }
     }
-
-
+    
     [PunRPC]
     public void ChangeGod()
     {
