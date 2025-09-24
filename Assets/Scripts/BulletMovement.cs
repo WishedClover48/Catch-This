@@ -33,7 +33,7 @@ public class BulletMovement : MonoBehaviourPun
                 PhotonView pv = collision.GetComponent<PhotonView>();
                 if (pv != null)
                 {
-                    pv.RPC("KillPlayer", RpcTarget.All);
+                    pv.RPC("KillPlayer", pv.Owner);
                     PhotonNetwork.LocalPlayer.AddScore(1);
                     Debug.Log("kill");
                 }
