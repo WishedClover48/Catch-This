@@ -431,7 +431,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PlayerPrefab>k__BackingField: {fileID: 2407770784665747810, guid: 26d0f248cb43d444da8f0d11851337f5, type: 3}
   <GodPrefab>k__BackingField: {fileID: 2667668574024343402, guid: 1adc3ae11c7faed4cade43d8bbdf992c, type: 3}
-  <SpawnPoints>k__BackingField: []
 --- !u!4 &396477158
 Transform:
   m_ObjectHideFlags: 0
@@ -1219,8 +1218,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1194873038}
   - component: {fileID: 1194873037}
+  - component: {fileID: 1194873039}
   m_Layer: 0
-  m_Name: ObstacleSpawner
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1257,6 +1257,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1194873039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194873036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66be22c1831e6f42be45d1dc5df1d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floor: {fileID: 1345482037}
+  y: 0
 --- !u!1 &1299930306
 GameObject:
   m_ObjectHideFlags: 0
