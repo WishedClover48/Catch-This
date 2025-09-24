@@ -250,7 +250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65cb5ada3fa313459a1e2d327b1f81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 10
+  cameraOffset: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 8807104636179124331, guid: 6c93318ba27f37a44b58061a6f7e6b3f, type: 3}
   groundMask:
     serializedVersion: 2

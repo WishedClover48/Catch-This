@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: Bullet
-  speed: 4
+  speed: 15
   Mask:
     serializedVersion: 2
     m_Bits: 136
@@ -121,6 +121,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   owner: {fileID: 0}
+  lifeTime: 5
 --- !u!114 &8568618788573300580
 MonoBehaviour:
   m_ObjectHideFlags: 0
