@@ -1,14 +1,16 @@
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayersManager : MonoBehaviour 
+public class PlayersManager : MonoBehaviourPunCallbacks
 {
     public static PlayersManager Instance;
     [SerializeField] private Vector3 DeadCamaraPosition;
     [SerializeField] private Vector3 DeadCameraRotation;
+
+    public int godActorNumber = 1;
+
+    private int aliveCount = 2;
 
     private void Awake()
     {
@@ -17,42 +19,69 @@ public class PlayersManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    public void MarkAsDead()
+
+    private void Start()
+    {
+        RecalculateAlivePlayers();
+    }
+
+    public void MarkAsDead(Player player)
     {
         var props = new ExitGames.Client.Photon.Hashtable
         {
             { "IsDead", true }
         };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        player.SetCustomProperties(props);
     }
 
-    public void MarkAsAlive()
+    public void MarkAsAlive(Player player)
     {
         var props = new ExitGames.Client.Photon.Hashtable
         {
             { "IsDead", false }
         };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        player.SetCustomProperties(props);
     }
 
     public int CountAlivePlayers()
     {
+        return aliveCount;
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        if (changedProps.ContainsKey("IsDead"))
+        {
+            RecalculateAlivePlayers();
+        }
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        RecalculateAlivePlayers();
+    }
+
+    private void RecalculateAlivePlayers()
+    {
         int alive = 0;
         foreach (Player p in PhotonNetwork.PlayerList)
         {
-            if (p.CustomProperties.TryGetValue("IsDead", out object IsDead))
+            if (p.ActorNumber == godActorNumber)
+                continue;
+
+            if (p.CustomProperties.TryGetValue("IsDead", out object isDeadObj))
             {
-                if (!(bool)IsDead)
+                if (!(bool)isDeadObj)
                     alive++;
             }
             else
             {
-                // if a player doesn't happen to have the property, it means it is alive (shouldn't happen).
-                alive++; 
+                alive++;
             }
         }
-        return alive;
+        aliveCount = alive;
     }
+
     public void SetCamaraOnDeath(Camera camara)
     {
         camara.transform.position = DeadCamaraPosition;

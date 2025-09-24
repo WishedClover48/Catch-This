@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
     [field: SerializeField] public GameObject GodPrefab { get; private set; }
     [field: SerializeField] public Transform[] SpawnPoints { get; private set; }
-    [field: SerializeField] public TMP_Text Debugger { get; private set; }
 
     private void Awake()
     {
@@ -30,6 +29,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        if (PhotonNetwork.IsMasterClient) 
+        {  
+            //ChangeGod();
+        }
         SpawnPlayer();
     }
 
@@ -59,7 +62,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void ChangeGod()
     {
         _godSelector = Random.Range(0, PhotonNetwork.PlayerList.Length);
-        Debug.Log("Beep boop changing god");
+        Debug.Log("Beep boop changing god...");
     }
 
     [PunRPC]
@@ -70,6 +73,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (player == PhotonNetwork.PlayerList.GetValue(_godSelector))
         {
             isGod = true;
+            PlayersManager.Instance.godActorNumber = PhotonNetwork.PlayerList[_godSelector].ActorNumber;
         }
         else
         {
@@ -83,9 +87,5 @@ public class GameManager : MonoBehaviourPunCallbacks
     void ReceiveGodAnswer(bool result)
     {
         _amIGod = result;
-        Debugger.text += PhotonNetwork.LocalPlayer + " my god answer is " + result + "\n";
-        Debug.Log(PhotonNetwork.LocalPlayer + " my god answer is " + result);
     }
-
-
 }

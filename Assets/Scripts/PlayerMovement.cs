@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Photon.Pun;
+using System.Diagnostics;
 public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public float moveSpeed = 5f; 
@@ -23,7 +24,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         {
             CreateCamera();
         }
-        PlayersManager.Instance.MarkAsAlive();
+        PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
         OnHit += Killed;
     }
 
@@ -68,7 +69,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private void Killed(int ID, string source)
     {
         //_playerCam.enabled = false;
-        
+
+        PlayersManager.Instance.MarkAsDead(PhotonNetwork.LocalPlayer);
         gameObject.SetActive(false);
         if (photonView.IsMine)
         {
@@ -103,6 +105,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     [PunRPC]
     public void KillPlayer()
     {
+        UnityEngine.Debug.Log("KILLPLAYER WAS CALLED FOR " + PhotonNetwork.LocalPlayer.UserId);
         Killed(1, "A");
     }
 
