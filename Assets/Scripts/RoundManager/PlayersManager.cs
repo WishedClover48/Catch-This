@@ -11,6 +11,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks
     public int godActorNumber = 1;
 
     private int aliveCount = 2;
+    
 
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class PlayersManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        RecalculateAlivePlayers();
+        GameManager.Instance.RoundStart+=RecalculateAlivePlayers;
     }
 
     public void MarkAsDead(Player player)

@@ -75,11 +75,13 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             RepositionCamera();
+            TurnOnLeaderBoardToggel();
         }
         
         PhotonNetwork.Destroy(gameObject);
     }
 
+    
     private void CreateCamera()
     {
         GameObject cameraObject = new GameObject("MyCamera");
@@ -101,6 +103,11 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     {
         PlayersManager.Instance.SetCamaraOnDeath(_playerCam);
     }
+    private void TurnOnLeaderBoardToggel()
+    {
+        UIManager.Instance.LeaderBoardToggleButton();
+    }
+
 
     [PunRPC]
     public void KillPlayer()

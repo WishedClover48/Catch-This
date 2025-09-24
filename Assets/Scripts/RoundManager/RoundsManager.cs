@@ -1,12 +1,11 @@
 
+using System;
 using Photon.Pun;
 using Photon.Realtime;
-using System.Diagnostics;
 using UnityEngine;
-using TMPro;
-using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun.UtilityScripts;
+using Unity.VisualScripting;
 
 public class RoundsManager : MonoBehaviourPunCallbacks
 {
@@ -14,12 +13,16 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     private float _roundTimer = 0f;
     private bool _roundActive = false;
     public float RoundDuration => _roundDuration;
+    public event Action EndRoundEvent; 
     
     void Start()
     {
+        GameManager.Instance.RoundStart += StartRound;
+        GameManager.Instance.ToNextRound += RoundEnd;
         if (PhotonNetwork.IsMasterClient)
         {
-            StartRound();
+            
+            //StartRound();
         }
     }
 
@@ -45,10 +48,11 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     void EndRound()
     {
         _roundActive = false;
-        UnityEngine.Debug.Log("Round finished");
+        Debug.Log("Round finished");
         RecalculateAlivePlayers();
+        EndRoundEvent?.Invoke();
         // Notify everyone that the round ended
-        photonView.RPC("OnRoundEnd", RpcTarget.All);
+        //photonView.RPC("OnRoundEnd", RpcTarget.All);
     }
     private void RecalculateAlivePlayers()
     {
@@ -70,6 +74,11 @@ public class RoundsManager : MonoBehaviourPunCallbacks
             int points = pointsToDistribute / alivePlayers.Count;
             player.AddScore(points);
         }
+    }
+
+    private void RoundEnd()
+    {
+        photonView.RPC("OnRoundEnd", RpcTarget.All);
     }
 
     [PunRPC]

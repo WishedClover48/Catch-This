@@ -6,6 +6,7 @@ using UnityEngine;
 public class SequenceActivator : MonoBehaviour
 {
     [SerializeField] private List<ObjectTimePair> _objects = new List<ObjectTimePair>();
+    public event Action SequenceFinished;
 
     [ContextMenu("Start Sequence")]
     public void StartSequence()
@@ -33,6 +34,7 @@ public class SequenceActivator : MonoBehaviour
             yield return new WaitForSeconds(pair.time);
         }
         currentPair.gObject.SetActive(false);
+        SequenceFinished?.Invoke();
     }
     [Serializable]
     public struct ObjectTimePair

@@ -13,6 +13,11 @@ public class ObstacleSpawner : MonoBehaviourPun
 
     void Start()
     {
+        GameManager.Instance.RoundStart += SpawnObstacle;
+    }
+
+    private void SpawnObstacle()
+    {
         if (!PhotonNetwork.IsMasterClient) return;
 
         int spawned = 0;
