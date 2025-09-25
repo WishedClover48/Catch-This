@@ -12,19 +12,31 @@ public class TimerCanvas : MonoBehaviour
     private float _roundTimer;
     private int _lastSecond = 0;
     private Vector3 _originalScale;
-
+    private bool _roundStarted = false;
     void Start()
     {
         _roundTimer = _roundsManager.RoundDuration; //This makes it dependant of the manager.
         _originalScale = _timerText.transform.localScale;
+        GameManager.Instance.RoundStart += StartTimer;
+        GameManager.Instance.RoundEnd += StopTimer;
     }
 
     void Update()
     {
-        _roundTimer -= Time.deltaTime;
-        ManageTimerText();
+        if (_roundStarted) 
+        { 
+            _roundTimer -= Time.deltaTime;
+            ManageTimerText();
+        }
     }
-
+    void StartTimer()
+    {
+        _roundStarted = true;
+    }
+    void StopTimer()
+    {
+        _roundStarted = false;
+    }
     void ManageTimerText()
     {
         int seconds = Mathf.Clamp(Mathf.FloorToInt(_roundTimer), 0, 999);
