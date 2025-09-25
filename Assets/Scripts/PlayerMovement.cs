@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     public float moveSpeed = 5f; 
     private Camera _playerCam;
     [SerializeField] private Vector3 cameraOffset;
+    [SerializeField] private Quaternion cameraRotation;
     [SerializeField] private GameObject bulletPrefab;
     public LayerMask groundMask;
 
@@ -93,7 +94,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         cam.fieldOfView = 40;
         
         cameraObject.transform.parent = transform.parent;
-        cameraObject.transform.rotation = Quaternion.Euler(35f, 0f, 0f);
+        cameraObject.transform.rotation = cameraRotation;
         cameraObject.transform.position = transform.position + cameraOffset;
 
         _playerCam = cam;
