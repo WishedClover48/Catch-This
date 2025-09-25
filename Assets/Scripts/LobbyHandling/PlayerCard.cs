@@ -16,9 +16,6 @@ public class PlayerCard : MonoBehaviourPunCallbacks
 
     public Player Player { get; private set; }    // The Photon Player this card represents
 
-    /// <summary>
-    /// Initializes this card with a specific player reference.
-    /// </summary>
     public void SetPlayer(Player player)
     {
         Player = player;
@@ -30,9 +27,6 @@ public class PlayerCard : MonoBehaviourPunCallbacks
         UpdateReadyText();
     }
 
-    /// <summary>
-    /// Checks the "Ready" custom property and updates the ready text.
-    /// </summary>
     private void UpdateReadyText()
     {
         // If the "Ready" property exists and is true, show "Ready"
@@ -46,10 +40,6 @@ public class PlayerCard : MonoBehaviourPunCallbacks
         }
     }
 
-    /// <summary>
-    /// Callback from Photon whenever *any* player's properties update.
-    /// If this card belongs to that player and "Ready" changed, refresh the UI.
-    /// </summary>
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         if (targetPlayer == Player && changedProps.ContainsKey("Ready"))
