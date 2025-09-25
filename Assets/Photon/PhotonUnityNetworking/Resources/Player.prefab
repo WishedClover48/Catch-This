@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 4189396064090102719}
   - component: {fileID: 4760526871975936721}
   - component: {fileID: 4877637890490366799}
+  - component: {fileID: 8123616931737598706}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -252,6 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   cameraOffset: {x: 0, y: 0, z: 0}
+  cameraRotation: {x: 0, y: 0, z: 0, w: 0}
   bulletPrefab: {fileID: 8807104636179124331, guid: 6c93318ba27f37a44b58061a6f7e6b3f, type: 3}
   groundMask:
     serializedVersion: 2
@@ -311,6 +313,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &8123616931737598706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4189396064090102716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca36c54d989fb894c8f12f71fdeed08e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 4189396064090102704}
+  materials:
+  - {fileID: 2100000, guid: 83820a14e72cd82488596b962778d6d7, type: 2}
+  - {fileID: 2100000, guid: 88ab329c19afb6b4bb18366d85eee21f, type: 2}
+  - {fileID: 2100000, guid: 672dba31f2770564a8c87da51c5fb3b0, type: 2}
+  - {fileID: 2100000, guid: 7c5241545ac1f5e448444743ba6d22e4, type: 2}
+  - {fileID: 2100000, guid: f4e03132cb45c7d44a5dcfc860dcda43, type: 2}
+  - {fileID: 2100000, guid: e588a2bf0821fd148a6590a393d5b696, type: 2}
 --- !u!1 &5080377584981061535
 GameObject:
   m_ObjectHideFlags: 0
