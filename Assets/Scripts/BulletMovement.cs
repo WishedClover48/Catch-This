@@ -34,8 +34,6 @@ public class BulletMovement : MonoBehaviourPun
         {
             if (InMask(PlayerMask, collision.gameObject.layer))
             {
-                //PlayerMovement playerHitted = collision.GetComponent<PlayerMovement>();
-                //playerHitted.Pv.RPC("KillPlayer", playerHitted.Pv.Owner);
                 PhotonView pv = collision.GetComponent<PhotonView>();
                 if (pv != null)
                 {

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 public class ObstacleSpawner : MonoBehaviourPun
 {
     [SerializeField] private GameObject obstaclePrefab;
-    [SerializeField] private Vector2 areaSize = new Vector2(80f, 80f); // Tamaño del mapa idk
-    [SerializeField] private int obstacleCount = 10;
-    [SerializeField] private float minDistance = 5f; // Distancia mínima entre obstáculos
+    [SerializeField] private Vector2 areaSize = new Vector2(80f, 80f);
+    [SerializeField] private int obstacleCount;
+    [SerializeField] private float minDistance; // Distancia mínima entre obstáculos
 
     private List<Vector3> spawnedPositions = new List<Vector3>();
 

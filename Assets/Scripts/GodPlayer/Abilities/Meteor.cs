@@ -105,6 +105,7 @@ public class Meteor : MonoBehaviourPunCallbacks
             PhotonView pv = hit.GetComponent<PhotonView>();
             if (pv != null && pv.gameObject.layer == playerMask)
             {
+                PhotonNetwork.LocalPlayer.AddScore(1);
                 pv.RPC("KillPlayer", pv.Owner);
             }
             

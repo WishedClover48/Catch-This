@@ -85,7 +85,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     
     private void SetPlayerVariable(Player player, string variable, bool value)
     {
-        Hashtable props = new Hashtable { { variable, false } };
+        Hashtable props = new Hashtable { { variable, value } };
 
         player.SetCustomProperties(props);
     }
