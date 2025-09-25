@@ -67,8 +67,6 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         }
 
         return list;
-        
-
     }
     
     public Vector3 GetSpawnPoint(int idx)
