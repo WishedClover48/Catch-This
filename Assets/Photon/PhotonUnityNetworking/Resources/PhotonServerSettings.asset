@@ -53,6 +53,8 @@ MonoBehaviour:
   - RPC_RequestClear
   - RPC_SetSpawnList
   - TurnOnLeaderBoard
+  - SetActive
+  - SetGodNumber
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

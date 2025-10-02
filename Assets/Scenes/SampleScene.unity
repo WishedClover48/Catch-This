@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff250a667fbcf0740b514b83f75cb885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PlayerPrefab>k__BackingField: {fileID: 2407770784665747810, guid: 26d0f248cb43d444da8f0d11851337f5, type: 3}
+  <PlayerPrefab>k__BackingField: {fileID: 77239543527568004, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
   <GodPrefab>k__BackingField: {fileID: 2667668574024343402, guid: 1adc3ae11c7faed4cade43d8bbdf992c, type: 3}
   <SpawnPoints>k__BackingField:
   - {fileID: 2059765004}

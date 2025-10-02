@@ -71,6 +71,8 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     
     public Vector3 GetSpawnPoint(int idx)
     {
+        if (idx < 0)
+            return Vector3.zero;
         return _spawnPoints[idx];
     }
 }
