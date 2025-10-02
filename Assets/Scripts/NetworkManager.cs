@@ -18,15 +18,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected to Master Server!");
-        if (LobbyButton != null)
-        {
-            LobbyButton.interactable = true;
-        }
+        PhotonNetwork.JoinLobby();
     }
 
     public void JoinARoom(string roomName)
     {
-        //PhotonNetwork.JoinOrCreateRoom( roomName, new RoomOptions { MaxPlayers = 16 }, TypedLobby.Default);
         var roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 16;
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "gameStarted", false } };
@@ -38,7 +34,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log("Joined Lobby.");
-        
+        if (LobbyButton != null)
+        {
+            LobbyButton.interactable = true;
+        }
     }
 
     public override void OnJoinedRoom()
@@ -58,7 +57,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         
         Debug.Log("Player '" + PhotonNetwork.NickName + "' joined the room!");
-        Debug.Log("The ID of the player is: " + PhotonNetwork.LocalPlayer.UserId);
         PhotonNetwork.LoadLevel("Lobby");
     }
 }
