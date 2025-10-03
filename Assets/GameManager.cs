@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            ChangeGod();
+            photonView.RPC("AmIGod", RpcTarget.AllBuffered,_godSelector);
+        }
         // Singleton guard
         if (Instance != null && Instance != this)
         {
@@ -42,10 +47,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (PhotonNetwork.IsMasterClient) 
-        {  
-            //ChangeGod();
-        }
+        
         UIManager.StartSequence();
         UIManager.SequenceFinished += StartRound;
         roundsManager.EndRoundEvent += EndRound;
@@ -77,21 +79,30 @@ public class GameManager : MonoBehaviourPunCallbacks
             Debug.LogError("Player Prefab is not assigned in GameManager!");
             return;
         }
-
-        photonView.RPC("AmIGod", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
-        
         if (_amIGod)
         {
-            PhotonNetwork.Instantiate(GodPrefab.name, new Vector3(0,50,-50), Quaternion.identity);
+            var god = PhotonNetwork.Instantiate(GodPrefab.name, new Vector3(0, 50, -50), Quaternion.identity);
         }
         else
         {
             var idx = PhotonNetwork.LocalPlayer.ActorNumber - 2; //One for the god and one for the zero start of arrays
             Vector3 spawnPoint = SpawnManager.Instance.GetSpawnPoint(idx);
-            PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint, Quaternion.identity);
+            var pasant = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint, Quaternion.identity);
         }
     }
-    
+   
+
+    [PunRPC]
+    public void SetActive(int viewID, bool isActive)
+    {
+        PhotonView pv = PhotonView.Find(viewID);
+        if (pv != null && pv.gameObject != null)
+        {
+            pv.gameObject.SetActive(isActive);
+        }
+    }
+
+
     [PunRPC]
     public void ChangeGod()
     {
@@ -100,26 +111,23 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void AmIGod(Player player)
+    public void AmIGod(int god)
     {
-        bool isGod = false;
+        var player = PhotonNetwork.LocalPlayer;
         
-        if (player == PhotonNetwork.PlayerList.GetValue(_godSelector))
+        if (player == PhotonNetwork.PlayerList[god])
         {
-            isGod = true;
-            PlayersManager.Instance.godActorNumber = PhotonNetwork.PlayerList[_godSelector].ActorNumber;
+            _amIGod = true;
+            photonView.RPC("SetGodNumber", RpcTarget.AllBuffered, player.ActorNumber);
         }
         else
         {
-            isGod = false;
+            _amIGod = false;
         }
-        
-        PhotonView.Get(this).RPC("ReceiveGodAnswer", PhotonNetwork.CurrentRoom.GetPlayer(player.ActorNumber), isGod);
+        Debug.Log(god);
     }
-
     [PunRPC]
-    void ReceiveGodAnswer(bool result)
-    {
-        _amIGod = result;
+    public void SetGodNumber(int number) {
+        PlayersManager.Instance.godActorNumber = number;
     }
 }
