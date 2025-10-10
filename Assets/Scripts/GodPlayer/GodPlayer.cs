@@ -13,8 +13,6 @@ public class GodPlayer : MonoBehaviourPunCallbacks
     [SerializeField] private int cooldown;
     private Meteor _meteorScript;
 
-    private LaserManager laser;
-
     [Header("Config")]
     [SerializeField] private LayerMask clickableMask;
     
@@ -28,8 +26,6 @@ public class GodPlayer : MonoBehaviourPunCallbacks
         CreateCamera();
         
         OnPrimaryAction += Attack;
-
-        laser = LaserManager.Instance;
     }
 
     void Update()
@@ -45,7 +41,7 @@ public class GodPlayer : MonoBehaviourPunCallbacks
         {
             if(GetClickPosition(out var mPos))
             {
-                laser.Activate(mPos);
+                LaserManager.Instance.Activate(mPos);
             }
         }
 
@@ -53,13 +49,13 @@ public class GodPlayer : MonoBehaviourPunCallbacks
         {
             if (GetClickPosition(out var mPos))
             {
-                laser.UpdatePosition(mPos);
+                LaserManager.Instance.UpdatePosition(mPos);
             }
         }
 
         if (Input.GetMouseButtonUp(1))
         {
-            laser.Stop();
+            LaserManager.Instance.Stop();
         }
     }
     
