@@ -7,12 +7,7 @@ public class PlayerSpawner : MonoBehaviour
 
     void Start()
     {
-    }
-    private void Update()
-    {
-        
         SpawnPlayer();
-        Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
     }
     void SpawnPlayer()
     {
