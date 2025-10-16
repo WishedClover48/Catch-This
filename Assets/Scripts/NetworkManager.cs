@@ -9,6 +9,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] Button LobbyButton;
     [SerializeField] private GameObject gameStartedPanel;
+
+    [Space]
+    [SerializeField] private int maxPlayers = 16;
+    [SerializeField] private string nextScene;
+
     void Start()
     {
         Debug.Log("Connecting to Photon...");
@@ -24,7 +29,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void JoinARoom(string roomName)
     {
         var roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 16;
+        roomOptions.MaxPlayers = maxPlayers;
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "gameStarted", false } };
         roomOptions.CustomRoomPropertiesForLobby = new string[] { "gameStarted" };
 
@@ -57,6 +62,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         
         Debug.Log("Player '" + PhotonNetwork.NickName + "' joined the room!");
-        PhotonNetwork.LoadLevel("Lobby");
+        PhotonNetwork.LoadLevel(nextScene);
     }
 }

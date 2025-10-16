@@ -5,13 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 7d16a2b7ef756474394f9fc670c2a6bb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lobby.unity
     guid: 0e4d0193bba114b44bac15808255630c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Pong/BongSignIn.unity
+    guid: 9758b0508d3efde4abb8a4bac76b8b6f
+  - enabled: 1
+    path: Assets/Scenes/Pong/BongLobby.unity
+    guid: 4a186e3c6c79b2546aab5fe543cc10c9
+  - enabled: 1
+    path: Assets/Scenes/PongUI.unity
+    guid: 1ab78ee9d8c70e74bbd40514363b9bfd
   m_configObjects: {}
