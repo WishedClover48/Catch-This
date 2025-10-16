@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557eba2e7fcce16409b53aedd1d6b30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamGoal: 0
+  TeamGoal: 1
   Score: {fileID: 594064661}
   ball: {fileID: 1556757952}
 --- !u!61 &239808015
@@ -1215,7 +1215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557eba2e7fcce16409b53aedd1d6b30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamGoal: 1
+  TeamGoal: 0
   Score: {fileID: 594064661}
   ball: {fileID: 1556757952}
 --- !u!61 &601819937
@@ -1473,6 +1473,7 @@ GameObject:
   - component: {fileID: 1556757957}
   - component: {fileID: 1556757956}
   - component: {fileID: 1556757958}
+  - component: {fileID: 1556757959}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -1614,6 +1615,29 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &1556757959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556757952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1556757958}
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2074299136
 GameObject:
   m_ObjectHideFlags: 0
