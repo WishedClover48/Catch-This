@@ -30,6 +30,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     {
         Team1Score += team1;
         Team2Score += team2;
+        Debug.Log(Team2Score + "  " + Team1Score);
         photonView.RPC("UpdateScoreText", RpcTarget.AllBuffered, Team1Score, Team2Score);
     }
     [PunRPC]

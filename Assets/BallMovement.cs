@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,13 @@ public class BallMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if ( PhotonNetwork.LocalPlayer == PhotonNetwork.MasterClient )
         transform.position += (Vector3)Direction *speed* Time.deltaTime;
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (PhotonNetwork.LocalPlayer != PhotonNetwork.MasterClient)
+            return;
         // Get the contact point of the collision
         Vector2 hitPoint = collision.contacts[0].point;
         Vector2 objectCenter = transform.position;
