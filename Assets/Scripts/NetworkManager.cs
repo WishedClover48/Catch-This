@@ -23,6 +23,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void JoinARoom(string roomName)
     {
+        if (PhotonNetwork.NickName == string.Empty)
+        {
+            Debug.LogWarning("The player does not have a nickname.");
+            return;
+        }
         var roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 16;
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "gameStarted", false } };

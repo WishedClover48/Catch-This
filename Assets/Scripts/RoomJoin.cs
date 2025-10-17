@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class RoomJoin : MonoBehaviour
 {
-    [SerializeField] TMP_InputField roomName;
+    [SerializeField] public TMP_InputField roomName;
     [SerializeField] TMP_InputField playerName;
     [SerializeField] NetworkManager networkManager;
     
