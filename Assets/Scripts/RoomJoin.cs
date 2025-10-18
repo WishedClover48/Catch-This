@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using WebSocketSharp;
 
 public class RoomJoin : MonoBehaviour
 {
@@ -14,5 +15,11 @@ public class RoomJoin : MonoBehaviour
     {
         PhotonNetwork.NickName = playerName.text;
         networkManager.JoinARoom(roomName.text);
+    }
+
+    public void ConnectToRoom(string roomToJoin)
+    {
+        PhotonNetwork.NickName = playerName.text;
+        networkManager.JoinARoom(roomToJoin);
     }
 }

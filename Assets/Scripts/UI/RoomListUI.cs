@@ -22,8 +22,7 @@ public class RoomListUI : MonoBehaviourPunCallbacks
              //Emprolijar
              GameObject button = Instantiate(roomButtonPrefab, roomListParent);
              button.GetComponentInChildren<TextMeshProUGUI>().text = $"{room.Name} ({room.PlayerCount}/{room.MaxPlayers})";
-             connectButton.roomName.text = room.Name;
-             button.GetComponent<Button>().onClick.AddListener(() => connectButton.ConnectToRoom());
+             button.GetComponent<Button>().onClick.AddListener(() => connectButton.ConnectToRoom(room.Name));
          } 
     }
 }
