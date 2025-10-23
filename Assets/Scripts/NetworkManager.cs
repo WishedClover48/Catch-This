@@ -9,6 +9,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] Button LobbyButton;
     [SerializeField] private GameObject gameStartedPanel;
+    [SerializeField] private Image connectedImage;
+
     void Start()
     {
         Debug.Log("Connecting to Photon...");
@@ -17,6 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
+        connectedImage.color = Color.green;
         Debug.Log("Connected to Master Server!");
         PhotonNetwork.JoinLobby();
     }

@@ -1,6 +1,8 @@
-using System;
 using Photon.Pun;
+using Photon.Realtime;
+using System;
 using UnityEngine;
+using TMPro;
 
 public class LaserManager : MonoBehaviourPunCallbacks
 {
@@ -32,9 +34,19 @@ public class LaserManager : MonoBehaviourPunCallbacks
         sphere.transform.position = Vector3.Lerp(sphere.transform.position, _targetPosition, Time.deltaTime * speed);
     }
 
+    private bool IsLocalPlayerGod()
+    {
+        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value))
+        {
+            return value is bool isGod && isGod;
+        }
+
+        return false;
+    }
+
     public void Activate(Vector3 pos)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (!IsLocalPlayerGod()) return;
 
         if (_isAiming) return;
 

@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [field: SerializeField] private RoundsManager roundsManager;
     [field: SerializeField] private LeaderBoard leaderBoard;
     [field: SerializeField] public float endOfRoundTime;
+    public TextMeshProUGUI test;
     public event Action RoundStart; 
     public event Action ToNextRound; 
     public event Action RoundEnd; 
@@ -31,23 +32,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             ChangeGod();
             photonView.RPC("AmIGod", RpcTarget.AllBuffered,_godSelector);
         }
-        // Singleton guard
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+
         Instance = this;
     }
 
     private void Start()
     {
-        
         UIManager.StartSequence();
         UIManager.SequenceFinished += StartRound;
         roundsManager.EndRoundEvent += EndRound;
@@ -82,15 +77,35 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (_amIGod)
         {
             var god = PhotonNetwork.Instantiate(GodPrefab.name, new Vector3(0, 50, -50), Quaternion.identity);
+            
+            SetGodPlayer(true);
         }
         else
         {
             var idx = PhotonNetwork.LocalPlayer.ActorNumber - 2; //One for the god and one for the zero start of arrays
             Vector3 spawnPoint = SpawnManager.Instance.GetSpawnPoint(idx);
             var pasant = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint, Quaternion.identity);
+            
+            SetGodPlayer(false);
         }
     }
-   
+
+    private void SetGodPlayer(bool isGod)
+    {
+        ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
+        playerProperties["GodPlayer"] = isGod;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+    }
+
+    public bool IsGodPlayer()
+    {
+        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value))
+        {
+            return (bool)value;
+        }
+        return false;
+    }
+
 
     [PunRPC]
     public void SetActive(int viewID, bool isActive)
@@ -106,7 +121,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ChangeGod()
     {
-        _godSelector = Random.Range(0, PhotonNetwork.PlayerList.Length);
+        _godSelector = Random.Range(1, PhotonNetwork.PlayerList.Length+1);
+        test.text = _godSelector.ToString();
         Debug.Log("Beep boop changing god...");
     }
 
