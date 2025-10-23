@@ -4,7 +4,7 @@ using UnityEngine;
 public class PowerUpChooser : MonoBehaviour
 {
     [SerializeField] private List<GameObject> powerUpList;
-
+    [SerializeField] private PowerUpRespawn spawner;
     private GameObject _currentPowerUpInstance;
 
     private void OnTriggerEnter(Collider other)
@@ -38,5 +38,6 @@ public class PowerUpChooser : MonoBehaviour
             Destroy(_currentPowerUpInstance);
             _currentPowerUpInstance = null;
         }
+        spawner.DisableCreator();
     }
 }
