@@ -131,7 +131,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  cameraOffset: {x: 0, y: 0, z: 0}
+  cameraRotation: {x: 0, y: 0, z: 0, w: 0}
   bulletPrefab: {fileID: 8807104636179124331, guid: 6c93318ba27f37a44b58061a6f7e6b3f, type: 3}
+  firerate: 3
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &-603954834481076023
 MonoBehaviour:
   m_ObjectHideFlags: 0

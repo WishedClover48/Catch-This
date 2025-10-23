@@ -1,7 +1,9 @@
-using System;
-using UnityEngine;
 using Photon.Pun;
+using System;
+using System.Collections;
 using System.Diagnostics;
+using Unity.VisualScripting;
+using UnityEngine;
 public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public float moveSpeed = 5f; 
@@ -9,11 +11,12 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     [SerializeField] private Vector3 cameraOffset;
     [SerializeField] private Quaternion cameraRotation;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] public float firerate;
     public LayerMask groundMask;
-
     public Action<int, string> OnHit;
     private PhotonView pv;
     
+    private float nextFireTime = 0f;
     public PhotonView Pv { get => pv; }
 
     void Start()
@@ -47,10 +50,12 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         transform.position += movement * (moveSpeed * Time.deltaTime);
         _playerCam.transform.position = transform.position + cameraOffset;
 
-        if (Input.GetMouseButtonDown(0)) {
-            
-            var bullet=PhotonNetwork.Instantiate(bulletPrefab.name, transform.position , transform.rotation);
-            bullet.GetComponent<BulletMovement>().SetUpOwner(gameObject,photonView.Owner);
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+        {
+            nextFireTime = Time.time + 1f / firerate;
+
+            var bullet = PhotonNetwork.Instantiate(bulletPrefab.name, transform.position, transform.rotation);
+            bullet.GetComponent<BulletMovement>().SetUpOwner(gameObject, photonView.Owner);
         }
     }
     void LookAt()
@@ -107,6 +112,16 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private void TurnOnLeaderBoardToggel()
     {
         UIManager.Instance.LeaderBoardToggleButton();
+    }
+
+    public void RunCoroutine(Action func, float delay)
+    {
+        StartCoroutine(ExecuteAfterDelay(func, delay));
+    }
+    IEnumerator ExecuteAfterDelay(Action func, float delay) 
+    {
+        yield return new WaitForSeconds(delay);
+        func();
     }
 
 
