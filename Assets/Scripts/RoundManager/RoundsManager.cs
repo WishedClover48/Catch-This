@@ -85,7 +85,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     void OnRoundEnd()
     {
         PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
-         PhotonNetwork.LoadLevel("Lobby");
+         PhotonNetwork.LoadLevel("SampleScene");
         // Add local reaction to round end
     }
 }
