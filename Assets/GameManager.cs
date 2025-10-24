@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance { get; private set; }
 
-    private int _godSelector = 0;
+    private Player _godSelector;
 
     private bool _amIGod = false;
 
@@ -24,7 +24,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     [field: SerializeField] private RoundsManager roundsManager;
     [field: SerializeField] private LeaderBoard leaderBoard;
     [field: SerializeField] public float endOfRoundTime;
+
     public TextMeshProUGUI test;
+    private bool RoundStarted=false;//Test
+
     public event Action RoundStart; 
     public event Action ToNextRound; 
     public event Action RoundEnd; 
@@ -32,10 +35,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        SetReadyProperty(false);
+
         if (PhotonNetwork.IsMasterClient)
         {
             ChangeGod();
-            photonView.RPC("AmIGod", RpcTarget.AllBuffered,_godSelector);
+            photonView.RPC("AmIGod", RpcTarget.AllBuffered, _godSelector);
         }
 
         Instance = this;
@@ -43,10 +48,40 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        UIManager.StartSequence();
         UIManager.SequenceFinished += StartRound;
         roundsManager.EndRoundEvent += EndRound;
         //SpawnPlayer();
+    }
+    private void Update()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if(!RoundStarted)
+            {
+                var allReady = true;
+                foreach (Player p in PhotonNetwork.PlayerList)
+                {
+                    if (p.CustomProperties.TryGetValue("ReadyToGo", out object value))
+                    {
+                        if (!(bool)value)
+                            allReady = false;
+                        break;
+                    }
+                }
+                if (allReady)
+                {
+                    Debug.Log("yes");
+                    RoundStarted = true;
+                    photonView.RPC("EveryoneReady", RpcTarget.AllBuffered);
+                }
+        }
+        }
+
+    }
+    [PunRPC]
+    public void EveryoneReady() 
+    {
+        UIManager.StartSequence();
     }
 
     private void StartRound()
@@ -97,14 +132,22 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
 
-    public bool IsGodPlayer()
+    private void SetReadyProperty(bool value) 
     {
-        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value))
-        {
-            return (bool)value;
-        }
-        return false;
+        ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
+        playerProperties["ReadyToGo"] = value;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
+
+
+   // public bool IsGodPlayer()
+   // {
+   //     if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value))
+   //     {
+   //         return (bool)value;
+   //     }
+   //     return false;
+   // }
 
 
     [PunRPC]
@@ -118,33 +161,35 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
 
-    [PunRPC]
     public void ChangeGod()
     {
-        _godSelector = Random.Range(1, PhotonNetwork.PlayerList.Length+1);
-        test.text = _godSelector.ToString();
+        
+        _godSelector = PhotonNetwork.PlayerList[Random.Range(0, PhotonNetwork.PlayerList.Length)];
+        
         Debug.Log("Beep boop changing god...");
     }
 
     [PunRPC]
-    public void AmIGod(int god)
+    public void AmIGod(Player god)
     {
         var player = PhotonNetwork.LocalPlayer;
         
-        if (player == PhotonNetwork.PlayerList[god])
+        if (player == god)
         {
+            test.text = player.ActorNumber.ToString();
             _amIGod = true;
             photonView.RPC("SetGodNumber", RpcTarget.AllBuffered, player.ActorNumber);
-            PlayersManager.Instance.godActorNumber = player.ActorNumber;
+            //PlayersManager.Instance.godActorNumber = player.ActorNumber;
         }
         else
         {
             _amIGod = false;
         }
-        Debug.Log(god);
+
     }
     [PunRPC]
     public void SetGodNumber(int number) {
         PlayersManager.Instance.godActorNumber = number;
+        SetReadyProperty(true);
     }
 }
