@@ -87,8 +87,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.23
       objectReference: {fileID: 0}
+    - target: {fileID: 5444064689476670410, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+      propertyPath: meshFilter
+      value: 
+      objectReference: {fileID: 1897062788921014662}
+    - target: {fileID: 5444064689476670410, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+      propertyPath: meshRenderer
+      value: 
+      objectReference: {fileID: 1897062788921014662}
+    - target: {fileID: 5444064689476670410, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+      propertyPath: skinsList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444064689476670410, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+      propertyPath: skinsList.Array.data[0].Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: c8680fab33c72bb4ba3e31987e0b0182, type: 3}
+    - target: {fileID: 5444064689476670410, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+      propertyPath: skinsList.Array.data[1].Mesh
+      value: 
+      objectReference: {fileID: 4300010, guid: 7b912c5dfa554a04296ecbf246180058, type: 3}
+    - target: {fileID: 5444064689476670410, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+      propertyPath: skinsList.Array.data[1].Skin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444064689476670410, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+      propertyPath: skinsList.Array.data[2].Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+    - target: {fileID: 5444064689476670410, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+      propertyPath: skinsList.Array.data[2].Skin
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+--- !u!33 &1897062788921014662 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 77239543527568011, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}
+  m_PrefabInstance: {fileID: 1964080137342110477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1897062788921014663 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 77239543527568010, guid: 6e571fe9e31ce7c40b5bcfc14003eef3, type: 3}

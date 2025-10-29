@@ -191,14 +191,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca36c54d989fb894c8f12f71fdeed08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 77239543527568008}
-  materials:
-  - {fileID: 2100000, guid: 83820a14e72cd82488596b962778d6d7, type: 2}
-  - {fileID: 2100000, guid: 88ab329c19afb6b4bb18366d85eee21f, type: 2}
-  - {fileID: 2100000, guid: 672dba31f2770564a8c87da51c5fb3b0, type: 2}
-  - {fileID: 2100000, guid: 7c5241545ac1f5e448444743ba6d22e4, type: 2}
-  - {fileID: 2100000, guid: f4e03132cb45c7d44a5dcfc860dcda43, type: 2}
-  - {fileID: 2100000, guid: e588a2bf0821fd148a6590a393d5b696, type: 2}
+  meshFilter: {fileID: 77239543527568011}
+  skinsList:
+  - Skin: 0
+    Mesh: {fileID: 4300002, guid: c8680fab33c72bb4ba3e31987e0b0182, type: 3}
+  - Skin: 1
+    Mesh: {fileID: 4300010, guid: 7b912c5dfa554a04296ecbf246180058, type: 3}
+  - Skin: 2
+    Mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
 --- !u!1 &1263301288462621868
 GameObject:
   m_ObjectHideFlags: 0
