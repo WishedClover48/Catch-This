@@ -324,6 +324,8 @@ GameObject:
   - component: {fileID: 144856348}
   - component: {fileID: 144856349}
   - component: {fileID: 144856350}
+  - component: {fileID: 144856351}
+  - component: {fileID: 144856352}
   m_Layer: 0
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -374,6 +376,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 187269206}
   chatDisplay: {fileID: 2079336160}
+  filter: {fileID: 144856351}
+--- !u!114 &144856351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144856346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8f9d84b26876f46a87e73a39cc7929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &144856352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144856346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c697029a9101af142afa14fb30133e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &187269204
 GameObject:
   m_ObjectHideFlags: 0
