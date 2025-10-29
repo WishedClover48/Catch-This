@@ -1,21 +1,24 @@
-using UnityEngine;
-using TMPro;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
+using TMPro;
+using UnityEngine;
 
 public class LobbyChat : MonoBehaviour, IOnEventCallback
 {
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private TMP_Text chatDisplay;
+    [SerializeField] private ProfanityFilter filter;
+
 
     public void OnSendMessage()
     {
         string message = inputField.text.Trim();
         if (string.IsNullOrEmpty(message)) return;
 
+        var sensoredText=filter.CensorText(message);
         // Prefix with player name
-        string fullMessage = $"{PhotonNetwork.NickName}: {message}";
+        string fullMessage = $"{PhotonNetwork.NickName}: {sensoredText}";
 
         // Raise Photon event to broadcast message
         object[] content = new object[] { fullMessage };
