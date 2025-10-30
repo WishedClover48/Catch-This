@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -130,7 +131,17 @@ public class ProfanityFilter : MonoBehaviour
             censoredText = Regex.Replace(censoredText, pattern, replacement, RegexOptions.IgnoreCase);
             if (CensorInProgres != censoredText)
             {
-                ProfanityFound(word);
+                
+                try
+                {
+                    Debug.Log("ProfanityFound: " + word);
+                    ProfanityFound(word);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Error with ProfanityFound");
+                    Debug.LogException(e);
+                }
             }
         }
 
@@ -143,7 +154,6 @@ public class ProfanityFilter : MonoBehaviour
         {
             Profanity=profanity
         };
-        Debug.Log(evt);
 
         AnalyticsService.Instance.RecordEvent(evt);
         AnalyticsService.Instance.Flush();
