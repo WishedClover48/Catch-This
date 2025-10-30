@@ -12,17 +12,20 @@ public class SkinAssigner : MonoBehaviourPunCallbacks
     private Dictionary<Skins, Mesh> skinsDictionary = new Dictionary<Skins, Mesh>();
     private void Awake()
     {
+        Photon.Realtime.Player goOwner = photonView.Owner;
         foreach(SkinPair sk in skinsList)
         {
             skinsDictionary.Add(sk.Skin, sk.Mesh);
         }
 
-        PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue<object>("Skin", out object value);
+        goOwner.CustomProperties.TryGetValue<object>("Skin", out object value);
+
         if (value == null)
             value = 0;
         var skin = (Skins)value;
         skinsDictionary.TryGetValue(skin, out var boca);
         meshFilter.mesh = boca;
+        
     }
 
 
