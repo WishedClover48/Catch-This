@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [field: SerializeField] private LeaderBoard leaderBoard;
     [field: SerializeField] public float endOfRoundTime;
 
-    public TextMeshProUGUI test;
     private bool RoundStarted=false;//Test
 
     public event Action RoundStart; 
@@ -176,7 +175,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         if (player == god)
         {
-            test.text = player.ActorNumber.ToString();
             _amIGod = true;
             photonView.RPC("SetGodNumber", RpcTarget.AllBuffered, player.ActorNumber);
             //PlayersManager.Instance.godActorNumber = player.ActorNumber;

@@ -80,7 +80,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
 
         // If we get here, all players are ready. And they get sent to the Gameplay scene.
-        PhotonNetwork.LoadLevel("SampleScene");
+        //PhotonNetwork.LoadLevel("SampleScene");
+        PhotonNetwork.LoadLevel("Testing");
     }
     
     private void SetPlayerVariable(Player player, string variable, bool value)
