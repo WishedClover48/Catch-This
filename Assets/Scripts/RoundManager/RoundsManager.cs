@@ -5,8 +5,6 @@ using Photon.Realtime;
 using UnityEngine;
 using System.Collections.Generic;
 using Photon.Pun.UtilityScripts;
-using Unity.VisualScripting;
-using System.Linq;
 
 public class RoundsManager : MonoBehaviourPunCallbacks
 {
@@ -79,14 +77,27 @@ public class RoundsManager : MonoBehaviourPunCallbacks
 
     private void RoundEnd()
     {
-        photonView.RPC("OnRoundEnd", RpcTarget.All);
+        if (GameManager.Instance.roundsPassed >= Mathf.Clamp(PhotonNetwork.PlayerList.Length * 3, 4, 20))
+        { 
+            photonView.RPC("OnMatchFinished", RpcTarget.All);
+        }
+        else
+        {
+            photonView.RPC("OnRoundEnd", RpcTarget.All);
+        }
     }
 
+    [PunRPC]
+    void OnMatchFinished()
+    {
+        GameManager.Instance.roundsPassed = 0;
+        PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
+         PhotonNetwork.LoadLevel("Lobby");
+    }
     [PunRPC]
     void OnRoundEnd()
     {
         PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
-         PhotonNetwork.LoadLevel("SampleScene");
-        // Add local reaction to round end
+        PhotonNetwork.LoadLevel("SampleScene");
     }
 }

@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using TMPro;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -15,7 +12,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private Player _godSelector;
 
     private bool _amIGod = false;
-
+    public int roundsPassed = 0;
     [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
     [field: SerializeField] public GameObject GodPrefab { get; private set; }
     [field: SerializeField] public Transform[] SpawnPoints { get; private set; }
@@ -49,7 +46,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         UIManager.SequenceFinished += StartRound;
         roundsManager.EndRoundEvent += EndRound;
-        //SpawnPlayer();
     }
     private void Update()
     {
@@ -85,8 +81,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void StartRound()
     {
+        roundsPassed++;
         SpawnPlayer();
         RoundStart?.Invoke();
+
     }
 
     private void EndRound()
