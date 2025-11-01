@@ -11,6 +11,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private Player _godSelector;
 
+    public static GameManager GetGameManager()
+    {
+        return Instance;
+    }
+
     private bool _amIGod = false;
     public int roundsPassed = 0;
     [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
@@ -44,7 +49,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        UIManager.SequenceFinished += StartRound;
+        UIManager.SequenceEnded += StartRound;
         roundsManager.EndRoundEvent += EndRound;
     }
     private void Update()
@@ -69,7 +74,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                     RoundStarted = true;
                     photonView.RPC("EveryoneReady", RpcTarget.AllBuffered);
                 }
-        }
+            }
         }
 
     }
@@ -82,9 +87,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void StartRound()
     {
         roundsPassed++;
-        SpawnPlayer();
         RoundStart?.Invoke();
-
+        SpawnPlayer();
     }
 
     private void EndRound()

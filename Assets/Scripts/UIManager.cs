@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviourPunCallbacks
     [SerializeField] private SequenceActivator startingSequence;
     [SerializeField] private LeaderBoard leaderBoard;
     [SerializeField] private GameObject leaderBoardToggle;
-    public event Action SequenceFinished;
+    public event Action SequenceEnded;
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        startingSequence.SequenceFinished += SequenceFinish;
+        startingSequence.SequenceFinished += SequenceEnd;
         GameManager.Instance.RoundEnd += RoundEnd;
     }
 
@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviourPunCallbacks
     {
         startingSequence.StartSequence();
     }
-    private void SequenceFinish()=>SequenceFinished.Invoke();
+    private void SequenceEnd()=> SequenceEnded?.Invoke();
 
     public void RoundEnd()
     {
