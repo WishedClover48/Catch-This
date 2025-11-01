@@ -362,7 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCardPrefab: {fileID: 3237054401687744614, guid: afc0c965b0a090c4294222a0f3f917f6, type: 3}
   cardParent: {fileID: 745306116}
-  nextScene: Testing
+  nextScene: SampleScene
 --- !u!114 &144856350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,10 +1164,10 @@ RectTransform:
   m_Father: {fileID: 1706563729}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.1, y: 0.2}
+  m_AnchorMax: {x: 0.9, y: 0.8}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 300}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &745306117
 MonoBehaviour:
@@ -1189,7 +1189,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
+  m_CellSize: {x: 200, y: 200}
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -2200,7 +2200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1706563729}
   m_Layer: 5
-  m_Name: HorizontalCardOrganizer
+  m_Name: Card organizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2224,8 +2224,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0.25}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2, y: 0}
-  m_SizeDelta: {x: -4, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2045499227
 GameObject:

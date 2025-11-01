@@ -24,6 +24,8 @@ public class Laser : MonoBehaviourPunCallbacks
     private void Start()
     {
         _col = sphere.GetComponent<Collider>();
+        
+        photonView.RPC(nameof(StopRPC), RpcTarget.All);
     }
     private void Update()
     {
