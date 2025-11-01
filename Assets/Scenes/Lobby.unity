@@ -362,7 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCardPrefab: {fileID: 3237054401687744614, guid: afc0c965b0a090c4294222a0f3f917f6, type: 3}
   cardParent: {fileID: 745306116}
-  nextScene: Testing
+  nextScene: SampleScene
 --- !u!114 &144856350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1082,7 +1082,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.05
+  m_fontSize: 63.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1383,7 +1383,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 84.9
+  m_fontSize: 84.8
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
