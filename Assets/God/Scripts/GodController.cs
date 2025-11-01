@@ -12,8 +12,7 @@ public class GodController : MonoBehaviourPunCallbacks
 
     [Header("UI settings")] 
     [SerializeField] private GameObject uiPrefab;
-    [SerializeField] private List<GodAttack> list;
-    
+    [SerializeField] private List<GodAttack> attacksList;
 
     private void Awake()
     {
@@ -30,6 +29,6 @@ public class GodController : MonoBehaviourPunCallbacks
     private void SetUpUi()
     {
         var ui = Instantiate(uiPrefab, transform);
-        ui.GetComponent<GodUI>().SetUp(list);
+        ui.GetComponent<GodUI>().SetUp(attacksList);
     }
 }

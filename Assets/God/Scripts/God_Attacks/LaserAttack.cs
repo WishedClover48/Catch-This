@@ -19,7 +19,7 @@ public class LaserAttack : GodAttack
     {
         if(!photonView.IsMine) return;
 
-        if (Input.GetMouseButtonDown(1) && !OnCooldown)
+        if (UnityEngine.Input.GetKeyDown(input) && !OnCooldown)
         {
             if(GetClickPosition(out var mPos))
             {
@@ -27,7 +27,7 @@ public class LaserAttack : GodAttack
             }
         }
 
-        if (Input.GetMouseButton(1) && !OnCooldown)
+        if (UnityEngine.Input.GetKeyDown(input) && !OnCooldown)
         {
             if (GetClickPosition(out var mPos))
             {
@@ -35,7 +35,7 @@ public class LaserAttack : GodAttack
             }
         }
 
-        if (Input.GetMouseButtonUp(1))
+        if (UnityEngine.Input.GetKeyDown(input))
         {
             _laserManager.Stop();
             StartCoroutine(CooldownRoutine());

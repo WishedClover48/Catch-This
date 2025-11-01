@@ -19,6 +19,9 @@ public abstract class GodAttack : MonoBehaviourPunCallbacks
     [SerializeField] public Sprite logo;
     [SerializeField] protected float cooldown;
     [SerializeField] private LayerMask clickableMask;
+    
+    [Header("Input")]
+    [SerializeField] public KeyCode input = KeyCode.None;
 
     protected  virtual void Start()
     {

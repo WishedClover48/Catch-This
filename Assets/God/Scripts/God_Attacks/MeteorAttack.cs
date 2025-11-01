@@ -15,7 +15,7 @@ public class MeteorAttack : GodAttack
     {
         if (!photonView.IsMine) return;
         
-        if (!OnCooldown && Input.GetMouseButtonDown(0) && GetClickPosition(out var clickPos))
+        if (!OnCooldown && UnityEngine.Input.GetKeyDown(input) && GetClickPosition(out var clickPos))
         {
             Attack(clickPos);
         }
