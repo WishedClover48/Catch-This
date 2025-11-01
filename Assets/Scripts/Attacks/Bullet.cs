@@ -7,7 +7,7 @@ using Photon.Realtime;
 using UnityEditor;
 using UnityEngine;
 
-public class BulletMovement : MonoBehaviourPun
+public class Bullet : MonoBehaviourPun
 {
     [SerializeField] private string source;
     [SerializeField] private float speed;

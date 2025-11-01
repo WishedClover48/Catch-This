@@ -11,7 +11,10 @@ using UnityEngine;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject playerCardPrefab;  
-    [SerializeField] private Transform cardParent;         
+    [SerializeField] private Transform cardParent;
+    
+    [Header("Next scene name")]
+    [SerializeField] private string nextScene = "SampleScene";         
 
     private void Start()
     {
@@ -81,7 +84,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         // If we get here, all players are ready. And they get sent to the Gameplay scene.
         //PhotonNetwork.LoadLevel("SampleScene");
-        PhotonNetwork.LoadLevel("SampleScene");
+        PhotonNetwork.LoadLevel(nextScene);
     }
     
     private void SetPlayerVariable(Player player, string variable, bool value)

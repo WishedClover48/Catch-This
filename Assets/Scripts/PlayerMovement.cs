@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             nextFireTime = Time.time + 1f / firerate;
 
             var bullet = PhotonNetwork.Instantiate(bulletPrefab.name, transform.position, transform.rotation);
-            bullet.GetComponent<BulletMovement>().SetUpOwner(gameObject, photonView.Owner);
+            bullet.GetComponent<Bullet>().SetUpOwner(gameObject, photonView.Owner);
         }
     }
     void LookAt()

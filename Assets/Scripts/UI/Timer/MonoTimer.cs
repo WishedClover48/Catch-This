@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MonoTimer : MonoBehaviour
 {
-    private readonly Timer _timer = new Timer();
+    public readonly Timer _timer = new Timer();
     public event Action TimerFinished;
 
     private void Start()
@@ -18,7 +18,7 @@ public class MonoTimer : MonoBehaviour
 
     public void SetCurrentTime(float time)
     {
-        _timer.SetTimer(time);
+        _timer.SetCurrentTime(time);
     }
     public void AddTime(float time)
     {

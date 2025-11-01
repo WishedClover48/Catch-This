@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 public class Forrada : MonoBehaviourPunCallbacks
 {
-    [SerializeField] GameObject PlayerPrefab;
+    [SerializeField] GameObject spawnPrefab;
     [SerializeField] Vector3 spawnPoint;
     private void Start()
     {
@@ -12,14 +12,6 @@ public class Forrada : MonoBehaviourPunCallbacks
     }
     private void SpawnPlayer()
     {
-        if (PlayerPrefab == null)
-        {
-            Debug.LogError("Player Prefab is not assigned in GameManager!");
-            return;
-        }
-        else
-        {
-            var pasant = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint, Quaternion.identity);
-        }
+        PhotonNetwork.Instantiate(spawnPrefab.name, new Vector3(0, 50, -50), Quaternion.identity);
     }
 }

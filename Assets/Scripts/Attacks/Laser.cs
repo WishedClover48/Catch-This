@@ -4,9 +4,9 @@ using System;
 using UnityEngine;
 using TMPro;
 
-public class LaserManager : MonoBehaviourPunCallbacks
+public class Laser : MonoBehaviourPunCallbacks
 {
-    public static LaserManager Instance { get; private set; }
+    public static Laser Instance { get; private set; }
 
     [SerializeField] private GameObject sphere;
     private Collider _col;
@@ -21,19 +21,16 @@ public class LaserManager : MonoBehaviourPunCallbacks
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
     }
-
     private void Start()
     {
         _col = sphere.GetComponent<Collider>();
     }
-
     private void Update()
     {
         if (!_isAiming || sphere == null) return;
 
         sphere.transform.position = Vector3.Lerp(sphere.transform.position, _targetPosition, Time.deltaTime * speed);
     }
-
     private bool IsLocalPlayerGod()
     {
         if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value))
@@ -43,7 +40,7 @@ public class LaserManager : MonoBehaviourPunCallbacks
 
         return false;
     }
-
+    
     public void Activate(Vector3 pos)
     {
         if (!IsLocalPlayerGod()) return;
@@ -52,13 +49,11 @@ public class LaserManager : MonoBehaviourPunCallbacks
 
         photonView.RPC(nameof(ActivateRPC), RpcTarget.All, pos.x, pos.z);
     }
-
     public void UpdatePosition(Vector3 worldPos)
     {
         if (!_isAiming) return;
         _targetPosition = worldPos;
     }
-
     public void Stop()
     {
         if (!_isAiming) return;
@@ -66,7 +61,7 @@ public class LaserManager : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(StopRPC), RpcTarget.All);
         _isAiming = false;
     }
-
+    
     [PunRPC]
     public void ActivateRPC(float x, float z)
     {
@@ -75,7 +70,6 @@ public class LaserManager : MonoBehaviourPunCallbacks
         _col.enabled = true;
         _isAiming = true;
     }
-
     [PunRPC]
     public void StopRPC()
     {

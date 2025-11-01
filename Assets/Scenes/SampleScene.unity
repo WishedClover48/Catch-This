@@ -1413,7 +1413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &931278172
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2194,7 +2194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1370704726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3299,7 +3299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3673cd7f30fecdb4ab42a06605709786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 396477156}
 --- !u!1001 &2051853878
 PrefabInstance:
   m_ObjectHideFlags: 0
