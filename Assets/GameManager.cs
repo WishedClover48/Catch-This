@@ -128,15 +128,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void SetGodPlayer(bool isGod)
     {
-        ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
-        playerProperties["GodPlayer"] = isGod;
+        ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable { ["GodPlayer"] = isGod };
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
 
     private void SetReadyProperty(bool value) 
     {
-        ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
-        playerProperties["ReadyToGo"] = value;
+        ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable { ["ReadyToGo"] = value };
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
 
@@ -167,7 +165,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         _godSelector = PhotonNetwork.PlayerList[Random.Range(0, PhotonNetwork.PlayerList.Length)];
         
-        Debug.Log("Beep boop changing god...");
+        Debug.Log("Beep boop changing god..." + _godSelector.ActorNumber);
     }
 
     [PunRPC]
@@ -188,7 +186,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
     [PunRPC]
-    public void SetGodNumber(int number) {
+    public void SetGodNumber(int number) 
+    {
         PlayersManager.Instance.godActorNumber = number;
         SetReadyProperty(true);
     }

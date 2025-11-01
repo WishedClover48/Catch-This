@@ -29,10 +29,6 @@ public class GodUI : MonoBehaviour
 
     private void SetText()
     {
-        
-
-        
-        return;
         var maxPlayers = 10; //How many players in the round (-1 GodPlayer)
         var alivePlayers = 2; //How many players are left
         

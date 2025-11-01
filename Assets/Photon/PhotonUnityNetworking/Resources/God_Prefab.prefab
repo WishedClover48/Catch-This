@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2667668574024343403}
   - component: {fileID: 7818499509530865683}
   - component: {fileID: 7840282493415604291}
+  - component: {fileID: 189118420960263531}
   - component: {fileID: 2418479389259470209}
   - component: {fileID: 8015893678193884327}
-  - component: {fileID: 189118420960263531}
   m_Layer: 0
   m_Name: God_Prefab
   m_TagString: Untagged
@@ -75,6 +75,24 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &189118420960263531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2667668574024343402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708ac566aa8eeca40ba20a09855a69e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldOfView: 60
+  rotation: {x: 0.42261827, y: 0, z: 0, w: 0.90630776}
+  uiPrefab: {fileID: 7395668392235699716, guid: 48c90372a27ef2945a58577a8998d539, type: 3}
+  attacksList:
+  - {fileID: 2418479389259470209}
+  - {fileID: 8015893678193884327}
 --- !u!114 &2418479389259470209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,21 +130,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   input: 324
---- !u!114 &189118420960263531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2667668574024343402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 708ac566aa8eeca40ba20a09855a69e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fieldOfView: 60
-  rotation: {x: 0.42261827, y: 0, z: 0, w: 0.90630776}
-  uiPrefab: {fileID: 7395668392235699716, guid: 48c90372a27ef2945a58577a8998d539, type: 3}
-  attacksList:
-  - {fileID: 2418479389259470209}
-  - {fileID: 8015893678193884327}
