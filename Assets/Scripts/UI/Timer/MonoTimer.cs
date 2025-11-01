@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MonoTimer : MonoBehaviour
 {
-    public readonly Timer _timer = new Timer();
+    private readonly Timer _timer = new Timer();
     public event Action TimerFinished;
 
     private void Start()
