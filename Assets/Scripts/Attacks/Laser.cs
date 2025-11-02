@@ -29,7 +29,7 @@ public class Laser : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if (!_isAiming || sphere == null) return;
+        if (!_isAiming) return;
 
         sphere.transform.position = Vector3.Lerp(sphere.transform.position, _targetPosition, Time.deltaTime * speed);
     }
@@ -61,13 +61,14 @@ public class Laser : MonoBehaviourPunCallbacks
         if (!_isAiming) return;
 
         photonView.RPC(nameof(StopRPC), RpcTarget.All);
-        _isAiming = false;
     }
     
     [PunRPC]
     public void ActivateRPC(float x, float z)
     {
-        sphere.transform.position = new Vector3(x,0,z);
+        var pos = new Vector3(x, 0, z);
+        sphere.transform.position = pos;
+        Debug.Log("Activated Laser at: " + sphere.transform.position);
         sphere.SetActive(true);
         _col.enabled = true;
         _isAiming = true;
@@ -75,8 +76,9 @@ public class Laser : MonoBehaviourPunCallbacks
     [PunRPC]
     public void StopRPC()
     {
-        sphere.SetActive(false);
+        sphere.transform.position = new Vector3(0,50,0);
         _col.enabled = false;
+        sphere.SetActive(false);
         _isAiming = false;
     }
 }

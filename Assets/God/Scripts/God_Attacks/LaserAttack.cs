@@ -27,7 +27,7 @@ public class LaserAttack : GodAttack
             }
         }
 
-        if (UnityEngine.Input.GetKeyDown(input) && !OnCooldown)
+        if (UnityEngine.Input.GetKey(input) && !OnCooldown)
         {
             if (GetClickPosition(out var mPos))
             {
@@ -35,7 +35,7 @@ public class LaserAttack : GodAttack
             }
         }
 
-        if (UnityEngine.Input.GetKeyDown(input))
+        if (UnityEngine.Input.GetKeyUp(input))
         {
             _laserManager.Stop();
             StartCoroutine(CooldownRoutine());

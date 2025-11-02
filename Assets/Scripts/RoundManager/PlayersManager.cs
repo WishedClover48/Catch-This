@@ -14,14 +14,12 @@ public class PlayersManager : MonoBehaviourPunCallbacks
     
     private void Awake()
     {
-        Debug.Log("PM Awake");
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            Debug.Log("Duplicate PlayersManager found, destroying self");
             Destroy(gameObject);
         }
     }
