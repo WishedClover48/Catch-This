@@ -6,6 +6,7 @@ using UnityEngine;
 public class LaserSphere : MonoBehaviourPunCallbacks
 {
     [SerializeField] private LayerMask playerMask;
+
     private void OnTriggerEnter(Collider collision)
     {
         if(!photonView.IsMine) return;

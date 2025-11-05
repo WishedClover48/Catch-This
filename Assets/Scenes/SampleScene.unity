@@ -1436,8 +1436,8 @@ GameObject:
   - component: {fileID: 931278174}
   - component: {fileID: 931278173}
   - component: {fileID: 931278172}
-  - component: {fileID: 931278176}
   - component: {fileID: 931278177}
+  - component: {fileID: 931278178}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1523,22 +1523,6 @@ Transform:
   m_Father: {fileID: 1370704727}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &931278176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 931278171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 0
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &931278177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1554,6 +1538,22 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &931278178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931278171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &960411497
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,6 +2233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1370704727}
   - component: {fileID: 1370704728}
+  - component: {fileID: 1370704729}
   - component: {fileID: 1370704726}
   m_Layer: 0
   m_Name: LaserManager
@@ -2254,7 +2255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 931278171}
-  speed: 1
+  timeToActivate: 1
+  speed: 2
 --- !u!4 &1370704727
 Transform:
   m_ObjectHideFlags: 0
@@ -2290,10 +2292,27 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 931278176}
+  - {fileID: 1370704729}
+  - {fileID: 931278178}
   sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1370704729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370704725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &1431554796
 PrefabInstance:
   m_ObjectHideFlags: 0

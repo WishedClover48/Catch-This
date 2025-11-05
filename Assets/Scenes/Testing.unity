@@ -656,7 +656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPrefab: {fileID: 2667668574024343402, guid: 1adc3ae11c7faed4cade43d8bbdf992c, type: 3}
-  spawnPoint: {x: 0, y: 0, z: 0}
+  spawnPoint: {x: 0, y: 50, z: -50}
 --- !u!1 &514471900
 GameObject:
   m_ObjectHideFlags: 0
@@ -2197,6 +2197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 931278171}
+  timeToActivate: 2
   speed: 12
 --- !u!4 &1370704727
 Transform:
