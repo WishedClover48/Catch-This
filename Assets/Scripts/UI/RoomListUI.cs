@@ -4,25 +4,47 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
-using System;
 
 public class RoomListUI : MonoBehaviourPunCallbacks
 {
-    public GameObject roomButtonPrefab;
-    public Transform roomListParent;
+    [Header("References")]
+    [SerializeField] private GameObject roomButtonPrefab;
+    [SerializeField] private Transform roomListParent;
     [SerializeField] private RoomJoin connectButton;
+
+    private Dictionary<string, GameObject> roomButtons = new Dictionary<string, GameObject>();
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-         foreach (RoomInfo room in roomList)
-         {
-             if (room.RemovedFromList || room.PlayerCount >= room.MaxPlayers)
-                 continue;
+        foreach (RoomInfo room in roomList)
+        {
+            if (room.RemovedFromList || room.PlayerCount == 0)
+            {
+                if (roomButtons.ContainsKey(room.Name))
+                {
+                    Destroy(roomButtons[room.Name]);
+                    roomButtons.Remove(room.Name);
+                }
+                continue;
+            }
 
-             //Emprolijar
-             GameObject button = Instantiate(roomButtonPrefab, roomListParent);
-             button.GetComponentInChildren<TextMeshProUGUI>().text = $"{room.Name} ({room.PlayerCount}/{room.MaxPlayers})";
-             button.GetComponent<Button>().onClick.AddListener(() => connectButton.ConnectToRoom(room.Name));
-         } 
+            if (room.PlayerCount >= room.MaxPlayers)
+                continue;
+
+            if (roomButtons.ContainsKey(room.Name))
+            {
+                var text = roomButtons[room.Name].GetComponentInChildren<TextMeshProUGUI>();
+                text.text = $"{room.Name} ({room.PlayerCount}/{room.MaxPlayers})";
+                continue;
+            }
+
+            GameObject button = Instantiate(roomButtonPrefab, roomListParent);
+            button.name = room.Name;
+            button.GetComponentInChildren<TextMeshProUGUI>().text =
+                $"{room.Name} ({room.PlayerCount}/{room.MaxPlayers})";
+
+            button.GetComponent<Button>().onClick.AddListener(() => connectButton.ConnectToRoom(room.Name));
+            roomButtons.Add(room.Name, button);
+        }
     }
 }
