@@ -192,15 +192,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 77239543527568011}
+  meshRenderer: {fileID: 77239543527568008}
   skinsList:
-  - Skin: 0
-    Mesh: {fileID: 3143485803880685963, guid: 4e3648d5021371e43accf41080cb30bb, type: 3}
-  - Skin: 1
-    Mesh: {fileID: -619554456473623024, guid: 2927c1ad50675464ba47768a4b1dd4b0, type: 3}
-  - Skin: 2
-    Mesh: {fileID: -5140632032198367520, guid: f8fa59433915a2842a6cc29ea9a36b4b, type: 3}
-  - Skin: 2
-    Mesh: {fileID: 3451341277758316768, guid: 69682e2b0eb6a534b84477842e3b75bc, type: 3}
+  - skin: 0
+    mesh: {fileID: 3143485803880685963, guid: 4e3648d5021371e43accf41080cb30bb, type: 3}
+    material: {fileID: 2100000, guid: 75202dc347ac3ba4fb7559b3ef71317d, type: 2}
+  - skin: 1
+    mesh: {fileID: -619554456473623024, guid: 2927c1ad50675464ba47768a4b1dd4b0, type: 3}
+    material: {fileID: 2100000, guid: ca71c8a7242c0d740b7f3567c2571d29, type: 2}
+  - skin: 2
+    mesh: {fileID: -5140632032198367520, guid: f8fa59433915a2842a6cc29ea9a36b4b, type: 3}
+    material: {fileID: 2100000, guid: 23763b6bb4d6a3a4889fd6c689f641fe, type: 2}
+  - skin: 3
+    mesh: {fileID: 3451341277758316768, guid: 69682e2b0eb6a534b84477842e3b75bc, type: 3}
+    material: {fileID: 2100000, guid: fe291a55475673240b77c1a3d37fe176, type: 2}
+  defaultSkin: 0
 --- !u!1 &1263301288462621868
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2782141257274346824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -523,7 +529,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9057003891475302055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 612989e4982f3574bab166f27c77c31e, type: 3}
   m_Name: 
