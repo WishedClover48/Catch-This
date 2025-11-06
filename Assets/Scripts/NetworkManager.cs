@@ -35,7 +35,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         roomOptions.MaxPlayers = 16;
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "gameStarted", false } };
         roomOptions.CustomRoomPropertiesForLobby = new string[] { "gameStarted" };
-
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
     }
 

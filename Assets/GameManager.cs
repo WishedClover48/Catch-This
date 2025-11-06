@@ -164,8 +164,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         _godSelector = PhotonNetwork.PlayerList[Random.Range(0, PhotonNetwork.PlayerList.Length)];
         
-        _godSelector = PhotonNetwork.PlayerList[0];
-        
         Debug.Log("Beep boop changing god..." + _godSelector.ActorNumber);
     }
 

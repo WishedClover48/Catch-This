@@ -12,6 +12,6 @@ public class Forrada : MonoBehaviourPunCallbacks
     }
     private void SpawnPlayer()
     {
-        PhotonNetwork.Instantiate(spawnPrefab.name, new Vector3(0, 50, -50), Quaternion.identity);
+        PhotonNetwork.Instantiate(spawnPrefab.name, spawnPoint, Quaternion.identity);
     }
 }
