@@ -7,21 +7,26 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public float moveSpeed = 5f; 
-    private Camera _playerCam;
+    [Space]
+    [Header("Camera config")]
     [SerializeField] private Vector3 cameraOffset;
     [SerializeField] private Quaternion cameraRotation;
+    [Space]
+    [Header("Bullet config")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] public float firerate;
+    [Space]
     public LayerMask groundMask;
-    public Action<int, string> OnHit;
-    private PhotonView pv;
     
-    private float nextFireTime = 0f;
-    public PhotonView Pv { get => pv; }
-
+    
+    public Action<int, string> OnHit;
+    public PhotonView Pv { get; private set; }
+    private float _nextFireTime = 0f;
+    private Camera _playerCam;
+    
     void Start()
     {
-        pv = GetComponent<PhotonView>();
+        Pv = GetComponent<PhotonView>();
 
         // Enable it only for the local player
         if (photonView.IsMine)
@@ -50,9 +55,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         transform.position += movement * (moveSpeed * Time.deltaTime);
         _playerCam.transform.position = transform.position + cameraOffset;
 
-        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+        if (Input.GetMouseButton(0) && Time.time >= _nextFireTime)
         {
-            nextFireTime = Time.time + 1f / firerate;
+            _nextFireTime = Time.time + 1f / firerate;
 
             var bullet = PhotonNetwork.Instantiate(bulletPrefab.name, transform.position, transform.rotation);
             bullet.GetComponent<Bullet>().SetUpOwner(gameObject, photonView.Owner);
