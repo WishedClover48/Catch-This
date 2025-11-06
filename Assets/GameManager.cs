@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     private bool _amIGod = false;
-    public int roundsPassed = 0;
+    //public int roundsPassed = 0;
     [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
     [field: SerializeField] public GameObject GodPrefab { get; private set; }
     [field: SerializeField] public Transform[] SpawnPoints { get; private set; }
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void StartRound()
     {
-        roundsPassed++;
+        RoundData.Instance.PassRound();
         RoundStart?.Invoke();
         SpawnPlayer();
     }
