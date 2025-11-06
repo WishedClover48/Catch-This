@@ -8,11 +8,14 @@ using System;
 public class SkinAssigner : MonoBehaviourPunCallbacks
 {
     [SerializeField] private MeshFilter meshFilter;
+    [SerializeField] private Material mat;
     [SerializeField] SkinPair[] skinsList;
     private Dictionary<Skins, Mesh> skinsDictionary = new Dictionary<Skins, Mesh>();
+
     private void Awake()
     {
         Photon.Realtime.Player goOwner = photonView.Owner;
+
         foreach(SkinPair sk in skinsList)
         {
             skinsDictionary.Add(sk.Skin, sk.Mesh);
@@ -24,6 +27,7 @@ public class SkinAssigner : MonoBehaviourPunCallbacks
             value = 0;
         var skin = (Skins)value;
         skinsDictionary.TryGetValue(skin, out var boca);
+
         meshFilter.mesh = boca;
         
     }
@@ -34,6 +38,7 @@ public class SkinAssigner : MonoBehaviourPunCallbacks
     {
         public Skins Skin;
         public Mesh Mesh;
+        public Material Material;
     }
 }
 

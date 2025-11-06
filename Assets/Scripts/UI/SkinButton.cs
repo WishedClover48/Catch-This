@@ -14,6 +14,8 @@ public class SkinButton : MonoBehaviourPunCallbacks
         playerProperties["Skin"] = selectedSkin;
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
+
+    //Testing
     [ContextMenu("ShowSelectedSkin")]
     public void GetPlayerSkin()
     {
@@ -25,7 +27,8 @@ public class SkinButton : MonoBehaviourPunCallbacks
 
 public enum Skins
 {
-    Black = 0,
-    Red = 1,
-    Blue = 2,
+    Bepi = 0,
+    Granny = 1,
+    Viking = 2,
+    Mouse = 3,
 }

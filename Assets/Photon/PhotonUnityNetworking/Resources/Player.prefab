@@ -194,11 +194,13 @@ MonoBehaviour:
   meshFilter: {fileID: 77239543527568011}
   skinsList:
   - Skin: 0
-    Mesh: {fileID: 4300002, guid: c8680fab33c72bb4ba3e31987e0b0182, type: 3}
+    Mesh: {fileID: 3143485803880685963, guid: 4e3648d5021371e43accf41080cb30bb, type: 3}
   - Skin: 1
-    Mesh: {fileID: 4300010, guid: 7b912c5dfa554a04296ecbf246180058, type: 3}
+    Mesh: {fileID: -619554456473623024, guid: 2927c1ad50675464ba47768a4b1dd4b0, type: 3}
   - Skin: 2
-    Mesh: {fileID: 4300000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+    Mesh: {fileID: -5140632032198367520, guid: f8fa59433915a2842a6cc29ea9a36b4b, type: 3}
+  - Skin: 2
+    Mesh: {fileID: 3451341277758316768, guid: 69682e2b0eb6a534b84477842e3b75bc, type: 3}
 --- !u!1 &1263301288462621868
 GameObject:
   m_ObjectHideFlags: 0
