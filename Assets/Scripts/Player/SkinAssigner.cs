@@ -62,6 +62,7 @@ public class SkinAssigner : MonoBehaviourPunCallbacks
     public struct SkinPair
     {
         public Skins skin; //Skins is an Enum, each skin has its own value.
+        public GameObject skinObject;
         public Mesh mesh;
         public Material material;
     }
