@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8728284512443935721}
   - component: {fileID: 8683231053537186423}
   - component: {fileID: 5444064689476670410}
+  - component: {fileID: -4138363496923510919}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -124,6 +125,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  animator: {fileID: -4138363496923510919}
 --- !u!114 &77239543527568007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +209,27 @@ MonoBehaviour:
     mesh: {fileID: 3451341277758316768, guid: 69682e2b0eb6a534b84477842e3b75bc, type: 3}
     material: {fileID: 2100000, guid: fe291a55475673240b77c1a3d37fe176, type: 2}
   defaultSkin: 0
+--- !u!95 &-4138363496923510919
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77239543527568004}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 4e3648d5021371e43accf41080cb30bb, type: 3}
+  m_Controller: {fileID: 9100000, guid: 678035894c812fd4ab0535bd2219bbde, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1263301288462621868
 GameObject:
   m_ObjectHideFlags: 0

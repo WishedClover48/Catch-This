@@ -17,17 +17,20 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     [SerializeField] public float firerate;
     [Space]
     public LayerMask groundMask;
-    
+    [SerializeField] private Animator animator;
     
     public Action<int, string> OnHit;
     public PhotonView Pv { get; private set; }
     private float _nextFireTime = 0f;
     private Camera _playerCam;
     
+    private Vector3 _lastPosition;
     void Start()
     {
         Pv = GetComponent<PhotonView>();
 
+        _lastPosition = transform.position;
+        
         // Enable it only for the local player
         if (photonView.IsMine)
         {
@@ -40,29 +43,53 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     void Update()
     {
         // Ensure only the local player moves this instance
-        if (!photonView.IsMine) return;
-        
-        LookAt();
-        
-        // Get input
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveZ = Input.GetAxisRaw("Vertical");
-
-        // Calculate direction
-        Vector3 movement = new Vector3(moveX, 0f, moveZ).normalized;
-
-        // Move the player & camera
-        transform.position += movement * (moveSpeed * Time.deltaTime);
-        _playerCam.transform.position = transform.position + cameraOffset;
-
-        if (Input.GetMouseButton(0) && Time.time >= _nextFireTime)
+        if (photonView.IsMine)
         {
-            _nextFireTime = Time.time + 1f / firerate;
+            LookAt();
 
-            var bullet = PhotonNetwork.Instantiate(bulletPrefab.name, transform.position, transform.rotation);
-            bullet.GetComponent<Bullet>().SetUpOwner(gameObject, photonView.Owner);
+            // Get input
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveZ = Input.GetAxisRaw("Vertical");
+
+            // Direction
+            Vector3 movement = new Vector3(moveX, 0f, moveZ).normalized;
+
+            // Move player
+            transform.position += movement * (moveSpeed * Time.deltaTime);
+
+            // Move camera
+            if (_playerCam != null)
+            {
+                _playerCam.transform.position = transform.position + cameraOffset;
+            }
+
+            // Shooting
+            if (Input.GetMouseButton(0) && Time.time >= _nextFireTime)
+            {
+                _nextFireTime = Time.time + 1f / firerate;
+
+                var bullet = PhotonNetwork.Instantiate(bulletPrefab.name, transform.position, transform.rotation);
+                bullet.GetComponent<Bullet>().SetUpOwner(gameObject, photonView.Owner);
+            }
         }
+
+        UpdateAnimation();
     }
+    
+    private void UpdateAnimation()
+    {
+        if (animator == null)
+            return;
+
+        Vector3 delta = transform.position - _lastPosition;
+        float speed = delta.magnitude / Mathf.Max(Time.deltaTime, 0.0001f);
+
+        bool isWalking = speed > 0.01f;
+        animator.SetBool("IsWalking", isWalking);
+    
+        _lastPosition = transform.position;
+    }
+
     void LookAt()
     {
         Ray ray = _playerCam.ScreenPointToRay(Input.mousePosition);
