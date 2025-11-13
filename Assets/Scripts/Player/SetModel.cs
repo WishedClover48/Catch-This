@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class SetModel : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private Animator animator;
     [Header("Models")]
     [SerializeField] private Model[] modelList;
+    [Space]
     [SerializeField] private Skins defaultModel = 0;
 
     private void Start()
@@ -24,9 +26,11 @@ public class SetModel : MonoBehaviourPunCallbacks
                 _ => selectedSkin
             };
         }
-        
+
+        var m = FindModel(selectedSkin);
         var pos = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
-        Instantiate(FindModel(selectedSkin).model, pos, transform.rotation, transform);
+        Instantiate(m.model, pos, transform.rotation, transform);
+        animator.avatar = m.avatar;
     }
     
     private Model FindModel(Skins skin)
@@ -51,5 +55,6 @@ public class SetModel : MonoBehaviourPunCallbacks
     {
         public Skins name; //Skins is an Enum, each skin has its own value.
         public GameObject model;
+        public Avatar avatar;
     }
 }

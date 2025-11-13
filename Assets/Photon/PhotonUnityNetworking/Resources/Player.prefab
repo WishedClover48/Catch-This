@@ -162,15 +162,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7190b4c448a1d448daa79d7c9eb4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: -4138363496923510919}
   modelList:
   - name: 0
     model: {fileID: 919132149155446097, guid: 4e3648d5021371e43accf41080cb30bb, type: 3}
+    avatar: {fileID: 9000000, guid: 4e3648d5021371e43accf41080cb30bb, type: 3}
   - name: 1
     model: {fileID: 919132149155446097, guid: 2927c1ad50675464ba47768a4b1dd4b0, type: 3}
+    avatar: {fileID: 9000000, guid: 2927c1ad50675464ba47768a4b1dd4b0, type: 3}
   - name: 2
     model: {fileID: 919132149155446097, guid: f8fa59433915a2842a6cc29ea9a36b4b, type: 3}
+    avatar: {fileID: 9000000, guid: f8fa59433915a2842a6cc29ea9a36b4b, type: 3}
   - name: 3
     model: {fileID: 919132149155446097, guid: 69682e2b0eb6a534b84477842e3b75bc, type: 3}
+    avatar: {fileID: 9000000, guid: 69682e2b0eb6a534b84477842e3b75bc, type: 3}
   defaultModel: 0
 --- !u!1 &1263301288462621868
 GameObject:
