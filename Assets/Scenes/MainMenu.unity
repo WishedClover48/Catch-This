@@ -847,7 +847,7 @@ MonoBehaviour:
   LobbyButton: {fileID: 1305547009}
   gameStartedPanel: {fileID: 231465758}
   connectedImage: {fileID: 391298750}
-  nameHelper: {fileID: 0}
+  nameHelper: {fileID: 707279384}
 --- !u!4 &277095008
 Transform:
   m_ObjectHideFlags: 0
@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 135.25
+  m_fontSize: 119.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1379,6 +1379,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597682430}
   m_CullTransparentMesh: 1
+--- !u!1 &707279383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 707279387}
+  - component: {fileID: 707279386}
+  - component: {fileID: 707279385}
+  - component: {fileID: 707279384}
+  m_Layer: 0
+  m_Name: Lootlocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &707279384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707279383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032289629a9a88644938d7de4bab5e3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &707279385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707279383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d63f45ec1e4ad7499bf490c55c08b01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &707279386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707279383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85480bf64c8957741b67d0c521a39a40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &707279387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707279383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 40.128613, y: 4.3080707, z: -13.816855}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &806047012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1982,6 +2052,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: highScoreLeaderBoard
       objectReference: {fileID: 0}
+    - target: {fileID: 2794591482140859644, guid: 722b1f73a125b35428adc523bd98a92e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2794591482140859645, guid: 722b1f73a125b35428adc523bd98a92e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2299,7 +2373,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.1
+  m_fontSize: 44.85
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3255,7 +3329,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.1
+  m_fontSize: 44.85
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
