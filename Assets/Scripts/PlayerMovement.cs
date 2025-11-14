@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     [Space]
     public LayerMask groundMask;
     [SerializeField] private Animator animator;
+
+    [Space]
+    [SerializeField] private AnimationSV animationSync;
     
     public Action<int, string> OnHit;
     public PhotonView Pv { get; private set; }
@@ -67,6 +70,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             if (Input.GetMouseButton(0) && Time.time >= _nextFireTime)
             {
                 animator.SetTrigger("IsShooting");
+                animationSync.FireShootTrigger();
 
                 _nextFireTime = Time.time + 1f / firerate;
 
