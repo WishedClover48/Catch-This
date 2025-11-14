@@ -10,6 +10,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] Button LobbyButton;
     [SerializeField] private GameObject gameStartedPanel;
     [SerializeField] private Image connectedImage;
+    [SerializeField] private PlayerNameHelper nameHelper;
 
     void Start()
     {
@@ -62,7 +63,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             }
             return;
         }
-        
+        nameHelper.StartSettingName(PhotonNetwork.NickName);
+
         Debug.Log("Player '" + PhotonNetwork.NickName + "' joined the room!");
         PhotonNetwork.LoadLevel("Lobby");
     }

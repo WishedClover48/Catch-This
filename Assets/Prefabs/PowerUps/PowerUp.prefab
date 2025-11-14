@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8508792090566689984}
   - component: {fileID: 4441764323665097950}
   - component: {fileID: 3788649920333562911}
+  - component: {fileID: 197818745246143060}
   m_Layer: 0
   m_Name: Creator
   m_TagString: Untagged
@@ -62,6 +63,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &197818745246143060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559867448117832266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3066309544249440129
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,6 +96,7 @@ GameObject:
   - component: {fileID: 3608382273096584891}
   - component: {fileID: 7883913301894359054}
   - component: {fileID: 3654421577511193105}
+  - component: {fileID: 5603367174953107286}
   m_Layer: 0
   m_Name: PowerUp
   m_TagString: Untagged
@@ -126,6 +150,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creator: {fileID: 1559867448117832266}
   respawnDelay: 6
+--- !u!114 &5603367174953107286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3066309544249440129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &4488915403406406380
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +184,7 @@ GameObject:
   - component: {fileID: 94212093931729996}
   - component: {fileID: 6849427437509064776}
   - component: {fileID: 8674191883685820176}
+  - component: {fileID: 7667543576819392565}
   m_Layer: 0
   m_Name: Marker
   m_TagString: Untagged
@@ -222,3 +269,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7667543576819392565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4488915403406406380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
