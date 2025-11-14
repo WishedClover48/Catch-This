@@ -1,9 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class ChestLogic : MonoBehaviourPunCallbacks
 {
@@ -30,7 +28,6 @@ public class ChestLogic : MonoBehaviourPunCallbacks
             if(Coroutine != null)
                 StopCoroutine(Coroutine); 
             SetPlayerVariable(PhotonNetwork.LocalPlayer,HashName,true);
-            //GetComponent<MeshRenderer>().material.color = Color.green;
             Coroutine = StartCoroutine(TurnOfProperty());
             StartCoroutine(TurnOfProperty());
         }
@@ -43,7 +40,6 @@ public class ChestLogic : MonoBehaviourPunCallbacks
     IEnumerator TurnOfProperty()
     {
         yield return new WaitForSeconds(3);
-        //GetComponent<MeshRenderer>().material.color = Color.white;
         SetPlayerVariable(PhotonNetwork.LocalPlayer, HashName, false);
     }
     void CheckIfAllAreActive()
@@ -51,10 +47,8 @@ public class ChestLogic : MonoBehaviourPunCallbacks
         var list = Physics.OverlapSphere(transform.position, 5, layer);
         if (list.Length == 0)
         {
-            //GetComponent<MeshRenderer>().material.color = Color.blue;
             return;
         }
-        //GetComponent<MeshRenderer>().material.color = Color.yellow;
         foreach (var item in list)
         {
             item.GetComponent<PhotonView>().Owner.CustomProperties.TryGetValue(HashName,out var test);

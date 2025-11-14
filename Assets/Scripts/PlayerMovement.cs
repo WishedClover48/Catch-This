@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             // Shooting
             if (Input.GetMouseButton(0) && Time.time >= _nextFireTime)
             {
+                animator.SetTrigger("IsShooting");
+
                 _nextFireTime = Time.time + 1f / firerate;
 
                 var bullet = PhotonNetwork.Instantiate(bulletPrefab.name, transform.position, transform.rotation);
