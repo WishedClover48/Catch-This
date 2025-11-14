@@ -73,7 +73,7 @@ public class ChestLogic : MonoBehaviourPunCallbacks
 
     private void GiveRewards(List<Player> players)
     {
-        PhotonNetwork.Instantiate("PowerUpChest", transform.position + new Vector3(0,0.2f,0), transform.localRotation);
+        PhotonNetwork.Instantiate("PowerUpChest", transform.position + new Vector3(0,1f,0), transform.localRotation);
         foreach (Player player in players)
         {
             player.AddScore(2);
@@ -89,7 +89,7 @@ public class ChestLogic : MonoBehaviourPunCallbacks
     }
     IEnumerator WaitForAnimation()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
 
         gameObject.SetActive(false);
     }
