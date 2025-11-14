@@ -2,36 +2,41 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Photon.Pun.UtilityScripts;
 
 public class ChestLogic : MonoBehaviourPunCallbacks
 {
     private int ChestID;
     Coroutine Coroutine;
     [SerializeField] private LayerMask layer;
+    [SerializeField] private float activatedTime;
     string HashName;
-    [SerializeField] private Color ClaimdColor;
+    [SerializeField] private Animator animator;
+    private bool isOpened;
     void Start()
     {
         HashName = ChestID.ToString() + "ChestPress";
+        isOpened = false;
     }
 
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && !isOpened)
             CheckIfAllAreActive();
-
     }
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && Input.GetKeyDown(KeyCode.Space)) 
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && Input.GetKeyDown(KeyCode.Space))
         {
-            if(Coroutine != null)
-                StopCoroutine(Coroutine); 
-            SetPlayerVariable(PhotonNetwork.LocalPlayer,HashName,true);
+            if (Coroutine != null)
+                StopCoroutine(Coroutine);
+            SetPlayerVariable(PhotonNetwork.LocalPlayer, HashName, true);
             Coroutine = StartCoroutine(TurnOfProperty());
             StartCoroutine(TurnOfProperty());
         }
     }
+    
     private void SetPlayerVariable(Player player, string variable, bool value)
     {  
         ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable { { variable, value } };
@@ -39,31 +44,53 @@ public class ChestLogic : MonoBehaviourPunCallbacks
     }
     IEnumerator TurnOfProperty()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(activatedTime);
         SetPlayerVariable(PhotonNetwork.LocalPlayer, HashName, false);
     }
     void CheckIfAllAreActive()
     {
-        var list = Physics.OverlapSphere(transform.position, 5, layer);
-        if (list.Length == 0)
+        Collider[] list = Physics.OverlapSphere(transform.position, 5, layer);
+        if (list.Length <= 1)
         {
             return;
         }
-        foreach (var item in list)
+        List<Player> playersInRange = new List<Player>();
+        foreach (Collider item in list)
         {
-            item.GetComponent<PhotonView>().Owner.CustomProperties.TryGetValue(HashName,out var test);
-            if ((bool)test == false)
+            Player currentPlayer = item.GetComponent<PhotonView>().Owner;
+            currentPlayer.CustomProperties.TryGetValue(HashName,out var chestPressed);
+            if ((bool)chestPressed == false)
             {
                 return;
             }
+            playersInRange.Add(currentPlayer);
         }
+        isOpened = true;
+        GiveRewards(playersInRange);
         ChestEffect();
-        photonView.RPC("ChestEffect",RpcTarget.AllBuffered);
+        photonView.RPC("ChestEffect",RpcTarget.Others);
     }
+
+    private void GiveRewards(List<Player> players)
+    {
+        PhotonNetwork.Instantiate("PowerUpChest", transform.position + new Vector3(0,0.2f,0), transform.localRotation);
+        foreach (Player player in players)
+        {
+            player.AddScore(2);
+        }
+    }
+
     [PunRPC]
     private void ChestEffect()
     {
-        Debug.Log("pepe");   
-        GetComponent<MeshRenderer>().material.color = Color.red;
+        animator.SetTrigger("IsOpened");
+        Debug.Log("pepe");
+        StartCoroutine(WaitForAnimation());
+    }
+    IEnumerator WaitForAnimation()
+    {
+        yield return new WaitForSeconds(3);
+
+        gameObject.SetActive(false);
     }
 }

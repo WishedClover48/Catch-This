@@ -1,16 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PowerUpChooser : MonoBehaviour
+public class PowerUpChooser : MonoBehaviourPun
 {
     [SerializeField] private List<GameObject> powerUpList;
     [SerializeField] private PowerUpRespawn spawner;
-    private GameObject _currentPowerUpInstance;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        gameObject.SetActive(false);
-    }
+    private GameObject _currentPowerUpInstance;
 
     private void OnEnable()
     {
@@ -20,8 +17,23 @@ public class PowerUpChooser : MonoBehaviour
             return;
         }
 
-        int randomIndex = Random.Range(0, powerUpList.Count);
-        GameObject chosenPrefab = powerUpList[randomIndex];
+        if (PhotonNetwork.IsMasterClient)
+        {
+            int randomIndex = Random.Range(0, powerUpList.Count);
+
+            photonView.RPC(nameof(RPC_SpawnPowerUp), RpcTarget.All, randomIndex);
+        }
+    }
+
+    [PunRPC]
+    private void RPC_SpawnPowerUp(int index)
+    {
+        if (_currentPowerUpInstance != null)
+        {
+            Destroy(_currentPowerUpInstance);
+        }
+
+        GameObject chosenPrefab = powerUpList[index];
 
         _currentPowerUpInstance = Instantiate(
             chosenPrefab,
@@ -38,6 +50,12 @@ public class PowerUpChooser : MonoBehaviour
             Destroy(_currentPowerUpInstance);
             _currentPowerUpInstance = null;
         }
+
         spawner.DisableCreator();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        gameObject.SetActive(false);
     }
 }
