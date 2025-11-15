@@ -63,6 +63,9 @@ MonoBehaviour:
   - ActivateCollider
   - SetTargetPos
   - RPC_SpawnPowerUp
+  - RPC_ActivateLavaLake
+  - RPC_SetNotSpawnIndex
+  - RPC_ResetLavaLakes
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
