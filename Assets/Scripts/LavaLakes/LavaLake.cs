@@ -67,6 +67,7 @@ public class LavaLake : MonoBehaviourPunCallbacks
     }
     private void OnTriggerEnter(Collider other)
     {
+        other.gameObject.GetComponent<Notif>().ShowText("Danger Lava");
         if (!PhotonNetwork.IsMasterClient) return;
 
         if (!_playersOnLava.ContainsKey(other.gameObject))
@@ -76,8 +77,9 @@ public class LavaLake : MonoBehaviourPunCallbacks
     }
     private void OnTriggerExit(Collider other)
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
+        other.gameObject.GetComponent<Notif>().HideText();
+        
+        if (!PhotonNetwork.IsMasterClient) return;
 
         if (_playersOnLava.ContainsKey(other.gameObject))
         {
