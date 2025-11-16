@@ -77,7 +77,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
 
     private void RoundEnd()
     {
-        if (RoundData.Instance.roundsPassed >= Mathf.Clamp(PhotonNetwork.PlayerList.Length * 3, 4, 20))
+        if (RoundData.Instance.roundsPassed >=2) //Mathf.Clamp(PhotonNetwork.PlayerList.Length * 3, 4, 20))
         { 
             photonView.RPC("OnMatchFinished", RpcTarget.All);
         }
@@ -90,6 +90,10 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void OnMatchFinished()
     {
+        LeaderboardService.SubmitScore(PhotonNetwork.LocalPlayer.GetScore(),"gloabalmaxpoints", success =>
+        {
+            Debug.Log("Submit done: " + success);
+        });
         RoundData.Instance.ResetRounds();
         PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
          PhotonNetwork.LoadLevel("Lobby");

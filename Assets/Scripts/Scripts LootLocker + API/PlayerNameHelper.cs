@@ -22,16 +22,4 @@ public class PlayerNameHelper : MonoBehaviour
             }
         });
     }
-    public void StartSettingName(string name)
-    {
-        StartCoroutine(SetName(name));
-    }
-    public IEnumerator SetName(string name)
-    {
-        //while (!FinishedLoading)
-        //{
-            SetPlayerName(name);
-            yield return new WaitForSeconds(1f);
-        //}
-    }
 }

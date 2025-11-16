@@ -7,14 +7,6 @@ public class LeaderboardService : MonoBehaviour
 {
     public static void SubmitScore(int score, string leaderboardKey, System.Action<bool> onDone = null)
     {
-        LootLockerSDKManager.SetPlayerName("nacho98", response =>
-        {
-            if (!response.success)
-            {
-                Debug.LogError("Fallo al setear el nombre");
-                Debug.Log(response.errorData.message);
-            }
-        });
         LootLockerSDKManager.SubmitScore("", score, leaderboardKey, response =>
         {
             if (!response.success)
