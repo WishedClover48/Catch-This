@@ -5,6 +5,7 @@ using Photon.Realtime;
 using UnityEngine;
 using System.Collections.Generic;
 using Photon.Pun.UtilityScripts;
+using System.Collections;
 
 public class RoundsManager : MonoBehaviourPunCallbacks
 {
@@ -44,7 +45,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
         _roundActive = true;
     }
 
-    void EndRound()
+    public void EndRound()
     {
         _roundActive = false;
         Debug.Log("Round finished");
@@ -77,7 +78,8 @@ public class RoundsManager : MonoBehaviourPunCallbacks
 
     private void RoundEnd()
     {
-        if (RoundData.Instance.roundsPassed >=2) //Mathf.Clamp(PhotonNetwork.PlayerList.Length * 3, 4, 20))
+        if (RoundData.Instance.roundsPassed >= Mathf.Clamp(PhotonNetwork.PlayerList.Length * 3, 4, 20) || 
+            PhotonNetwork.PlayerList.Length == 1)
         { 
             photonView.RPC("OnMatchFinished", RpcTarget.All);
         }
@@ -98,6 +100,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
         PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
          PhotonNetwork.LoadLevel("Lobby");
     }
+    
     [PunRPC]
     void OnRoundEnd()
     {

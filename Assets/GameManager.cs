@@ -118,7 +118,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            var idx = PhotonNetwork.LocalPlayer.ActorNumber - 2; //One for the god and one for the zero start of arrays
+            //int idx = Random.Range(0, SpawnManager.Instance.SpawnPoints.Count);
+            //var idx = PhotonNetwork.LocalPlayer.ActorNumber - 2; //One for the god and one for the zero start of arrays
+            int idx = Array.IndexOf(PhotonNetwork.PlayerList, PhotonNetwork.LocalPlayer) - 1;
             Vector3 spawnPoint = SpawnManager.Instance.GetSpawnPoint(idx);
             var pasant = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint, Quaternion.identity);
             
