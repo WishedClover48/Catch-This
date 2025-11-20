@@ -59,7 +59,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
             // Move player
             transform.position += movement * (moveSpeed * Time.deltaTime);
-
+            //if(transform.position.y >= 1.7f)
+            //{
+            //    transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+            //}
             // Move camera
             if (_playerCam != null)
             {
