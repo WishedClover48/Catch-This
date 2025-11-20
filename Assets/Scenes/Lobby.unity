@@ -432,7 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 187269206}
   chatDisplay: {fileID: 2079336160}
-  filter: {fileID: 0}
+  filter: {fileID: 2847167}
 --- !u!1 &162059099
 GameObject:
   m_ObjectHideFlags: 0
