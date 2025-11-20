@@ -25,16 +25,22 @@ public class AnimationSV : MonoBehaviourPun, IPunObservable
         {
             IsWalking = animator.GetBool("IsWalking");
 
-            //if (!HasValuesToSend()) return;
+            bool hasValues = HasValuesToSend();
+            stream.SendNext(hasValues);
 
+            if (!hasValues) return;
+            
             stream.SendNext(IsWalking);
             stream.SendNext(IsShooting);
-
             OldWalking = IsWalking;
             IsShooting = false;
         }
         else
         {
+            bool hasValues = (bool)stream.ReceiveNext();
+
+            if (!hasValues) return;
+            
             OldWalking = (bool)stream.ReceiveNext();
             animator.SetBool("IsWalking", OldWalking);
 
