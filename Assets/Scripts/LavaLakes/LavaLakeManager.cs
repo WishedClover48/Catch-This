@@ -49,7 +49,7 @@ public class LavaLakeManager : MonoBehaviourPunCallbacks
 
         photonView.RPC(nameof(RPC_ActivateLavaLake), RpcTarget.All);
     }
-    [PunRPC] private void RPC_ResetLavaLakes()
+    [PunRPC] public void RPC_ResetLavaLakes()
     {
         _currentIndex = 0;
 
@@ -60,11 +60,11 @@ public class LavaLakeManager : MonoBehaviourPunCallbacks
             lake.SetActive(false);
         }
     }
-    [PunRPC] private void RPC_SetNotSpawnIndex(int index)
+    [PunRPC] public void RPC_SetNotSpawnIndex(int index)
     {
         _notSpawnIndex = index;
     }
-    [PunRPC] private void RPC_ActivateLavaLake()
+    [PunRPC] public void RPC_ActivateLavaLake()
     {
         if (_currentIndex == _notSpawnIndex) _currentIndex++;
         if (_currentIndex >= lavaLakes.Length) return;
