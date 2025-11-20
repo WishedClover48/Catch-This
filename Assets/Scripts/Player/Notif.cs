@@ -3,26 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Notif : MonoBehaviour
 {
-    [SerializeField] private GameObject canvas;
+    [SerializeField] private Image image;
     [SerializeField] private TMP_Text text;
 
     private void Start()
     {
-        canvas.SetActive(false);
+        if (image.IsActive())
+        {
+            image.enabled = false;
+        }
     }
 
     public void ShowText(string value)
     {
-        canvas.SetActive(true);
+        image.enabled = true;
         text.text = value;
     }
 
     public void HideText()
     {
-        text.text = "";
-        canvas.SetActive(false);
+        if (image.IsActive())
+        {
+            image.enabled = false;
+        }
     }
 }

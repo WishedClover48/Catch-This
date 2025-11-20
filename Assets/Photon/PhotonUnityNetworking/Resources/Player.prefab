@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a981292a9c8fd841af7e9d6fd9d3c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 9057003891475302055}
+  image: {fileID: 0}
   text: {fileID: 1413893769071629356}
 --- !u!1 &1263301288462621868
 GameObject:
@@ -549,5 +549,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a981292a9c8fd841af7e9d6fd9d3c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 7144729218851115614}
+  image: {fileID: 5528327907170663614}
   text: {fileID: 1413893769071629356}
