@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a981292a9c8fd841af7e9d6fd9d3c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 5528327907170663614}
   text: {fileID: 1413893769071629356}
 --- !u!1 &1263301288462621868
 GameObject:
@@ -431,8 +431,6 @@ GameObject:
   - component: {fileID: 7144729218851115614}
   - component: {fileID: 3871277085052562480}
   - component: {fileID: 1194341609348752334}
-  - component: {fileID: 4115608855241372600}
-  - component: {fileID: 7118667445720100579}
   m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
@@ -524,30 +522,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4115608855241372600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9057003891475302055}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 612989e4982f3574bab166f27c77c31e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textMeshPro: {fileID: 1413893769071629356}
---- !u!114 &7118667445720100579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9057003891475302055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a981292a9c8fd841af7e9d6fd9d3c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 5528327907170663614}
-  text: {fileID: 1413893769071629356}

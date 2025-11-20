@@ -14,21 +14,30 @@ public class Notif : MonoBehaviour
     {
         if (image.IsActive())
         {
-            image.enabled = false;
+            Hide();
         }
     }
-
     public void ShowText(string value)
     {
-        image.enabled = true;
+        Show();
         text.text = value;
     }
-
     public void HideText()
     {
         if (image.IsActive())
         {
-            image.enabled = false;
+            Hide();
         }
+    }
+
+    private void Show()
+    {
+        image.enabled = true;
+        text.enabled = true;
+    }
+    private void Hide()
+    {
+        image.enabled = false;
+        text.enabled = false;
     }
 }
