@@ -40,7 +40,7 @@ public class DisconectionHandler : MonoBehaviourPunCallbacks
         _waitingSign.SetActive(true);
         _playerReconnected = false;
 
-        yield return new WaitForSecondsRealtime(30);
+        yield return new WaitForSecondsRealtime(5);
 
         _waitingSign.SetActive(false);
         _isWaiting = false;
