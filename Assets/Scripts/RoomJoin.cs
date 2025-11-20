@@ -14,6 +14,8 @@ public class RoomJoin : MonoBehaviour
     public void ConnectToRoom()
     {
         PhotonNetwork.NickName = playerName.text;
+        if (roomName.text.IsNullOrEmpty())
+            return;
         networkManager.JoinARoom(roomName.text);
     }
 

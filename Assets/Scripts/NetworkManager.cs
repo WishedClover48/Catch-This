@@ -20,7 +20,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Connecting to Photon...");
         PhotonNetwork.ConnectUsingSettings();
     }
-
     public override void OnConnectedToMaster()
     {
         connectedImage.color = Color.green;
