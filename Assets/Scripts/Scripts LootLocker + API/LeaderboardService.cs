@@ -23,7 +23,7 @@ public class LeaderboardService : MonoBehaviour
     [ContextMenu("test submit")]
     private void TestSubmit()
     {
-        SubmitScore(134, "gloabalmaxpoints", success =>
+        SubmitScore(25, "gloabalmaxpoints", success =>
         {
             Debug.Log("Submit done: " + success);
         });

@@ -98,7 +98,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
         });
         RoundData.Instance.ResetRounds();
         PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
-         PhotonNetwork.LoadLevel("Lobby");
+        PhotonNetwork.LoadLevel("Lobby");
     }
     
     [PunRPC]

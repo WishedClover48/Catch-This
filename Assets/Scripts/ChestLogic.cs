@@ -29,11 +29,10 @@ public class ChestLogic : MonoBehaviourPunCallbacks
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player") && Input.GetKeyDown(KeyCode.Space))
         {
-            if (Coroutine != null)
+            if (Coroutine != null) 
                 StopCoroutine(Coroutine);
             SetPlayerVariable(PhotonNetwork.LocalPlayer, HashName, true);
             Coroutine = StartCoroutine(TurnOfProperty());
-            StartCoroutine(TurnOfProperty());
         }
     }
     
@@ -84,7 +83,6 @@ public class ChestLogic : MonoBehaviourPunCallbacks
     private void ChestEffect()
     {
         animator.SetTrigger("IsOpened");
-        Debug.Log("pepe");
         StartCoroutine(WaitForAnimation());
     }
     IEnumerator WaitForAnimation()
