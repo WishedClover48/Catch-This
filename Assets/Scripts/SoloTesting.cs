@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-public class Forrada : MonoBehaviourPunCallbacks
+public class SoloTesting : MonoBehaviourPunCallbacks
 {
     [SerializeField] GameObject spawnPrefab;
     [SerializeField] Vector3 spawnPoint;
