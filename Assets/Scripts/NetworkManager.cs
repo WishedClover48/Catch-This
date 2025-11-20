@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
@@ -29,9 +30,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void JoinARoom(string roomName)
     {
-        if (PhotonNetwork.NickName == string.Empty)
+        if (PhotonNetwork.NickName == String.Empty)
         {
-            Debug.Log("The player does not have a nickname.");
+            Debug.Log("Missing nickname.");
+            return;
+        }
+        if (roomName == String.Empty)
+        {
+            Debug.Log("Missing room name.");
             return;
         }
         
