@@ -1695,7 +1695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &931278172
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2700,7 +2700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphere: {fileID: 931278171}
   timeToActivate: 1
-  speed: 5
+  speed: 10
 --- !u!4 &1370704727
 Transform:
   m_ObjectHideFlags: 0
