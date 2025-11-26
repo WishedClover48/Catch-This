@@ -135,8 +135,7 @@ public class ProfanityFilter : MonoBehaviour
                 try
                 {
                     Debug.Log("ProfanityFound: " + word);
-                    //ProfanityFound(word);
-                    FlagChat(1,1, "Boca!");
+                    FlagChat(1,Room.RoomID, word);
                 }
                 catch (Exception e)
                 {
@@ -154,8 +153,5 @@ public class ProfanityFilter : MonoBehaviour
         ChatFlaggedEvent evt = new ChatFlaggedEvent{ PlayerID = playerID, RoomID = roomID, Slur = slur};
         
         AnalyticsService.Instance.RecordEvent(evt);
-        AnalyticsService.Instance.Flush();
-        
-        Debug.Log("Sent chat");
     }
 }

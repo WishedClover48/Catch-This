@@ -9,16 +9,15 @@ public class LobbyChat : MonoBehaviour, IOnEventCallback
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private TMP_Text chatDisplay;
     [SerializeField] private ProfanityFilter filter;
-
-
+    
     public void OnSendMessage()
     {
         string message = inputField.text.Trim();
         if (string.IsNullOrEmpty(message)) return;
 
-        var sensoredText=filter.CensorText(message);
+        var censoredText = filter.CensorText(message);
         // Prefix with player name
-        string fullMessage = $"{PhotonNetwork.NickName}: {sensoredText}";
+        string fullMessage = $"{PhotonNetwork.NickName}: {censoredText}";
 
         // Raise Photon event to broadcast message
         object[] content = new object[] { fullMessage };

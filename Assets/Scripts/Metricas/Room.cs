@@ -1,0 +1,23 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Photon.Pun;
+using UnityEngine;
+
+public class Room : MonoBehaviour
+{
+    public static int RoomID { private set; get; }
+    private void Start()
+    {
+        int number = 0;
+        string raw = PhotonNetwork.CurrentRoom.Name;
+
+        foreach (var letter in raw)
+        {
+            number+=(int)letter;
+        }
+        
+        RoomID = number;
+    }
+}
