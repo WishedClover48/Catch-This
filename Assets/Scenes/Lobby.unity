@@ -376,7 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 187269206}
   chatDisplay: {fileID: 2079336160}
-  filter: {fileID: 0}
+  filter: {fileID: 1825694282}
 --- !u!114 &144856351
 MonoBehaviour:
   m_ObjectHideFlags: 0

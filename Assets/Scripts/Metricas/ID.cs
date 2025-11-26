@@ -19,6 +19,7 @@ public static class ID
     
     public static int GetRoomID()
     {
+        Debug.Log("Room ID: " + _room);
         return _room;
     }
     public static int GetMatchID()

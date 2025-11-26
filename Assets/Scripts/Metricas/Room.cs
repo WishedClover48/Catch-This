@@ -12,9 +12,9 @@ public class Room : MonoBehaviour
         int number = 0;
         string raw = PhotonNetwork.CurrentRoom.Name;
 
-        foreach (var letter in raw)
+        foreach (char c in raw)
         {
-            number+=(int)letter;
+            number = (number * 31 + c) % 10000;
         }
         
         ID.Initialize(number);
