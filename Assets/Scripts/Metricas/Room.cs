@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    public static int RoomID { private set; get; }
     private void Start()
     {
         int number = 0;
@@ -18,6 +17,6 @@ public class Room : MonoBehaviour
             number+=(int)letter;
         }
         
-        RoomID = number;
+        ID.Initialize(number);
     }
 }

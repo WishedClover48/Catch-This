@@ -135,7 +135,7 @@ public class ProfanityFilter : MonoBehaviour
                 try
                 {
                     Debug.Log("ProfanityFound: " + word);
-                    FlagChat(1,Room.RoomID, word);
+                    FlagChat(1,ID.GetRoomID(), word);
                 }
                 catch (Exception e)
                 {

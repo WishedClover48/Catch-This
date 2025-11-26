@@ -82,8 +82,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { { "gameStarted", true } });
         }
 
+        RoomJoined();
         // If we get here, all players are ready. And they get sent to the Gameplay scene.
-        //PhotonNetwork.LoadLevel("SampleScene");
         PhotonNetwork.LoadLevel(nextScene);
     }
     
@@ -92,5 +92,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Hashtable props = new Hashtable { { variable, value } };
 
         player.SetCustomProperties(props);
+    }
+
+    private void RoomJoined()
+    {
+        var matchId = 1;
+        RoomJoinedEvent evt  = new RoomJoinedEvent{ MatchID = matchId, PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount };
     }
 }
