@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
+using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,7 +27,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Connected to Master Server!");
         PhotonNetwork.JoinLobby();
     }
-
     public void JoinARoom(string roomName)
     {
         if (PhotonNetwork.NickName == String.Empty)
@@ -60,15 +60,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
+            RoomCreationAttempt();
             var roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 16;
             roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "gameStarted", false } };
             roomOptions.CustomRoomPropertiesForLobby = new[] { "gameStarted" };
-
+            
             PhotonNetwork.CreateRoom(roomName, roomOptions, TypedLobby.Default);
+            RoomCreatedSuccess();
         }
     }
-
     public override void OnJoinedLobby()
     {
         Debug.Log("Joined Lobby.");
@@ -77,13 +78,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             LobbyButton.interactable = true;
         }
     }
-
     public override void OnJoinedRoom()
     {
         Debug.Log("Player '" + PhotonNetwork.NickName + "' joined the room!");
         PhotonNetwork.LoadLevel("Lobby");
     }
-
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach (var room in roomList)
@@ -98,4 +97,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    #region Metricas
+
+        private void RoomCreationAttempt()
+        {
+            RoomCreationAttemptEvent evt = new RoomCreationAttemptEvent{};
+            
+            AnalyticsService.Instance.RecordEvent(evt);
+        }
+        private void RoomCreatedSuccess()
+        {
+            RoomCreatedSuccessEvent evt = new RoomCreatedSuccessEvent{};
+            
+            AnalyticsService.Instance.RecordEvent(evt);
+        }
+
+    #endregion
 }
