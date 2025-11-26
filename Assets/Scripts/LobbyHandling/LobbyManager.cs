@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using Unity.Services.Analytics;
 using UnityEngine;
 
 /// <summary>
@@ -96,7 +97,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private void RoomJoined()
     {
-        var matchId = 1;
-        RoomJoinedEvent evt  = new RoomJoinedEvent{ MatchID = matchId, PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount };
+        ID.IncrementMatch();
+        RoomJoinedEvent evt  = new RoomJoinedEvent{ MatchID = ID.GetMatchID(), PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount };
+        
+        AnalyticsService.Instance.RecordEvent(evt);
     }
 }

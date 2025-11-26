@@ -55,7 +55,8 @@ public class Laser : MonoBehaviourPunCallbacks
         if (!IsLocalPlayerGod()) return;
 
         if (_isAiming) return;
-
+        
+        photonView.RPC(nameof(RPC_LaserUsed), RpcTarget.AllBuffered);
         photonView.RPC(nameof(ActivateRPC), RpcTarget.All, pos.x, pos.z);
     }
     public void UpdatePosition(Vector3 pos)
@@ -130,5 +131,11 @@ public class Laser : MonoBehaviourPunCallbacks
         _col.enabled = false;
         sphere.SetActive(false);
         _isAiming = false;
+    }
+
+    [PunRPC]
+    public void RPC_LaserUsed()
+    {
+        GodCounter.LaserUsed();
     }
 }

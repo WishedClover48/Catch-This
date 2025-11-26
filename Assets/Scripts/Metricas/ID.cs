@@ -7,19 +7,28 @@ public static class ID
     private static int _room;
     private static int _match;
     private static int _round;
+    private static int _player;
 
     public static void Initialize(int roomID)
     {
         _room = roomID;
         _match = 0;
         _round = 0;
-        
-        Debug.Log("Room ID: " + roomID);
     }
-    
+    public static void Initialize(int roomID, int playerID)
+    {
+        _room = roomID;
+        _match = 0;
+        _round = 0;
+        _player = playerID;
+    }
+
+    public static int GetPlayerID()
+    {
+        return _player;
+    }
     public static int GetRoomID()
     {
-        Debug.Log("Room ID: " + _room);
         return _room;
     }
     public static int GetMatchID()
