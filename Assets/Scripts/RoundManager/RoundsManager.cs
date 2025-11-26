@@ -6,12 +6,14 @@ using UnityEngine;
 using System.Collections.Generic;
 using Photon.Pun.UtilityScripts;
 using System.Collections;
+using Unity.Services.Analytics;
 
 public class RoundsManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private float _roundDuration = 60f;
     private float _roundTimer = 0f;
     private bool _roundActive = false;
+    private int OldPoint;
     public float RoundDuration => _roundDuration;
     public event Action EndRoundEvent; 
     
@@ -104,7 +106,18 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void OnRoundEnd()
     {
+        var role=PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value)?"God":"Survivor";
+        var points=PhotonNetwork.LocalPlayer.GetScore()-OldPoint;
+        OldPoint=PhotonNetwork.LocalPlayer.GetScore();
+        PlayerScoreRecorded(ID.GetMatchID(), ID.GetPlayerID(), role, points);
         PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
         PhotonNetwork.LoadLevel("SampleScene");
+    }
+    public void PlayerScoreRecorded( int matchID,int playerID, string role,int score)
+    {
+        PlayerScoreRecordedEvent evt = new PlayerScoreRecordedEvent{ PlayerID = playerID, MatchID = matchID,Role = role,Score = score};
+        
+        AnalyticsService.Instance.RecordEvent(evt);
+        
     }
 }
