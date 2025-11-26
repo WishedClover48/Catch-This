@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 144856348}
   - component: {fileID: 144856349}
   - component: {fileID: 144856350}
+  - component: {fileID: 144856351}
   m_Layer: 0
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -376,6 +377,18 @@ MonoBehaviour:
   inputField: {fileID: 187269206}
   chatDisplay: {fileID: 2079336160}
   filter: {fileID: 0}
+--- !u!114 &144856351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144856346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3030e1e3eebc7b547aa288218b54ffc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &162059099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,7 +1069,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 64.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1385,7 +1398,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 88.2
+  m_fontSize: 84.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
