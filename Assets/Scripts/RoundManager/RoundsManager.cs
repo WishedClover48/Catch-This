@@ -23,7 +23,6 @@ public class RoundsManager : MonoBehaviourPunCallbacks
         GameManager.Instance.ToNextRound += RoundEnd;
         if (PhotonNetwork.IsMasterClient)
         {
-            
             //StartRound();
         }
     }
@@ -45,12 +44,14 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     {
         _roundTimer = _roundDuration;
         _roundActive = true;
+        ID.IncrementRound();
     }
 
     public void EndRound()
     {
         _roundActive = false;
         Debug.Log("Round finished");
+        GodInfo(); //Metricas
         RecalculateAlivePlayers();
         EndRoundEvent?.Invoke();
         // Notify everyone that the round ended
@@ -89,6 +90,15 @@ public class RoundsManager : MonoBehaviourPunCallbacks
         {
             photonView.RPC("OnRoundEnd", RpcTarget.All);
         }
+    }
+
+    private void GodInfo()
+    {
+        GodAbilityUsedEvent evtUsed = new GodAbilityUsedEvent{ MatchID = ID.GetMatchID(), LaserCount = GodCounter.GetLaserCastCount(), MeteorCount = GodCounter.GetMeteorCastsCount()};
+        GodAbilityKillsEvent evtKills = new GodAbilityKillsEvent{ MatchID = ID.GetMatchID(), LaserKillCount = GodCounter.GetLaserKillsCount(),  MeteorKillCount = GodCounter.GetMeteorKillsCount()};
+
+        AnalyticsService.Instance.RecordEvent(evtUsed);
+        AnalyticsService.Instance.RecordEvent(evtKills);
     }
 
     [PunRPC]

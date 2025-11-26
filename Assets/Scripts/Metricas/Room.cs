@@ -14,9 +14,9 @@ public class Room : MonoBehaviour
         int PlayerNumber = 0;
         string PLayerRaw = PhotonNetwork.LocalPlayer.UserId;
 
-        foreach (var letter in raw)
+        foreach (char c in raw)
         {
-            number+=(int)letter;
+            number = (number * 31 + c) % 10000;
         }
         foreach (var letter in PLayerRaw)
         {

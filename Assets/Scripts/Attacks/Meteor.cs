@@ -41,6 +41,7 @@ public class Meteor : MonoBehaviourPunCallbacks
         _spawnPoint = new Vector3(_crashPoint.x + rand.x, spawnHeight, _crashPoint.z + rand.y);
 
         SetRing();
+        photonView.RPC("RPC_UsedMeteor", RpcTarget.All);
         _isActive = true;
     }
 
@@ -83,6 +84,7 @@ public class Meteor : MonoBehaviourPunCallbacks
             if (pv != null)
             {
                 PhotonNetwork.LocalPlayer.AddScore(1);
+                photonView.RPC("RPC_MeteorKill", RpcTarget.All);
                 pv.RPC("KillPlayer", pv.Owner);
             }
         }
@@ -106,6 +108,7 @@ public class Meteor : MonoBehaviourPunCallbacks
             if (pv != null && pv.gameObject.layer == playerMask)
             {
                 PhotonNetwork.LocalPlayer.AddScore(1);
+                photonView.RPC("RPC_MeteorKill", RpcTarget.All);
                 pv.RPC("KillPlayer", pv.Owner);
             }
             
@@ -135,5 +138,14 @@ public class Meteor : MonoBehaviourPunCallbacks
     {
         _isActive = false;
         PhotonNetwork.Destroy(gameObject);
+    }
+
+    [PunRPC] public void RPC_UsedMeteor()
+    {
+        GodCounter.MeteorUsed();
+    }
+    [PunRPC] public void RPC_MeteorKill()
+    {
+        GodCounter.MeteorKill();
     }
 }
