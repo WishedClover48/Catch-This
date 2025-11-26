@@ -14,11 +14,13 @@ public class SpeedBoost : PowerUp
     }
     void ApplyLogic(PlayerMovement playerMovement)
     {
+        playerMovement.CurrentPowerUp = "SpeedBoost";
         playerMovement.moveSpeed += speedModifier;
     }
 
     void FinishBuff(PlayerMovement playerMovement)
     {
+        playerMovement.CurrentPowerUp = "Null";
         playerMovement.moveSpeed -= speedModifier;
     }
 }
