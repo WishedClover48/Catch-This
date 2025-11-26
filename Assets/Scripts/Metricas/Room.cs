@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    private void Start()
+    private void Awake()
     {
         int number = 0;
         string raw = PhotonNetwork.CurrentRoom.Name;
