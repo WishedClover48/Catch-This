@@ -11,8 +11,8 @@ public class ProfanityFilter : MonoBehaviour
     private List<string> bannedWords = new List<string> {
     "tonto",
     "idiota",
-    "imbécil",
-    "estúpido",
+    "imbï¿½cil",
+    "estï¿½pido",
     "bruto",
     "loco",
     "grosero",
@@ -21,7 +21,7 @@ public class ProfanityFilter : MonoBehaviour
     "perezoso",
     "mentiroso",
     "cobarde",
-    "inútil",
+    "inï¿½til",
     "pesado",
     "molesto",
     "torpe",
@@ -36,25 +36,25 @@ public class ProfanityFilter : MonoBehaviour
     "burro",
     "desleal",
     "travieso",
-    "problemático",
+    "problemï¿½tico",
     "hostil",
     "insensible",
     "despreciable",
-    "sádico",
+    "sï¿½dico",
     "manipulador",
     "tramposo",
     "deshonesto",
-    "antipático",
+    "antipï¿½tico",
     "tremendo",
     "malicioso",
-    "cínico",
+    "cï¿½nico",
     "irresponsable",
     "vanidoso",
-    "egoísta",
+    "egoï¿½sta",
     "pesimista",
-    "fanático",
+    "fanï¿½tico",
     "rencoroso",
-    "gruñón",
+    "gruï¿½ï¿½n",
     "grosero",
     "temerario",
     "desatento",
@@ -63,7 +63,7 @@ public class ProfanityFilter : MonoBehaviour
     "insolente",
     "arrogante",
     "desconsiderado",
-    "imbécil",
+    "imbï¿½cil",
     "torpe",
     "ignorante",
     "brusco",
@@ -74,7 +74,7 @@ public class ProfanityFilter : MonoBehaviour
     "grosero",
     "vengativo",
     "cruel",
-    "tacaño",
+    "tacaï¿½o",
     "necio",
     "injusto",
     "mentiroso",
@@ -100,10 +100,10 @@ public class ProfanityFilter : MonoBehaviour
     "descarado",
     "grosero",
     "mentiroso",
-    "cínico",
-    "fanfarrón",
+    "cï¿½nico",
+    "fanfarrï¿½n",
     "arrogante",
-    "engreído",
+    "engreï¿½do",
     "hostil",
     "odioso",
     "despreciable",
@@ -111,9 +111,9 @@ public class ProfanityFilter : MonoBehaviour
     "manipulador",
     "tramposo",
     "deshonesto",
-    "egoísta",
+    "egoï¿½sta",
     "vanidoso",
-    "fanático",
+    "fanï¿½tico",
     "rencoroso",
     "cruel"
     };
@@ -135,7 +135,8 @@ public class ProfanityFilter : MonoBehaviour
                 try
                 {
                     Debug.Log("ProfanityFound: " + word);
-                    ProfanityFound(word);
+                    //ProfanityFound(word);
+                    FlagChat(1,1, "Boca!");
                 }
                 catch (Exception e)
                 {
@@ -148,23 +149,13 @@ public class ProfanityFilter : MonoBehaviour
         return censoredText;
     }
     
-    public void ProfanityFound(string profanity)
+    public void FlagChat(int playerID, int roomID, string slur)
     {
-        ProfanityFoundEvent evt = new ProfanityFoundEvent
-        {
-            Profanity=profanity
-        };
-
+        ChatFlaggedEvent evt = new ChatFlaggedEvent{ PlayerID = playerID, RoomID = roomID, Slur = slur};
+        
         AnalyticsService.Instance.RecordEvent(evt);
         AnalyticsService.Instance.Flush();
+        
+        Debug.Log("Sent chat");
     }
-}
-public class ProfanityFoundEvent : Unity.Services.Analytics.Event
-{
-    public ProfanityFoundEvent() : base("ProfanityFound")
-    {
-
-    }
-
-    public string Profanity { set { SetParameter("ProfanityWord", value); } }
 }
