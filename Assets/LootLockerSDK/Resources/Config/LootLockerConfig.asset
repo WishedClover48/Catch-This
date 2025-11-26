@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182cd195a28310e479cddf7ff82822f8, type: 3}
   m_Name: LootLockerConfig
   m_EditorClassIdentifier: 
-  apiKey: dev_e0f7b1407825444e80b4242912badca2
-  adminToken: 17cb4a3218c770b6d25680f0e2eb02cf2dbdfd9b
-  domainKey: qsblbp95
+  apiKey: 
+  adminToken: 
+  domainKey: 
   game_version: 1.0.0.0
-  sdk_version: 6.4.0
+  sdk_version: 
   url: https://api.lootlocker.com/v1
-  adminUrl: https://qsblbp95.api.lootlocker.com/admin
-  playerUrl: https://qsblbp95.api.lootlocker.com/player
-  userUrl: https://qsblbp95.api.lootlocker.com/game
-  baseUrl: https://qsblbp95.api.lootlocker.com
+  adminUrl: https://api.lootlocker.com/admin
+  playerUrl: https://api.lootlocker.com/player
+  userUrl: https://api.lootlocker.com/game
+  baseUrl: https://api.lootlocker.com
   clientSideRequestTimeOut: 180
   logLevel: 2
   logErrorsAsWarnings: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using Photon.Pun;
 using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -131,7 +132,6 @@ public class ProfanityFilter : MonoBehaviour
             censoredText = Regex.Replace(censoredText, pattern, replacement, RegexOptions.IgnoreCase);
             if (CensorInProgres != censoredText)
             {
-                
                 try
                 {
                     Debug.Log("ProfanityFound: " + word);

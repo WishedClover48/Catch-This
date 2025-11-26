@@ -27,6 +27,12 @@ public class AnalyticsManager : MonoBehaviour
         {
             Debug.LogError(e);
         }
+        InvokeRepeating(nameof(Flush),60,1);
+    }
+
+    private void Flush()
+    {
+        instance.Flush();
     }
 
 
