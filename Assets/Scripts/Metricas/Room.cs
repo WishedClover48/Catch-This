@@ -11,12 +11,18 @@ public class Room : MonoBehaviour
     {
         int number = 0;
         string raw = PhotonNetwork.CurrentRoom.Name;
+        int PlayerNumber = 0;
+        string PLayerRaw = PhotonNetwork.LocalPlayer.UserId;
 
         foreach (var letter in raw)
         {
             number+=(int)letter;
         }
+        foreach (var letter in PLayerRaw)
+        {
+            PlayerNumber+=(int)letter;
+        }
         
-        ID.Initialize(number);
+        ID.Initialize(number,PlayerNumber);
     }
 }

@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviourPun
     [SerializeField] private GameObject owner;
     [SerializeField] private float lifeTime;
     [SerializeField] private Player ownerID;
+    [SerializeField] private string PowerUp;
 
     private void Start()
     {
@@ -37,7 +38,7 @@ public class Bullet : MonoBehaviourPun
                 PhotonView pv = collision.GetComponent<PhotonView>();
                 if (pv != null)
                 {
-                    pv.RPC("KillPlayer", pv.Owner);
+                    pv.RPC("KillPlayer", pv.Owner,PowerUp);
                     PhotonNetwork.LocalPlayer.AddScore(1);
                 }
             }            
@@ -51,10 +52,11 @@ public class Bullet : MonoBehaviourPun
         PhotonNetwork.Destroy(gameObject);
     }
 
-    public void SetUpOwner(GameObject ownerGameObject, Player player)
+    public void SetUpOwner(GameObject ownerGameObject, Player player,string powerUp)
     {
         owner=ownerGameObject;
         ownerID=player;
+        PowerUp=powerUp;
     }
     private static bool InMask( LayerMask mask,int layer)
     {

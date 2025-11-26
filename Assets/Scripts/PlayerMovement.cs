@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Diagnostics;
+using Unity.Services.Analytics;
 using Unity.VisualScripting;
 using UnityEngine;
 public class PlayerMovement : MonoBehaviourPunCallbacks
@@ -21,8 +22,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     [Space]
     [SerializeField] private AnimationSV animationSync;
+
+    [SerializeField] public string CurrentPowerUp= "null";
     
-    public Action<int, string> OnHit;
+    public Action<int, string,string> OnHit;
     public PhotonView Pv { get; private set; }
     private float _nextFireTime = 0f;
     private Camera _playerCam;
@@ -78,7 +81,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
                 _nextFireTime = Time.time + 1f / firerate;
 
                 var bullet = PhotonNetwork.Instantiate(bulletPrefab.name, transform.position, transform.rotation);
-                bullet.GetComponent<Bullet>().SetUpOwner(gameObject, photonView.Owner);
+                bullet.GetComponent<Bullet>().SetUpOwner(gameObject, photonView.Owner,CurrentPowerUp);
             }
         }
 
@@ -113,19 +116,28 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         }
     }
 
-    private void Killed(int ID, string source)
+    private void Killed(int ID, string source,string powerUpType = "null")
     {
         //_playerCam.enabled = false;
 
         PlayersManager.Instance.MarkAsDead(PhotonNetwork.LocalPlayer);
+        
+        
         gameObject.SetActive(false);
         if (photonView.IsMine)
         {
             RepositionCamera();
             TurnOnLeaderBoardToggel();
+            PlayerKilled(global::ID.GetPlayerID(),global::ID.GetMatchID(),powerUpType);
         }
         
         PhotonNetwork.Destroy(gameObject);
+    }
+    public void PlayerKilled(int playerID, int matchID, string powerUpType)
+    {
+        PlayerKilledEvent evt = new PlayerKilledEvent{ PlayerID = playerID, MatchID = matchID, PowerUpType = powerUpType};
+        
+        AnalyticsService.Instance.RecordEvent(evt);
     }
 
     

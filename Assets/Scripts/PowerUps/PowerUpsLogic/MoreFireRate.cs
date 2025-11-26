@@ -15,11 +15,13 @@ public class MoreFireRate : PowerUp
 
     void ApplyLogic(PlayerMovement playerMovement)
     {
+        playerMovement.CurrentPowerUp = "FireRate";
         playerMovement.firerate += firerateModifier;
     }
 
     void FinishBuff(PlayerMovement playerMovement)
     {
+        playerMovement.CurrentPowerUp = "Null";
         playerMovement.firerate -= firerateModifier;
     }
 }

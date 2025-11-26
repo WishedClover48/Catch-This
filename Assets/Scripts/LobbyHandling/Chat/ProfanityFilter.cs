@@ -9,6 +9,7 @@ using UnityEngine.Analytics;
 
 public class ProfanityFilter : MonoBehaviour
 {
+    [SerializeField] private PhotonView view;
     private List<string> bannedWords = new List<string> {
     "tonto",
     "idiota",
@@ -135,7 +136,7 @@ public class ProfanityFilter : MonoBehaviour
                 try
                 {
                     Debug.Log("ProfanityFound: " + word);
-                    FlagChat(1,ID.GetRoomID(), word);
+                    FlagChat(ID.GetPlayerID(),ID.GetRoomID(), word);
                 }
                 catch (Exception e)
                 {
