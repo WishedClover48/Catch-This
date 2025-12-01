@@ -14,17 +14,17 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     private float _roundTimer = 0f;
     private bool _roundActive = false;
     private int OldPoint;
+    private Dictionary<Player, int> previousRoundScores = new Dictionary<Player, int>();
     public float RoundDuration => _roundDuration;
-    public event Action EndRoundEvent; 
-    
+    public event Action EndRoundEvent;
+
     void Start()
     {
+        foreach (Player p in PhotonNetwork.PlayerList)
+            previousRoundScores[p] = p.GetScore();
+
         GameManager.Instance.RoundStart += StartRound;
         GameManager.Instance.ToNextRound += RoundEnd;
-        if (PhotonNetwork.IsMasterClient)
-        {
-            //StartRound();
-        }
     }
 
     void Update()
@@ -81,6 +81,10 @@ public class RoundsManager : MonoBehaviourPunCallbacks
 
     private void RoundEnd()
     {
+        if (PhotonNetwork.IsMasterClient) 
+        {
+            CalculateWinner();
+        }
         if (RoundData.Instance.roundsPassed >= Mathf.Clamp(PhotonNetwork.PlayerList.Length * 3, 4, 20) || 
             PhotonNetwork.PlayerList.Length == 1)
         { 
@@ -91,6 +95,55 @@ public class RoundsManager : MonoBehaviourPunCallbacks
             photonView.RPC("OnRoundEnd", RpcTarget.All);
         }
     }
+
+    private void CalculateWinner()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
+        Player topPlayer = null;
+        int highestRoundPoints = int.MinValue;
+
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
+            int oldScore = previousRoundScores.ContainsKey(p) ? previousRoundScores[p] : 0;
+            int currentScore = p.GetScore();
+            int pointsThisRound = currentScore - oldScore;
+
+            if (pointsThisRound > highestRoundPoints)
+            {
+                highestRoundPoints = pointsThisRound;
+                topPlayer = p;
+            }
+        }
+
+        if (topPlayer == null)
+        {
+            Debug.LogWarning("No winner found this round.");
+            return;
+        }
+
+        // Determine WinnerRole
+        string winnerRole = "Survivor";
+        if (topPlayer.CustomProperties.TryGetValue("GodPlayer", out object godObj) &&
+            godObj is bool isGod && isGod)
+        {
+            winnerRole = "God";
+        }
+
+        // Send Match_Ended event
+        MatchEndedEvent evt = new MatchEndedEvent
+        {
+            MatchID = ID.GetMatchID(),
+            WinnerRole = winnerRole
+        };
+
+        AnalyticsService.Instance.RecordEvent(evt);
+        AnalyticsService.Instance.Flush();
+
+        Debug.Log($"[Analytics] Match_Ended = Winner: {topPlayer.NickName} | Role: {winnerRole} | Points: {highestRoundPoints}");
+    }
+
 
     private void GodInfo()
     {
@@ -116,14 +169,18 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void OnRoundEnd()
     {
-        var role=PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value)?"God":"Survivor";
+        var role = PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value) ? "God" : "Survivor";
         var points=PhotonNetwork.LocalPlayer.GetScore()-OldPoint;
         OldPoint=PhotonNetwork.LocalPlayer.GetScore();
         PlayerScoreRecorded(ID.GetMatchID(), ID.GetPlayerID(), role, points);
 
+        foreach (Player p in PhotonNetwork.PlayerList)
+            previousRoundScores[p] = p.GetScore();
+
         PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
         PhotonNetwork.LoadLevel("SampleScene");
     }
+
     public void PlayerScoreRecorded( int matchID,int playerID, string role,int score)
     {
         PlayerScoreRecordedEvent evt = new PlayerScoreRecordedEvent{ PlayerID = playerID, MatchID = matchID,Role = role,Score = score};
