@@ -63,7 +63,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             RoomCreationAttempt();
             var roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 16;
-            roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "gameStarted", false } };
+            roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable
+            {
+                { "gameStarted", false },
+                { "badWord", false }
+            };
             roomOptions.CustomRoomPropertiesForLobby = new[] { "gameStarted" };
             
             PhotonNetwork.CreateRoom(roomName, roomOptions, TypedLobby.Default);

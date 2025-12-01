@@ -137,6 +137,10 @@ public class ProfanityFilter : MonoBehaviour
                 {
                     Debug.Log("ProfanityFound: " + word);
                     FlagChat(ID.GetPlayerID(),ID.GetRoomID(), word);
+                    if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["badWord"] == false)
+                    {
+                        FlagRoom(ID.GetRoomID());
+                    }
                 }
                 catch (Exception e)
                 {
@@ -154,5 +158,12 @@ public class ProfanityFilter : MonoBehaviour
         ChatFlaggedEvent evt = new ChatFlaggedEvent{ PlayerID = playerID, RoomID = roomID, Slur = slur};
         
         AnalyticsService.Instance.RecordEvent(evt);
+    }
+
+    public void FlagRoom(int roomID)
+    {
+        var props = new ExitGames.Client.Photon.Hashtable();
+        props["badWord"] = true;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 }

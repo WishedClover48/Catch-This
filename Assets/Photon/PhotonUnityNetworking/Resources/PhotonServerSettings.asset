@@ -66,6 +66,10 @@ MonoBehaviour:
   - RPC_ActivateLavaLake
   - RPC_SetNotSpawnIndex
   - RPC_ResetLavaLakes
+  - RPC_LaserKill
+  - RPC_LaserUsed
+  - RPC_MeteorKill
+  - RPC_UsedMeteor
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

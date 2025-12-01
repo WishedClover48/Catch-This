@@ -120,6 +120,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
         var points=PhotonNetwork.LocalPlayer.GetScore()-OldPoint;
         OldPoint=PhotonNetwork.LocalPlayer.GetScore();
         PlayerScoreRecorded(ID.GetMatchID(), ID.GetPlayerID(), role, points);
+
         PlayersManager.Instance.MarkAsAlive(PhotonNetwork.LocalPlayer);
         PhotonNetwork.LoadLevel("SampleScene");
     }
