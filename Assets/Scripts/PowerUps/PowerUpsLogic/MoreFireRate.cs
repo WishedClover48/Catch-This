@@ -1,15 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoreFireRate : PowerUp
 {
     [SerializeField] private float firerateModifier;
     [SerializeField] private float buffDuration;
+
+    protected override void Awake()
+    {
+        powerUpType = PowerUpType.FireRate;
+        base.Awake();
+    }
+
     protected override void ApplyEffect(PlayerMovement playerMovement)
     {
         ApplyLogic(playerMovement);
-
         playerMovement.RunCoroutine(() => FinishBuff(playerMovement), buffDuration);
     }
 
