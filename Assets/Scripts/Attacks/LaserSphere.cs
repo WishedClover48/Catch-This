@@ -18,7 +18,7 @@ public class LaserSphere : MonoBehaviourPunCallbacks
             if (pv != null)
             {
                 PhotonNetwork.LocalPlayer.AddScore(1);
-                pv.RPC("RPC_MeteorKill", RpcTarget.AllBuffered);
+                pv.RPC(nameof(RPC_LaserKill), RpcTarget.AllBuffered);
                 pv.RPC("KillPlayer", pv.Owner);
             }
         }            
