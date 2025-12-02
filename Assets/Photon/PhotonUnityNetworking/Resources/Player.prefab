@@ -154,6 +154,7 @@ MonoBehaviour:
     m_Bits: 64
   animator: {fileID: -4138363496923510919}
   animationSync: {fileID: 7398940492417839060}
+  CurrentPowerUp: null
 --- !u!114 &753611400001502073
 MonoBehaviour:
   m_ObjectHideFlags: 0

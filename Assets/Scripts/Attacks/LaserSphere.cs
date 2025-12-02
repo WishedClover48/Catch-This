@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -18,7 +19,7 @@ public class LaserSphere : MonoBehaviourPunCallbacks
             if (pv != null)
             {
                 PhotonNetwork.LocalPlayer.AddScore(1);
-                pv.RPC(nameof(RPC_LaserKill), RpcTarget.AllBuffered);
+                photonView.RPC("RPC_LaserKill", RpcTarget.All);
                 pv.RPC("KillPlayer", pv.Owner);
             }
         }            
@@ -27,10 +28,5 @@ public class LaserSphere : MonoBehaviourPunCallbacks
     private static bool InMask( LayerMask mask,int layer)
     {
         return (mask.value & (1 << layer)) != 0;
-    }
-
-    [PunRPC] public void RPC_LaserKill()
-    {
-        GodCounter.LaserKill();
     }
 }

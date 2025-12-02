@@ -103,7 +103,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     #region Metricas
-
+    
         private void RoomCreationAttempt()
         {
             RoomCreationAttemptEvent evt = new RoomCreationAttemptEvent{};

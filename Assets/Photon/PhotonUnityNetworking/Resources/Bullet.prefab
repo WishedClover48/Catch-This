@@ -122,6 +122,7 @@ MonoBehaviour:
     m_Bits: 8
   owner: {fileID: 0}
   lifeTime: 5
+  PowerUp: 
 --- !u!114 &8568618788573300580
 MonoBehaviour:
   m_ObjectHideFlags: 0

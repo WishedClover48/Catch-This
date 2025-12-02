@@ -138,4 +138,8 @@ public class Laser : MonoBehaviourPunCallbacks
     {
         GodCounter.LaserUsed();
     }
+    [PunRPC] public void RPC_LaserKill()
+    {
+        GodCounter.LaserKill();
+    }
 }

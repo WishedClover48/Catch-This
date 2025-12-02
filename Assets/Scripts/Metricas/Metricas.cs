@@ -10,10 +10,7 @@ public class ChatFlaggedEvent : Unity.Services.Analytics.Event
 } //N
 public class GodAbilityKillsEvent : Unity.Services.Analytics.Event
 {
-    public GodAbilityKillsEvent() : base("God_Ability_Kills")
-    {
-        
-    }
+    public GodAbilityKillsEvent() : base("God_Ability_Kills") { }
     public int MatchID { set { SetParameter("MatchID", value); } }
     public int LaserKillCount { set { SetParameter("LaserKillCount", value); } }
     public int MeteorKillCount { set { SetParameter("MeteorKillCount", value); } }
