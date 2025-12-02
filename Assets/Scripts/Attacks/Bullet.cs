@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviourPun
                 PhotonView pv = collision.GetComponent<PhotonView>();
                 if (pv != null)
                 {
-                    pv.RPC("KillPlayer", pv.Owner,PowerUp);
+                    pv.RPC("KillPlayerWithBullet", pv.Owner,PowerUp);
                     PhotonNetwork.LocalPlayer.AddScore(1);
                 }
             }            

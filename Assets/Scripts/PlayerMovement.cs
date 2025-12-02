@@ -184,5 +184,11 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         UnityEngine.Debug.Log("KILLPLAYER WAS CALLED FOR " + PhotonNetwork.LocalPlayer.UserId);
         Killed(1, "A");
     }
+    [PunRPC]
+    public void KillPlayerWithBullet(string powerUpType)
+    {
+        UnityEngine.Debug.Log("KILLPLAYER WAS CALLED FOR " + PhotonNetwork.LocalPlayer.UserId);
+        Killed(1, "A", powerUpType);
+    }
 
 }
