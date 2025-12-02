@@ -72,7 +72,7 @@ public class RoomCreatedSuccessEvent : Unity.Services.Analytics.Event
 } //Z
 public class RoomCreationAttemptEvent : Unity.Services.Analytics.Event
 {
-    public RoomCreationAttemptEvent() : base("Room_Creation_Attemp") { }
+    public RoomCreationAttemptEvent() : base("Room_Creation_Attempt") { }
 } //Z
 public class RoomJoinedEvent : Unity.Services.Analytics.Event
 {
