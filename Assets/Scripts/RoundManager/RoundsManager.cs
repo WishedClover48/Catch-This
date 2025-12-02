@@ -152,6 +152,8 @@ public class RoundsManager : MonoBehaviourPunCallbacks
 
         AnalyticsService.Instance.RecordEvent(evtUsed);
         AnalyticsService.Instance.RecordEvent(evtKills);
+        
+        GodCounter.ResetValues();
     }
 
     [PunRPC]

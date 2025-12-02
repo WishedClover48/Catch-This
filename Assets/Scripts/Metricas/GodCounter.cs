@@ -17,4 +17,13 @@ public static class GodCounter
     public static void MeteorKill() { _meteorKillsCount++; }
     public static void LaserUsed() { _laserCastCount++; }
     public static void LaserKill() { _laserKillsCount++; }
+
+    public static void ResetValues()
+    {
+        _meteorCastsCount = 0;
+        _meteorKillsCount = 0;
+        
+        _laserKillsCount = 0;
+        _laserCastCount = 0;
+    }
 }

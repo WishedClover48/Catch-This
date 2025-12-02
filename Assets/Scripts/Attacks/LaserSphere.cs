@@ -29,8 +29,7 @@ public class LaserSphere : MonoBehaviourPunCallbacks
         return (mask.value & (1 << layer)) != 0;
     }
 
-    [PunRPC]
-    public void RPC_LaserKill()
+    [PunRPC] public void RPC_LaserKill()
     {
         GodCounter.LaserKill();
     }
