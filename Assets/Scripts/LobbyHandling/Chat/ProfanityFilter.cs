@@ -141,6 +141,7 @@ public class ProfanityFilter : MonoBehaviour
                     {
                         FlagRoom(ID.GetRoomID());
                     }
+                    AnalyticsService.Instance.Flush();
                 }
                 catch (Exception e)
                 {
@@ -148,6 +149,7 @@ public class ProfanityFilter : MonoBehaviour
                     Debug.LogException(e);
                 }
             }
+            
         }
 
         return censoredText;

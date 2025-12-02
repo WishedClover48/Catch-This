@@ -85,7 +85,7 @@ public class RoundsManager : MonoBehaviourPunCallbacks
         {
             CalculateWinner();
         }
-        if (RoundData.Instance.roundsPassed >= Mathf.Clamp(PhotonNetwork.PlayerList.Length * 3, 4, 20) || 
+        if (RoundData.Instance.roundsPassed >= 4 || 
             PhotonNetwork.PlayerList.Length == 1)
         { 
             photonView.RPC("OnMatchFinished", RpcTarget.All);
