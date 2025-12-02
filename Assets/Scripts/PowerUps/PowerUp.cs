@@ -58,10 +58,10 @@ public class PowerUp : MonoBehaviourPun
         {
             MatchID = ID.GetMatchID(),
             PowerUpType = powerUpType.ToString(),
-            LifeTime = lifetime,
+            LifeTime = Mathf.RoundToInt(lifetime),
             PlayerID = playerID
         };
-
+        
         AnalyticsService.Instance.RecordEvent(evt);
     }
 }
