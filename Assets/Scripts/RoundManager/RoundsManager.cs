@@ -171,10 +171,12 @@ public class RoundsManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void OnRoundEnd()
     {
-        var role = PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value) ? "God" : "Survivor";
+        PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("GodPlayer", out object value);
+        var role = value != null && (bool)value ? "God" : "Survivor";
         var points=PhotonNetwork.LocalPlayer.GetScore()-OldPoint;
         OldPoint=PhotonNetwork.LocalPlayer.GetScore();
         PlayerScoreRecorded(ID.GetMatchID(), ID.GetPlayerID(), role, points);
+        Debug.Log(role);
 
         foreach (Player p in PhotonNetwork.PlayerList)
             previousRoundScores[p] = p.GetScore();
