@@ -32,7 +32,7 @@ public class AnalyticsManager : MonoBehaviour
 
     private void Flush()
     {
-        instance.Flush();
+        AnalyticsService.Instance.Flush();
     }
 
 
